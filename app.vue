@@ -94,7 +94,7 @@ const menusRight = [
           class="col-span-2 md:col-span-4 md:order-1 flex flex-col justify-center items-center text-center"
         >
           <img
-            src="sinjai.png"
+            src="/sinjai.png"
             class="h-20 w-20 mb-4"
             alt="logo kabupaten sinjai"
           />
@@ -106,7 +106,7 @@ const menusRight = [
           class="col-span-2 md:order-2 flex justify-center items-end md:items-center"
         >
           <img
-            src="sinjai.png"
+            src="/sinjai.png"
             class="h-40 w-40 md:h-80 md:w-80"
             alt="logo kabupaten sinjai"
           />
