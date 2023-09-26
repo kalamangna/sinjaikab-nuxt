@@ -1,16 +1,13 @@
 <script setup lang="ts">
 const title = "Pemerintah Kabupaten Sinjai";
 const description = "Website Resmi Pemerintah Kabupaten Sinjai";
-const url = "https://sinjaikab.go.id/nuxt";
-const image = `${url}/sinjaikab-meta.png`;
+// const url = "https://sinjaikab.go.id/nuxt";
+// const image = `${url}/sinjaikab-meta.png`;
 
-useSeoMeta({
+useHead({
   title: title,
-  ogTitle: title,
-  description: description,
-  ogDescription: description,
-  ogImage: image,
-  twitterCard: "summary_large_image",
+  meta: [{ name: "description", content: description }],
+  link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
 });
 
 const menusLeft = [
@@ -132,7 +129,7 @@ const menusRight = [
 
 <style>
 main {
-  background-image: url("bg.jpg");
+  background-image: url("/bg.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
