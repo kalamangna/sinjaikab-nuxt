@@ -7,7 +7,13 @@ const description = "Website Resmi Pemerintah Kabupaten Sinjai";
 useHead({
   title: title,
   meta: [{ name: "description", content: description }],
-  link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+  link: [
+    {
+      rel: "icon",
+      type: "image/x-icon",
+      href: "/favicon.ico",
+    },
+  ],
 });
 
 const menusLeft = [
@@ -86,15 +92,18 @@ const menusRight = [
     <!-- <Header /> -->
 
     <main class="min-h-screen flex flex-col items-center justify-center">
-      <div class="container px-4 mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div
+        class="container px-4 py-8 mx-auto grid grid-cols-2 md:grid-cols-4 gap-4"
+      >
         <div
           class="col-span-2 md:col-span-4 md:order-1 flex flex-col justify-center items-center text-center"
         >
-          <img
+          <NuxtImg
             src="/sinjai.png"
-            class="h-20 w-20 mb-4"
             alt="logo kabupaten sinjai"
+            class="h-20 w-20 mb-4"
           />
+
           <h1 class="text-4xl md:text-6xl font-bold">Selamat Datang</h1>
           <p class="md:text-lg">Website Resmi Pemerintah Kabupaten Sinjai</p>
         </div>
@@ -102,10 +111,10 @@ const menusRight = [
         <div
           class="col-span-2 md:order-2 flex justify-center items-end md:items-center"
         >
-          <img
-            src="/sinjai.png"
-            class="h-40 w-40 md:h-80 md:w-80"
-            alt="logo kabupaten sinjai"
+          <NuxtImg
+            src="/pj.png"
+            alt="penjabat bupati sinjai"
+            class="w-full h-full lg:w-96 lg:h-96"
           />
         </div>
 
