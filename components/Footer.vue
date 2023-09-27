@@ -1,7 +1,9 @@
+<script setup lang="ts">
+const currYear = new Date().getFullYear();
+</script>
+
 <template>
-  <div>Footer</div>
+  <div class="text-center text-xs">
+    &copy; {{ currYear }} Diskominfosan Sinjai
+  </div>
 </template>
-
-<script lang="ts" setup></script>
-
-<style></style>
