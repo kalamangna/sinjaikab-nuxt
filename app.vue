@@ -1,18 +1,23 @@
 <script setup lang="ts">
 const title = "Pemerintah Kabupaten Sinjai";
-const description = "Website Resmi Pemerintah Kabupaten Sinjai";
-// const url = "https://sinjaikab.go.id/nuxt";
-// const image = `${url}/sinjaikab-meta.png`;
+const description =
+  "Website Resmi Pemerintah Kabupaten Sinjai. Berkolaboratif, Integritas, Solutif, Adaptif. #SinjaiBisa";
+const url = "https://sinjaikab.go.id";
+const imageUrl = `${url}/sinjaikab-meta.png`;
 
-useHead({
+useSeoMeta({
   title: title,
-  meta: [{ name: "description", content: description }],
+  ogTitle: title,
+  description: description,
+  ogDescription: description,
+  ogImage: imageUrl,
+  twitterCard: "summary_large_image",
 });
 
 const menusLeft = [
   {
     name: "pemkab",
-    href: "https://www.sinjaikab.go.id/v4",
+    href: "https://sinjaikab.go.id/v4",
   },
   {
     name: "lpse",
