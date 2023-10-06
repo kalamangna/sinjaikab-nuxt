@@ -5,13 +5,56 @@ const description =
 const url = "https://sinjaikab.go.id";
 const imageUrl = `${url}/sinjaikab-meta.png`;
 
-useSeoMeta({
+useHead({
   title: title,
-  ogTitle: title,
-  description: description,
-  ogDescription: description,
-  ogImage: imageUrl,
-  twitterCard: "summary_large_image",
+  meta: [
+    {
+      name: "title",
+      content: title,
+    },
+    { name: "description", content: description },
+    {
+      property: "og:type",
+      content: "website",
+    },
+    {
+      property: "og:url",
+      content: url,
+    },
+    {
+      property: "og:title",
+      content: title,
+    },
+    {
+      property: "og:description",
+      content: description,
+    },
+    {
+      property: "og:image",
+      content: imageUrl,
+    },
+    {
+      property: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
+      property: "twitter:url",
+      content: url,
+    },
+    {
+      property: "twitter:title",
+      content: title,
+    },
+    {
+      property: "twitter:description",
+      content: description,
+    },
+    {
+      property: "twitter:image",
+      content: imageUrl,
+    },
+  ],
+  htmlAttrs: { lang: "id" },
 });
 
 const menusLeft = [
@@ -94,6 +137,7 @@ const menusRight = [
             src="/sinjai.png"
             alt="logo kabupaten sinjai"
             class="h-12 w-12 mb-2"
+            format="webp"
           />
 
           <h1 class="text-4xl md:text-6xl font-bold">Selamat Datang</h1>
@@ -105,7 +149,8 @@ const menusRight = [
             <NuxtImg
               src="/pj.png"
               alt="penjabat bupati sinjai"
-              sizes="100vw sm:50vw md:400px"
+              sizes="100vw sm:50vw md:380px"
+              format="webp"
             />
           </div>
 

@@ -7,6 +7,7 @@
         :src="`/${name}.png`"
         :alt="`${name} sinjai`"
         class="scale-75 lg:scale-90 lg:group-hover:scale-100 transition-all"
+        format="webp"
       />
     </div>
   </NuxtLink>
