@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const title = "Pemerintah Kabupaten Sinjai";
+const title = "Pemerintah Kabupaten Sinjai - #SinjaiBISA";
 const description =
-  "Website Resmi Pemerintah Kabupaten Sinjai. Berkolaboratif, Integritas, Solutif, Adaptif. #SinjaiBisa";
+  "Website Resmi Pemerintah Kabupaten Sinjai. Berkolaborasi, Integritas, Solutif, Adaptif. #SinjaiBISA";
 const url = "https://sinjaikab.go.id";
 const imageUrl = `${url}/sinjaikab-meta.png`;
 
@@ -133,12 +133,7 @@ const menusRight = [
     <main class="min-h-screen flex flex-col items-center justify-center">
       <div class="container p-4 mx-auto">
         <div class="flex flex-col justify-center items-center text-center py-4">
-          <NuxtImg
-            src="/sinjai.png"
-            alt="logo kabupaten sinjai"
-            class="h-12 w-12 mb-2"
-            format="webp"
-          />
+          <LogoSinjai />
 
           <h1 class="text-4xl md:text-6xl font-bold">Selamat Datang</h1>
           <p class="md:text-lg">Website Resmi Pemerintah Kabupaten Sinjai</p>
@@ -146,12 +141,7 @@ const menusRight = [
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4">
           <div class="col-span-2 flex justify-center items-center md:order-2">
-            <NuxtImg
-              src="/pj.png"
-              alt="penjabat bupati sinjai"
-              sizes="100vw sm:50vw md:380px"
-              format="webp"
-            />
+            <FotoPj />
           </div>
 
           <div class="grid grid-cols-2 gap-4 md:order-1">
@@ -175,7 +165,7 @@ const menusRight = [
 
 <style>
 main {
-  background-image: url("/bg.jpg");
+  background-image: url("/bg.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
