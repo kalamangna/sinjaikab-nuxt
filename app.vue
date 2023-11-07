@@ -129,7 +129,7 @@ const menusRight = [
 
 const slides = [
   {
-    name: "fotopj",
+    name: "pjsekda",
   },
   {
     name: "programpj",
@@ -154,7 +154,9 @@ const slides = [
           <p class="md:text-lg">Website Resmi Pemerintah Kabupaten Sinjai</p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4">
+        <div
+          class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 py-4 items-center"
+        >
           <div class="col-span-2 flex justify-center items-center md:order-2">
             <Swiper
               :modules="[
@@ -184,13 +186,13 @@ const slides = [
             </Swiper>
           </div>
 
-          <div class="grid grid-cols-2 gap-4 md:order-1">
+          <div class="grid grid-cols-2 gap-4 lg:gap-6 md:order-1">
             <div v-for="menu in menusLeft" :key="menu.name">
               <Grid :name="menu.name" :href="menu.href" />
             </div>
           </div>
 
-          <div class="grid grid-cols-2 gap-4 md:order-3">
+          <div class="grid grid-cols-2 gap-4 lg:gap-6 md:order-3">
             <div v-for="menu in menusRight" :key="menu.name">
               <Grid :name="menu.name" :href="menu.href" />
             </div>
@@ -204,11 +206,12 @@ const slides = [
 </template>
 
 <style>
-main {
+body {
   background-image: url("/bg.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 
 .swiper-slide {

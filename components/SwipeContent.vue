@@ -14,7 +14,7 @@ const { name } = props;
     :src="`${name}.png`"
     :alt="name"
     format="webp"
-    sizes="100vw sm:50vw md:500px"
+    sizes="100vw sm:50vw md:500px lg:550px"
     preload
   />
 </template>
