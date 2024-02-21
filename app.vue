@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const title = "Pemerintah Kabupaten Sinjai - #SinjaiBISA";
 const description =
-  "Website Resmi Pemerintah Kabupaten Sinjai. Berkolaborasi, Integritas, Solutif, Adaptif. #SinjaiBISA";
+  "Selamat Datang di Website Resmi Pemerintah Kabupaten Sinjai. Berkolaborasi, Integritas, Solutif, Adaptif. #SinjaiBISA";
 const url = "https://sinjaikab.go.id";
 const imageUrl = `${url}/meta.png`;
 
@@ -64,7 +64,7 @@ const menusLeft = [
   },
   {
     name: "lpse",
-    href: "http://lpse.sinjaikab.go.id/eproc4",
+    href: "http://lpse.sinjaikab.go.id",
   },
   {
     name: "dprd",
@@ -80,7 +80,7 @@ const menusLeft = [
   },
   {
     name: "rdtr",
-    href: "https://rdtrsinjai.com",
+    href: "https://dpupr.sinjaikab.go.id/peta-rdtr",
   },
   {
     name: "simpelmi",
@@ -95,7 +95,7 @@ const menusLeft = [
 const menusRight = [
   {
     name: "enikda",
-    href: "http://enikda.sinjaikab.go.id/v3",
+    href: "http://enikda.sinjaikab.go.id",
   },
   {
     name: "webgis",
@@ -103,7 +103,7 @@ const menusRight = [
   },
   {
     name: "sirup",
-    href: "https://sirup.lkpp.go.id/sirup/ro/rekap/klpd/D401",
+    href: "https://sirup.lkpp.go.id",
   },
   {
     name: "simpeg",
@@ -129,7 +129,7 @@ const menusRight = [
 
 const slides = [
   {
-    name: "pjsekda",
+    name: "pjibu",
   },
   {
     name: "programpj",
