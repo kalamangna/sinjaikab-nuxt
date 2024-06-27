@@ -60,70 +60,70 @@ useHead({
 const menusLeft = [
   {
     name: "pemkab",
-    href: "https://sinjaikab.go.id/v4",
+    href: "https://sinjaikab.go.id/v4/",
   },
   {
     name: "lpse",
-    href: "http://lpse.sinjaikab.go.id",
+    href: "http://lpse.sinjaikab.go.id/",
   },
   {
     name: "dprd",
-    href: "http://dprd.sinjaikab.go.id",
+    href: "http://dprd.sinjaikab.go.id/",
   },
   {
-    name: "sistik",
-    href: "http://apps.sinjaikab.go.id/sistik",
+    name: "sdi",
+    href: "https://satudata.sinjaikab.go.id/sistik/",
   },
   {
     name: "kotaku",
-    href: "http://kotaku.pu.go.id",
+    href: "http://kotaku.pu.go.id/",
   },
   {
     name: "rdtr",
-    href: "https://dpupr.sinjaikab.go.id/peta-rdtr",
+    href: "https://dpupr.sinjaikab.go.id/peta-rdtr/",
   },
   {
     name: "simpelmi",
-    href: "http://dpmptsp.sinjaikab.go.id",
+    href: "http://dpmptsp.sinjaikab.go.id/",
   },
   {
-    name: "asa",
-    href: "https://asa.sinjaikab.go.id",
+    name: "spbe",
+    href: "https://sinjaikab.go.id/spbe/",
   },
 ];
 
 const menusRight = [
   {
     name: "enikda",
-    href: "http://enikda.sinjaikab.go.id",
+    href: "http://enikda.sinjaikab.go.id/",
   },
   {
     name: "webgis",
-    href: "http://webgis.sinjaikab.go.id",
+    href: "http://webgis.sinjaikab.go.id/",
   },
   {
     name: "sirup",
-    href: "https://sirup.lkpp.go.id",
+    href: "https://sirup.lkpp.go.id/",
   },
   {
     name: "simpeg",
-    href: "http://apps.sinjaikab.go.id/simpeg/user/login",
+    href: "http://apps.sinjaikab.go.id/simpeg/user/login/",
   },
   {
     name: "email",
-    href: "https://sinjaikab.go.id/webmail",
+    href: "https://sinjaikab.go.id/webmail/",
   },
   {
     name: "ppid",
-    href: "http://ppidkab.sinjaikab.go.id",
+    href: "http://ppidkab.sinjaikab.go.id/",
   },
   {
     name: "jdih",
-    href: "http://jdih.sinjaikab.go.id",
+    href: "http://jdih.sinjaikab.go.id/",
   },
   {
     name: "e-office",
-    href: "http://apps.sinjaikab.go.id/office",
+    href: "http://apps.sinjaikab.go.id/office/",
   },
 ];
 
@@ -157,7 +157,9 @@ const slides = [
         <div
           class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 py-4 items-center"
         >
-          <div class="col-span-2 flex justify-center items-center md:order-2">
+          <div
+            class="col-span-2 flex justify-center items-center md:order-2 overflow-hidden"
+          >
             <Swiper
               :modules="[
                 SwiperAutoplay,
