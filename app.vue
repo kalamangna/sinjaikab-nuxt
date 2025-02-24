@@ -129,7 +129,7 @@ const menusRight = [
 
 const slides = [
   {
-    name: "pjibu",
+    name: "selamat",
   },
   {
     name: "programpj",
@@ -157,10 +157,9 @@ const slides = [
         <div
           class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 py-4 items-center"
         >
-          <div
-            class="col-span-2 flex justify-center items-center md:order-2 overflow-hidden"
-          >
-            <Swiper
+          <div class="col-span-2 flex justify-center items-center md:order-2">
+            <SwipeContent :name="slides[0].name" />
+            <!-- <Swiper
               :modules="[
                 SwiperAutoplay,
                 SwiperEffectFade,
@@ -185,7 +184,7 @@ const slides = [
               <SwiperSlide v-for="slide in slides" :key="slide.name">
                 <SwipeContent :name="slide.name" />
               </SwiperSlide>
-            </Swiper>
+            </Swiper> -->
           </div>
 
           <div class="grid grid-cols-2 gap-4 lg:gap-6 md:order-1">

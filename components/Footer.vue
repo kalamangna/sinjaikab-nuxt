@@ -4,6 +4,6 @@ const currYear = new Date().getFullYear();
 
 <template>
   <div class="text-center text-xs">
-    &copy; {{ currYear }} Diskominfosandi Sinjai
+    &copy; {{ currYear }} Dinas Komunikasi Informatika dan Persandian
   </div>
 </template>
