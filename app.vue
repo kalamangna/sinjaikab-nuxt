@@ -111,15 +111,15 @@ const menusRight = [
   },
   {
     name: "email",
-    href: "https://sinjaikab.go.id/webmail/",
+    href: "https://sinjaikab.go.id/webmail",
   },
   {
     name: "ppid",
-    href: "http://ppidkab.sinjaikab.go.id/",
+    href: "https://ppidkab.sinjaikab.go.id/",
   },
   {
     name: "jdih",
-    href: "http://jdih.sinjaikab.go.id/",
+    href: "https://jdih.sinjaikab.go.id/",
   },
   {
     name: "e-office",
@@ -129,10 +129,7 @@ const menusRight = [
 
 const slides = [
   {
-    name: "selamat",
-  },
-  {
-    name: "programpj",
+    name: "poster",
   },
 ];
 </script>
@@ -141,8 +138,10 @@ const slides = [
   <div>
     <main class="min-h-screen flex flex-col items-center justify-center">
       <div class="container p-4 mx-auto">
-        <div class="flex flex-col justify-center items-center text-center">
-          <NuxtImg
+        <div class="flex justify-center items-center">
+          <Banner />
+
+          <!-- <NuxtImg
             src="/sinjai.png"
             alt="logo kabupaten sinjai"
             format="webp"
@@ -151,7 +150,7 @@ const slides = [
           />
 
           <h1 class="text-4xl md:text-5xl font-bold">Selamat Datang</h1>
-          <p class="md:text-lg">Website Resmi Pemerintah Kabupaten Sinjai</p>
+          <p class="md:text-lg">Website Resmi Pemerintah Kabupaten Sinjai</p> -->
         </div>
 
         <div

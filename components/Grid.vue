@@ -16,7 +16,7 @@ const { name, href } = props;
 <template>
   <NuxtLink :to="href" target="_blank" rel="noreferrer">
     <div
-      class="h-20 w-20 lg:h-24 lg:w-24 mx-auto group flex items-center justify-center rounded-2xl border shadow lg:hover:rounded-full lg:hover:bg-white lg:hover:border-0"
+      class="h-20 w-20 lg:h-24 lg:w-24 mx-auto group flex items-center justify-center rounded-2xl bg-white lg:hover:rounded-full lg:hover:bg-white lg:hover:border-0"
     >
       <NuxtImg
         :src="`${name}.png`"
