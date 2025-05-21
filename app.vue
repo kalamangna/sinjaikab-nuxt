@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-const title = "Pemerintah Kabupaten Sinjai - #SinjaiBISA";
+const title = "Pemerintah Kabupaten Sinjai";
 const description =
-  "Selamat Datang di Website Resmi Pemerintah Kabupaten Sinjai. Berkolaborasi, Integritas, Solutif, Adaptif. #SinjaiBISA";
+  "Selamat Datang di Website Resmi Pemerintah Kabupaten Sinjai #samasamaki";
 const url = "https://sinjaikab.go.id";
 const imageUrl = `${url}/meta.png`;
 
@@ -55,6 +55,13 @@ useHead({
     },
   ],
   htmlAttrs: { lang: "id" },
+  script: [
+    {
+      src: "https://cdn.userway.org/widget.js",
+      "data-account": "S41ThPrHz4",
+      async: true,
+    },
+  ],
 });
 
 const menusLeft = [
