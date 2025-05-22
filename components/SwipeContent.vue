@@ -19,7 +19,7 @@ const { name } = props;
 
 <template>
   <NuxtImg
-    :src="`/${name}.png`"
+    :src="`${name}.png`"
     :alt="`${name} sinjaikab`"
     format="webp"
     sizes="100vw sm:50vw md:500px lg:550px"

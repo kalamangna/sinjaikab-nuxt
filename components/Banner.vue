@@ -1,6 +1,6 @@
 <template>
   <NuxtImg
-    src="/banner.png"
+    src="banner.png"
     alt="banner sinjaikab"
     format="webp"
     sizes="100vw lg:550px"

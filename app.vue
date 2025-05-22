@@ -1,13 +1,24 @@
 <script lang="ts" setup>
+// Import config from Nuxt
+const config = useRuntimeConfig();
+
+// Deklarasi untuk SEO
 const title = "Pemerintah Kabupaten Sinjai";
-const description =
-  "Selamat Datang di Website Resmi Pemerintah Kabupaten Sinjai #samasamaki";
-const url = "https://sinjaikab.go.id";
-const imageUrl = `${url}/meta.png`;
+const description = "Portal Resmi Pemerintah Kabupaten Sinjai #samasamaki";
+const baseUrl = config.public.baseUrl;
+const imageUrl = `${baseUrl}/meta.png`;
+
+// Deklarasi Responsive Voice
+declare global {
+  interface Window {
+    responsiveVoice?: any;
+  }
+}
 
 useHead({
   title: title,
   meta: [
+    // Meta SEO
     {
       name: "title",
       content: title,
@@ -19,7 +30,7 @@ useHead({
     },
     {
       property: "og:url",
-      content: url,
+      content: baseUrl,
     },
     {
       property: "og:title",
@@ -39,7 +50,7 @@ useHead({
     },
     {
       property: "twitter:url",
-      content: url,
+      content: baseUrl,
     },
     {
       property: "twitter:title",
@@ -55,12 +66,15 @@ useHead({
     },
   ],
   htmlAttrs: { lang: "id" },
+  link: [{ rel: "canonical", href: baseUrl }],
   script: [
+    // Plugin Userway
     {
       src: "https://cdn.userway.org/widget.js",
       "data-account": "S41ThPrHz4",
       async: true,
     },
+    // Plugin Responsive Voice
     {
       src: "https://code.responsivevoice.org/responsivevoice.js?key=cPHluKBi",
       async: true,
@@ -68,35 +82,30 @@ useHead({
   ],
 });
 
-// Deklarasi responsiveVoice
-declare global {
-  interface Window {
-    responsiveVoice?: any;
-  }
-}
-
+// Load Responsive Voice setelah halaman dimuat
 onMounted(() => {
   // Tunggu 1.5 detik sebelum bicara
   setTimeout(() => {
     if (window.responsiveVoice) {
       window.responsiveVoice.speak(
-        "Selamat datang di portal resmi Kabupaten Sinjai",
+        "Selamat datang di portal resmi Pemerintah Kabupaten Sinjai",
         "Indonesian Female"
       );
     }
   }, 1500);
 });
 
+// Fungsi untuk bicara
+let speakTimeout: ReturnType<typeof setTimeout> | undefined;
 const speak = (text: string) => {
-  if (window.responsiveVoice) {
+  if (speakTimeout) clearTimeout(speakTimeout);
+  speakTimeout = setTimeout(() => {
     window.responsiveVoice.cancel();
-    // Tunggu 0.5 detik sebelum bicara
-    setTimeout(() => {
-      window.responsiveVoice.speak(text, "Indonesian Female");
-    }, 500);
-  }
+    window.responsiveVoice.speak(text, "Indonesian Female");
+  }, 100); // jeda 100ms untuk memastikan perpindahan
 };
 
+// List menu yang ditampilkan di sebelah kiri
 const menusLeft = [
   {
     name: "pemkab",
@@ -121,7 +130,7 @@ const menusLeft = [
   {
     name: "kotaku",
     href: "http://kotaku.pu.go.id/",
-    voice: "Program Kotaku",
+    voice: "Program Kota Tanpa Kumuh",
   },
   {
     name: "rdtr",
@@ -140,6 +149,7 @@ const menusLeft = [
   },
 ];
 
+// List menu yang ditampilkan di sebelah kanan
 const menusRight = [
   {
     name: "enikda",
@@ -183,11 +193,12 @@ const menusRight = [
   },
 ];
 
+// List slide yang ditampilkan di bagian tengah
 const slides = [
   {
     name: "poster",
     voice:
-      "Visi Kabupaten Sinjai 2025 - 2030: Sinjai Maju, Sejahtera, Mandiri, dan Berkeadilan. Program Prioritas: Ramah Keagamaan, Ramah Pendidikan, Ramah Kesehatan, Ramah Infrastruktur, dan Ramah Ekonomi Kerakyatan",
+      "Visi Kabupaten Sinjai 2025 - 2030: Sinjai Maju, Sejahtera, Mandiri, dan Berkeadilan. Program Prioritas: Ramah Keagamaan, Ramah Pendidikan, Ramah Kesehatan, Ramah Infrastruktur, dan Ramah Ekonomi Kerakyatan. Sama-sama ki!",
   },
 ];
 </script>
@@ -198,17 +209,6 @@ const slides = [
       <div class="container p-4 mx-auto">
         <div class="flex justify-center items-center">
           <Banner />
-
-          <!-- <NuxtImg
-            src="/sinjai.png"
-            alt="logo kabupaten sinjai"
-            format="webp"
-            width="48"
-            height="48"
-          />
-
-          <h1 class="text-4xl md:text-5xl font-bold">Selamat Datang</h1>
-          <p class="md:text-lg">Website Resmi Pemerintah Kabupaten Sinjai</p> -->
         </div>
 
         <div
