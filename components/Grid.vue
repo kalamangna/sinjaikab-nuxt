@@ -8,13 +8,26 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  voice: {
+    type: String,
+    default: "",
+  },
+  speak: {
+    type: Function,
+    default: () => {},
+  },
 });
 
 const { name, href } = props;
 </script>
 
 <template>
-  <NuxtLink :to="href" target="_blank" rel="noreferrer">
+  <NuxtLink
+    :to="href"
+    target="_blank"
+    rel="noreferrer"
+    @mouseover="speak(voice)"
+  >
     <div
       class="h-20 w-20 lg:h-24 lg:w-24 mx-auto group flex items-center justify-center rounded-2xl bg-white lg:hover:rounded-full lg:hover:bg-white lg:hover:border-0"
     >

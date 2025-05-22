@@ -4,6 +4,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  voice: {
+    type: String,
+    default: "",
+  },
+  speak: {
+    type: Function,
+    default: () => {},
+  },
 });
 
 const { name } = props;
@@ -16,5 +24,6 @@ const { name } = props;
     format="webp"
     sizes="100vw sm:50vw md:500px lg:550px"
     preload
+    @mouseover="speak(voice)"
   />
 </template>
