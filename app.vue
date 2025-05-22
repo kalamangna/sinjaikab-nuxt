@@ -61,6 +61,10 @@ useHead({
       "data-account": "S41ThPrHz4",
       async: true,
     },
+    {
+      src: "https://code.responsivevoice.org/responsivevoice.js?key=cPHluKBi",
+      async: true,
+    },
   ],
 });
 
