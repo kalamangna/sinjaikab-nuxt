@@ -1,75 +1,53 @@
-# Nuxt 3 Minimal Starter
+# Website Resmi Pemerintah Kabupaten Sinjai (Nuxt 3)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Proyek ini adalah desain ulang dan restrukturisasi landing page resmi Pemerintah Kabupaten Sinjai menggunakan Nuxt 3 dan Tailwind CSS.
 
-## Setup
+## Fitur Utama
 
-Make sure to install the dependencies:
+- **Modern & Responsive Design:** Layout yang bersih dan profesional, dioptimalkan untuk berbagai ukuran layar.
+- **Hero Section:** Perkenalan visual yang menarik dengan slogan "Sinjai Bersatu #samasamaki".
+- **Visi & Misi:** Bagian khusus yang memaparkan visi dan misi Kabupaten Sinjai secara jelas.
+- **Layanan Digital:** Grid interaktif yang menyediakan akses cepat ke berbagai portal layanan publik (LPSE, JDIH, E-Office, dll).
+- **Navbar & Footer Terintegrasi:** Navigasi yang memudahkan pengguna dan informasi kontak yang lengkap.
+- **Performa Tinggi:** Menggunakan Nuxt 3 dengan optimasi gambar (`@nuxt/image`).
 
+## Teknologi yang Digunakan
+
+- [Nuxt 3](https://nuxt.com/) - Framework Vue.js modern.
+- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS berbasis utilitas untuk desain cepat.
+- [Nuxt Image](https://image.nuxt.com/) - Optimasi gambar otomatis.
+
+## Pengembangan
+
+### Persyaratan
+- Node.js (versi terbaru direkomendasikan)
+- npm / yarn / pnpm
+
+### Instalasi
 ```bash
-# npm
+# Instalasi dependensi
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
+### Jalankan dalam Mode Pengembangan
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
-
+### Build untuk Produksi
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+## Struktur Folder
 
-```bash
-# npm
-npm run preview
+- `components/sections/`: Berisi komponen besar seperti Hero, Visi & Misi, dan Services.
+- `components/ui/`: Berisi komponen UI kecil seperti Navbar, Footer, dan ServiceCard.
+- `layouts/`: Template layout utama aplikasi.
+- `public/`: Aset statis seperti logo dan ikon layanan.
 
-# pnpm
-pnpm run preview
+## Konfigurasi
+Aplikasi ini dikonfigurasi untuk berjalan di bawah sub-path `/dev/` (dapat disesuaikan di `nuxt.config.ts`).
 
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+---
+&copy; 2026 Pemerintah Kabupaten Sinjai. Dikembangkan oleh Diskominfo & Persandian Sinjai.

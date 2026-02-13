@@ -2,20 +2,25 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
-    baseURL: "/web/",
+    baseURL: "/dev/",
   },
 
   runtimeConfig: {
     public: {
       gtagId: "G-QX439KY437",
-      baseUrl: "https://sinjaikab.go.id/web",
+      baseUrl: "https://sinjaikab.go.id/dev",
     },
   },
 
-  modules: ["@nuxtjs/tailwindcss", "@nuxt/image", "nuxt-swiper"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxt/image"
+  ],
 
-  tailwindcss: {
-    exposeConfig: true,
+  image: {
+    provider: 'ipx',
+    quality: 80,
+    format: ['webp'],
   },
 
   compatibilityDate: "2025-02-25",
