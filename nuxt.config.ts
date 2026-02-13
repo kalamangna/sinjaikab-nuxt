@@ -3,6 +3,15 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
     baseURL: "/web/",
+    head: {
+      script: [
+        {
+          src: "https://cdn.userway.org/widget.js",
+          "data-account": "S41ThPrHz4", // Replace with your actual UserWay Account ID
+          async: true,
+        },
+      ],
+    },
   },
 
   runtimeConfig: {
@@ -12,15 +21,12 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: [
-    "@nuxtjs/tailwindcss",
-    "@nuxt/image"
-  ],
+  modules: ["@nuxtjs/tailwindcss", "@nuxt/image"],
 
   image: {
-    provider: 'ipx',
+    provider: "ipx",
     quality: 80,
-    format: ['webp'],
+    format: ["webp"],
   },
 
   compatibilityDate: "2025-02-25",

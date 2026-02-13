@@ -100,6 +100,16 @@
             </li>
             <li>
               <NuxtLink
+                to="#program-prioritas"
+                @click.prevent="scrollToSection('#program-prioritas')"
+                class="text-slate-400 hover:text-white transition-colors cursor-pointer flex items-center gap-2"
+              >
+                <i class="fas fa-star fa-fw text-xs"></i>
+                Program Prioritas</NuxtLink
+              >
+            </li>
+            <li>
+              <NuxtLink
                 to="#layanan"
                 @click.prevent="scrollToSection('#layanan')"
                 class="text-slate-400 hover:text-white transition-colors cursor-pointer flex items-center gap-2"

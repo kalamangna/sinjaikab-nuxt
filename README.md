@@ -9,6 +9,7 @@ Portal informasi publik Kabupaten Sinjai yang menghadirkan layanan digital terin
 - **Font Awesome 6**: Integrasi ikon yang konsisten dan berbobot sama (`fa-fw`).
 - **Smooth Scroll Navigation**: Navigasi yang halus antar bagian halaman dengan kompensasi tinggi header.
 - **Visi & Misi 2025–2030**: Menampilkan visi "Sinjai Maju, Sejahtera, Mandiri dan Berkeadilan".
+- **Program Prioritas**: Menampilkan 5 program strategis (Ramah Keagamaan, Pendidikan, Kesehatan, Infrastruktur, Ekonomi).
 - **Layanan Digital Terintegrasi**: Akses cepat ke berbagai aplikasi pemerintahan dalam satu pintu.
 - **Sub-path Deployment**: Konfigurasi khusus untuk berjalan di bawah sub-path `/web`.
 

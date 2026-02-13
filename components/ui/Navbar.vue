@@ -71,6 +71,7 @@ const isScrolled = ref(false);
 const menuItems = [
   { label: "Beranda", href: "#" },
   { label: "Visi & Misi", href: "#visi-misi" },
+  { label: "Program", href: "#program-prioritas" },
   { label: "Layanan", href: "#layanan" },
 ];
 

@@ -140,6 +140,7 @@ const services = [
   <NuxtLayout>
     <SectionsHero />
     <SectionsVisionMission />
+    <SectionsPriorityPrograms />
     <SectionsServices :services="services" />
     <AppPlugins />
   </NuxtLayout>
