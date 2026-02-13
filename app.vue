@@ -27,7 +27,7 @@ useHead({
     { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1" },
   ],
   link: [
-    { rel: 'icon', type: 'image/png', href: '/sinjai.png' }
+    { rel: 'icon', type: 'image/png', href: `${config.app.baseURL}sinjai.png` }
   ],
   htmlAttrs: {
     lang: "id",
