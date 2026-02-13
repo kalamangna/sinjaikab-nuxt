@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
     <UiNavbar />
-    <main class="flex-grow">
+    <main class="flex-grow py-8 md:py-12">
       <slot />
     </main>
     <UiFooter />

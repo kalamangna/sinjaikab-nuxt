@@ -2,13 +2,13 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
-    baseURL: "/dev/",
+    baseURL: "/web/",
   },
 
   runtimeConfig: {
     public: {
       gtagId: "G-QX439KY437",
-      baseUrl: "https://sinjaikab.go.id/dev",
+      baseUrl: "https://sinjaikab.go.id/web",
     },
   },
 
