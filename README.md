@@ -1,4 +1,4 @@
-# Sinjai Bersatu - Official Website Pemerintah Kabupaten Sinjai
+# Official Website Pemerintah Kabupaten Sinjai
 
 Website resmi Pemerintah Kabupaten Sinjai yang menyediakan akses cepat ke berbagai layanan publik dan sistem informasi pemerintahan.
 
