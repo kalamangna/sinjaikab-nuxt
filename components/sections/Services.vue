@@ -16,7 +16,7 @@
           :key="service.name"
           :title="service.label"
           :description="service.voice"
-          :icon="service.name"
+          :icon="service.icon"
           :href="service.href"
         />
       </div>
@@ -33,6 +33,7 @@ defineProps<{
     label: string;
     href: string;
     voice: string;
+    icon: string;
   }>;
 }>();
 </script>

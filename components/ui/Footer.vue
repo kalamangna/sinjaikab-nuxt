@@ -143,7 +143,7 @@
               </div>
               <span class="text-slate-400">
                 Kantor Bupati Sinjai, Jl. Tanassang, Alehanuae, Sinjai Utara,
-                Sinjai, Sulawesi Selatan
+                Sinjai, Sulawesi Selatan 92615
               </span>
             </li>
             <li class="flex items-center gap-3">
@@ -160,9 +160,11 @@
         class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4"
       >
         <p class="text-slate-500 text-sm">
-          &copy; {{ new Date().getFullYear() }} Pemerintah Kabupaten Sinjai.
+          &copy; {{ new Date().getFullYear() }} Pemerintah Kabupaten Sinjai
         </p>
-        <p class="text-slate-500 text-xs">Dikembangkan oleh Aptika Dev.</p>
+        <p class="text-slate-500 text-xs">
+          Dikembangkan oleh Diskominfo-SP Sinjai
+        </p>
       </div>
     </div>
   </footer>

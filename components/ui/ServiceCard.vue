@@ -7,12 +7,9 @@
   >
     <!-- Icon Container -->
     <div class="mb-4 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center bg-slate-50 rounded-2xl group-hover:bg-red-50 transition-colors duration-300">
-      <NuxtImg 
-        :src="`/${icon}.png`" 
-        :alt="title" 
-        class="w-10 h-10 md:w-12 md:h-12 object-contain group-hover:scale-110 transition-transform duration-300"
-        loading="lazy"
-      />
+      <i 
+        :class="[icon, 'text-3xl md:text-4xl text-slate-400 group-hover:text-red-700 group-hover:scale-110 transition-all duration-300']"
+      ></i>
     </div>
     
     <!-- Text -->

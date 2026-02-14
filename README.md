@@ -1,87 +1,49 @@
-# Website Resmi Pemerintah Kabupaten Sinjai
+# Sinjai Bersatu - Official Website Pemerintah Kabupaten Sinjai
 
-Portal informasi publik Kabupaten Sinjai yang menghadirkan layanan digital terintegrasi, transparansi, dan perkembangan pembangunan daerah secara terbuka dan akuntabel.
+Website resmi Pemerintah Kabupaten Sinjai yang menyediakan akses cepat ke berbagai layanan publik dan sistem informasi pemerintahan.
 
-## ✨ Fitur Utama
+## Fitur Utama
 
-- **Nuxt 3 & Vue 3**: Framework modern dengan performa optimal dan SEO-friendly.
-- **Tailwind CSS**: Antarmuka responsif dan modern dengan prinsip _Material Design_.
-- **Font Awesome 6**: Integrasi ikon yang konsisten dan berbobot sama (`fa-fw`).
-- **Smooth Scroll Navigation**: Navigasi yang halus antar bagian halaman dengan kompensasi tinggi header.
-- **Visi & Misi 2025–2030**: Menampilkan visi "Sinjai Maju, Sejahtera, Mandiri dan Berkeadilan".
-- **Program Prioritas**: Menampilkan 5 program strategis (Ramah Keagamaan, Pendidikan, Kesehatan, Infrastruktur, Ekonomi).
-- **Layanan Digital Terintegrasi**: Akses cepat ke berbagai aplikasi pemerintahan dalam satu pintu.
-- **Sub-path Deployment**: Konfigurasi khusus untuk berjalan di bawah sub-path `/web`.
+- **Portal Berita**: Berita terbaru seputar Kabupaten Sinjai.
+- **Layanan Digital**: Akses ke berbagai sistem informasi seperti LPSE, SIMPEG, PPID, JDIH, dan lainnya.
+- **Program Prioritas**: Informasi mengenai program prioritas pembangunan daerah.
+- **Visi & Misi**: Panduan strategis pembangunan Kabupaten Sinjai 2025–2030.
 
-## 🌐 Layanan Digital Terintegrasi
+## Teknologi
 
-Aplikasi ini mengintegrasikan berbagai portal layanan publik, antara lain:
-
-- **Informasi Publik**: Portal Berita, PPID, JDIH.
-- **Pemerintahan & Kepegawaian**: E-Office, SIMPEG, ENIKDA.
-- **Ekonomi & Perizinan**: LPSE, SiRUP, Perizinan Online (SIMPELMI).
-- **Data & Perencanaan**: Satu Data (SDI), WebGIS, Peta RDTR, SPBE.
-
-## 🚀 Teknologi & Library
-
-- **Core**: [Nuxt 3.7+](https://nuxt.com/)
+- **Framework**: [Nuxt 3](https://nuxt.com/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Ikon**: [Font Awesome 6 Free](https://fontawesome.com/)
-- **Optimasi Gambar**: [@nuxt/image](https://image.nuxt.com/)
-- **Font**: Inter & Sans-serif (via Tailwind)
+- **Icons**: [Font Awesome 7](https://fontawesome.com/)
+- **Assets**: Optimized images with [@nuxt/image](https://image.nuxt.com/)
 
-## 🛠️ Pengembangan Lokal
+## Pengembangan
 
-### Instalasi
+### Setup
 
 ```bash
-# Clone dan masuk ke direktori proyek
+# Install dependencies
 npm install
 ```
 
-### Jalankan Development Server
+### Development
 
 ```bash
+# Start development server
 npm run dev
 ```
 
-Akses melalui: `http://localhost:3000/web/`
-
-### Build untuk Produksi
+### Production
 
 ```bash
+# Build for production
 npm run build
+
+# Generate static site
+npm run generate
 ```
 
-## 📂 Struktur Folder Utama
+## Pembaruan Terkini
 
-- `components/sections/`: Blok bangunan utama halaman (Hero, Visi-Misi, Services).
-- `components/ui/`: Komponen antarmuka yang dapat digunakan kembali (Navbar, Footer).
-- `plugins/`: Konfigurasi global (Font Awesome, dsb).
-- `public/`: Aset visual, logo, dan ikon layanan.
-
-## ⚙️ Konfigurasi Deployment
-
-Aplikasi menggunakan `baseURL: "/web/"`. Untuk mengubahnya, perbarui file `nuxt.config.ts`:
-
-```typescript
-export default defineNuxtConfig({
-  app: {
-    baseURL: "/web/", // Sesuaikan dengan path deployment
-  },
-});
-```
-
-## 📱 Media Sosial Resmi
-
-Dapat ditemukan di bagian Footer:
-
-- **Facebook**: FP.KabupatenSinjai
-- **Instagram**: @sinjaikab
-- **TikTok**: @pemkabsinjai
-- **YouTube**: @SINJAITV
-- **X (Twitter)**: @sinjaikab
-
----
-
-&copy; 2026 Pemerintah Kabupaten Sinjai. Dikembangkan oleh **Aptika Dev.**.
+- Migrasi ikon layanan digital ke Font Awesome untuk performa yang lebih baik.
+- Pembersihan aset gambar yang tidak digunakan.
+- Penataan ulang urutan layanan berdasarkan relevansi publik.
