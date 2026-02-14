@@ -41,9 +41,3 @@ npm run build
 # Generate static site
 npm run generate
 ```
-
-## Pembaruan Terkini
-
-- Migrasi ikon layanan digital ke Font Awesome untuk performa yang lebih baik.
-- Pembersihan aset gambar yang tidak digunakan.
-- Penataan ulang urutan layanan berdasarkan relevansi publik.
