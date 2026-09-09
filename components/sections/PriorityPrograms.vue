@@ -10,11 +10,11 @@
         <div class="w-20 h-1.5 bg-red-700 mx-auto rounded-full"></div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
         <div
           v-for="program in programs"
           :key="program.title"
-          class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 text-center flex flex-col items-center group"
+          class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 text-center flex flex-col items-center group sm:last:col-span-2 sm:last:max-w-xs sm:last:w-full sm:last:mx-auto lg:last:col-span-1 lg:last:max-w-none"
         >
           <div
             class="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center text-red-700 mb-6 group-hover:bg-red-700 group-hover:text-white transition-colors duration-300"

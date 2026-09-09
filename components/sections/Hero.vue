@@ -73,6 +73,11 @@
           <NuxtImg
             src="/poster.png"
             alt="Sinjai Bersatu"
+            format="webp"
+            quality="80"
+            width="800"
+            height="800"
+            sizes="sm:100vw md:50vw lg:600px"
             class="w-full h-auto shadow-2xl border border-slate-100"
             loading="eager"
             fetchpriority="high"

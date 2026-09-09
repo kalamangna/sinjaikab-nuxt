@@ -2,16 +2,16 @@
   <nav
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b"
     :class="[
-      isScrolled
-        ? 'bg-white/90 backdrop-blur-md py-3 border-slate-200 shadow-sm'
-        : 'bg-transparent py-5 border-transparent',
+      isScrolled || isMobileMenuOpen
+        ? 'bg-white/95 backdrop-blur-md py-3 border-slate-200 shadow-sm'
+        : 'bg-transparent py-4 md:py-5 border-transparent',
     ]"
   >
     <div
       class="container mx-auto px-4 md:px-6 flex items-center justify-between"
     >
       <!-- Logo -->
-      <NuxtLink to="/" class="flex items-center gap-3 group">
+      <NuxtLink to="/" class="flex items-center gap-2.5 sm:gap-3 group">
         <div
           class="bg-white p-1.5 rounded-xl shadow-sm border border-slate-100 shrink-0 group-hover:scale-105 transition-transform"
         >
@@ -23,12 +23,12 @@
         </div>
         <div class="flex flex-col -gap-1">
           <span
-            class="font-black text-sm md:text-xl tracking-tighter text-slate-900 uppercase leading-none"
+            class="font-black text-xs sm:text-sm md:text-xl tracking-tighter text-slate-900 uppercase leading-none"
           >
             Pemkab Sinjai
           </span>
           <span
-            class="text-[8px] md:text-[10px] font-bold text-red-700 uppercase tracking-[0.2em] leading-none"
+            class="text-[7px] sm:text-[8px] md:text-[10px] font-bold text-red-700 uppercase tracking-[0.2em] leading-none"
           >
             Official Website
           </span>
@@ -48,18 +48,64 @@
         </NuxtLink>
       </div>
 
-      <!-- CTA -->
-      <div class="flex items-center gap-4">
+      <!-- Right Action: CTA & Mobile Hamburger Button -->
+      <div class="flex items-center gap-2 sm:gap-4">
         <a
           href="https://humas.sinjaikab.go.id/"
           target="_blank"
-          class="bg-red-700 hover:bg-red-800 text-white px-5 md:px-7 py-2 md:py-3 rounded-2xl text-[10px] md:text-xs font-bold transition-all shadow-lg shadow-red-900/20 uppercase tracking-widest whitespace-nowrap flex items-center gap-2"
+          class="hidden sm:flex bg-red-700 hover:bg-red-800 text-white px-4 md:px-7 py-2 md:py-3 rounded-2xl text-[10px] md:text-xs font-bold transition-all shadow-lg shadow-red-900/20 uppercase tracking-widest whitespace-nowrap items-center gap-2"
         >
           <i class="fas fa-newspaper fa-fw"></i>
           Portal Berita
         </a>
+
+        <!-- Hamburger Toggle Button -->
+        <button
+          type="button"
+          @click="isMobileMenuOpen = !isMobileMenuOpen"
+          class="md:hidden p-2 rounded-xl text-slate-700 hover:text-red-700 hover:bg-slate-100 transition-colors focus:outline-none"
+          aria-label="Menu Navigasi"
+          :aria-expanded="isMobileMenuOpen"
+        >
+          <i :class="isMobileMenuOpen ? 'fas fa-xmark text-xl' : 'fas fa-bars text-xl'"></i>
+        </button>
       </div>
     </div>
+
+    <!-- Mobile Navigation Dropdown -->
+    <Transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0 -translate-y-2"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition duration-150 ease-in"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 -translate-y-2"
+    >
+      <div
+        v-if="isMobileMenuOpen"
+        class="md:hidden bg-white border-b border-slate-200 shadow-xl px-4 py-4 space-y-2 mt-3"
+      >
+        <NuxtLink
+          v-for="item in menuItems"
+          :key="item.label"
+          :to="item.href"
+          @click.prevent="handleMobileNavClick(item.href)"
+          class="block py-2.5 px-3 rounded-xl text-xs font-bold text-slate-700 hover:text-red-700 hover:bg-red-50 uppercase tracking-wider transition-colors"
+        >
+          {{ item.label }}
+        </NuxtLink>
+        <div class="pt-3 border-t border-slate-100 sm:hidden">
+          <a
+            href="https://humas.sinjaikab.go.id/"
+            target="_blank"
+            class="w-full bg-red-700 hover:bg-red-800 text-white py-2.5 rounded-xl text-xs font-bold transition-all shadow-md shadow-red-900/20 uppercase tracking-widest flex items-center justify-center gap-2"
+          >
+            <i class="fas fa-newspaper fa-fw"></i>
+            Portal Berita
+          </a>
+        </div>
+      </div>
+    </Transition>
   </nav>
 </template>
 
@@ -67,6 +113,7 @@
 import { ref, onMounted, onUnmounted } from "vue";
 
 const isScrolled = ref(false);
+const isMobileMenuOpen = ref(false);
 
 const menuItems = [
   { label: "Beranda", href: "#" },
@@ -83,7 +130,7 @@ const scrollToSection = (href: string) => {
 
   const element = document.querySelector(href);
   if (element) {
-    const offset = 80; // Navbar height
+    const offset = 80;
     const elementPosition = element.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -94,15 +141,28 @@ const scrollToSection = (href: string) => {
   }
 };
 
+const handleMobileNavClick = (href: string) => {
+  isMobileMenuOpen.value = false;
+  scrollToSection(href);
+};
+
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 20;
 };
 
+const handleResize = () => {
+  if (window.innerWidth >= 768) {
+    isMobileMenuOpen.value = false;
+  }
+};
+
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
+  window.addEventListener("resize", handleResize);
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
+  window.removeEventListener("resize", handleResize);
 });
 </script>
