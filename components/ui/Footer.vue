@@ -163,7 +163,7 @@
           &copy; {{ new Date().getFullYear() }} Pemerintah Kabupaten Sinjai
         </p>
         <p class="text-slate-500 text-xs">
-          Dikembangkan oleh Diskominfo-SP Sinjai
+          Diskominfo-SP Sinjai
         </p>
       </div>
     </div>
