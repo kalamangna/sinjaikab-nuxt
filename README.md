@@ -42,18 +42,16 @@ npm run build
 npm run generate
 ```
 
-## Deployment ke cPanel
+## Deployment ke cPanel (via Git Version Control)
 
-Proyek ini telah dikonfigurasi dengan otomatisasi deployment via **GitHub Actions** (`.github/workflows/deploy.yml`).
+Proyek ini menggunakan integrasi **GitHub Actions** dan fitur bawaan **cPanel Git™ Version Control**:
 
-Setiap kali melakukan `git push` ke branch `main`, workflow akan secara otomatis melakukan kompilasi (`npm run generate`) dan mengunggah berkas ke cPanel via FTP.
-
-### Konfigurasi GitHub Secrets
-Sebelum melakukan push atau menjalankan deployment, tambahkan *Secrets* berikut pada repositori GitHub (**Settings > Secrets and variables > Actions**):
-
-| Secret | Deskripsi | Contoh |
-| --- | --- | --- |
-| `FTP_SERVER` | Host / IP server FTP cPanel | `ftp.sinjaikab.go.id` / IP server |
-| `FTP_USERNAME` | Akun user FTP cPanel | `deploy@sinjaikab.go.id` |
-| `FTP_PASSWORD` | Kata sandi akun FTP | `********` |
-| `FTP_SERVER_DIR` | *(Opsional)* Direktori tujuan di server | `/` (jika akun FTP mengarah ke `public_html`) |
+1. Setiap kali melakukan `git push` ke branch `main`, GitHub Actions akan:
+   - Mengompilasi situs statis (`npm run generate`).
+   - Memasukkan berkas konfigurasi `.cpanel.yml` dan `.htaccess`.
+   - Mengunggah seluruh hasil build yang siap saji ke branch **`deploy`** di GitHub.
+2. Di cPanel:
+   - Buka menu **Git™ Version Control**.
+   - Hubungkan repositori `https://github.com/kalamangna/sinjaikab-nuxt.git` dengan memilih branch **`deploy`**.
+   - Setiap ada pembaruan, klik tombol **Update from Remote** lalu **Deploy HEAD Commit** (atau pasang Webhook cPanel di GitHub untuk auto-deploy).
+   - cPanel akan secara otomatis menyalin seluruh file hasil generate ke `/home/sinjaikab/public_html/`.

@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Workflow GitHub Actions (`.github/workflows/deploy.yml`) untuk build dan deploy otomatis ke cPanel via FTP saat push ke branch `main`.
+- Workflow GitHub Actions (`.github/workflows/deploy.yml`) untuk build dan deploy otomatis ke branch `deploy` saat push ke branch `main`.
+- Berkas konfigurasi cPanel Git Version Control (`.cpanel.yml`) untuk sinkronisasi otomatis ke `/home/sinjaikab/public_html`.
+- Berkas `public/.htaccess` untuk HTTPS enforcement, redirect rute lama `/web`, dan SPA routing fallback.
 - Berkas verifikasi Google Search Console (`googledc5c91fd2931e98f.html`), `robots.txt`, dan `sitemap.xml` di direktori `public/`.
 
 ### Changed
