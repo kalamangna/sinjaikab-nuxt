@@ -41,3 +41,19 @@ npm run build
 # Generate static site
 npm run generate
 ```
+
+## Deployment ke cPanel
+
+Proyek ini telah dikonfigurasi dengan otomatisasi deployment via **GitHub Actions** (`.github/workflows/deploy.yml`).
+
+Setiap kali melakukan `git push` ke branch `main`, workflow akan secara otomatis melakukan kompilasi (`npm run generate`) dan mengunggah berkas ke cPanel via FTP.
+
+### Konfigurasi GitHub Secrets
+Sebelum melakukan push atau menjalankan deployment, tambahkan *Secrets* berikut pada repositori GitHub (**Settings > Secrets and variables > Actions**):
+
+| Secret | Deskripsi | Contoh |
+| --- | --- | --- |
+| `FTP_SERVER` | Host / IP server FTP cPanel | `ftp.sinjaikab.go.id` / IP server |
+| `FTP_USERNAME` | Akun user FTP cPanel | `deploy@sinjaikab.go.id` |
+| `FTP_PASSWORD` | Kata sandi akun FTP | `********` |
+| `FTP_SERVER_DIR` | *(Opsional)* Direktori tujuan di server | `/` (jika akun FTP mengarah ke `public_html`) |

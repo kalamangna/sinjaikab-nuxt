@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
-    baseURL: "/web/",
+    baseURL: "/",
     head: {
       script: [
         {
@@ -17,7 +17,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       gtagId: "G-QX439KY437",
-      baseUrl: "https://sinjaikab.go.id/web",
+      baseUrl: process.env.NUXT_PUBLIC_BASE_URL || "https://sinjaikab.go.id",
     },
   },
 
