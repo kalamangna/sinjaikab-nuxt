@@ -42,16 +42,33 @@ npm run build
 npm run generate
 ```
 
-## Deployment ke cPanel (via Git Version Control)
+## Deployment
 
-Proyek ini menggunakan integrasi **GitHub Actions** dan fitur bawaan **cPanel Git™ Version Control**:
+### Opsi A: Deployment ke Vercel (Direkomendasikan)
+
+Proyek ini telah dikonfigurasi secara optimal untuk platform **Vercel** dengan berkas [`vercel.json`](./vercel.json) yang memuat HTTP Security Headers dan aturan redirect otomatis:
+
+1. Buka [Vercel Dashboard](https://vercel.com/dashboard) dan pilih **Add New Project**.
+2. Hubungkan repositori GitHub: `kalamangna/sinjaikab-nuxt`.
+3. Vercel akan otomatis mengenali framework **Nuxt.js**:
+   - **Framework Preset**: Nuxt.js
+   - **Build Command**: `npm run generate` (untuk static export) atau `npm run build`
+   - **Output Directory**: `.output/public`
+4. Klik **Deploy**. Setiap commit baru pada branch `main` akan di-deploy secara otomatis dengan CDN Global, SSL gratis, dan kompresi Brotli/Gzip otomatis.
+
+---
+
+### Opsi B: Deployment ke cPanel (via Git Version Control)
+
+Proyek ini juga tetap mendukung integrasi **GitHub Actions** dan fitur bawaan **cPanel Git™ Version Control**:
 
 1. Setiap kali melakukan `git push` ke branch `main`, GitHub Actions akan:
    - Mengompilasi situs statis (`npm run generate`).
-   - Memasukkan berkas konfigurasi `.cpanel.yml` dan `.htaccess`.
+   - Menyiapkan bundle klien (`_nuxt/`), seluruh gambar publik, dan berkas konfigurasi `.cpanel.yml` serta `.htaccess`.
    - Mengunggah seluruh hasil build yang siap saji ke branch **`deploy`** di GitHub.
 2. Di cPanel:
    - Buka menu **Git™ Version Control**.
    - Hubungkan repositori `https://github.com/kalamangna/sinjaikab-nuxt.git` dengan memilih branch **`deploy`**.
-   - Setiap ada pembaruan, klik tombol **Update from Remote** lalu **Deploy HEAD Commit** (atau pasang Webhook cPanel di GitHub untuk auto-deploy).
+   - Setiap ada pembaruan, klik tombol **Update from Remote** lalu **Deploy HEAD Commit**.
    - cPanel akan secara otomatis menyalin seluruh file hasil generate ke `/home/sinjaikab/public_html/`.
+

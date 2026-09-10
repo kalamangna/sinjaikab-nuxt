@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Berkas konfigurasi Vercel ([`vercel.json`](./vercel.json)) dengan aturan redirect URL lama `/web` ke root domain serta HTTP Security Headers lengkap untuk platform Vercel.
 - Structured Data Schema.org (`GovernmentOrganization`) via JSON-LD di `app.vue` untuk pengenalan entitas resmi dan Knowledge Graph Google.
 - Tautan aksesibilitas *Skip to Content* (`Lewati ke konten utama`) dan target `id="main-content"` pada `layouts/default.vue` (standar WCAG 2.1 AA).
 - Resource hint `rel="preconnect"` dan `rel="dns-prefetch"` pada `app.vue` untuk mempercepat koneksi ke CDN UserWay dan Google Tag Manager.
