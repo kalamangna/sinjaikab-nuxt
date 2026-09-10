@@ -3,7 +3,17 @@ const config = useRuntimeConfig();
 const gtagId = config.public.gtagId;
 
 onMounted(() => {
+  let loaded = false;
+
   const loadThirdPartyScripts = () => {
+    if (loaded) return;
+    loaded = true;
+
+    // Bersihkan listener interaksi
+    interactionEvents.forEach((evt) => {
+      window.removeEventListener(evt, triggerLoad);
+    });
+
     // 1. Google Tag Manager
     if (
       gtagId &&
@@ -23,12 +33,26 @@ onMounted(() => {
     }
   };
 
-  // Muat script saat browser idle agar Total Blocking Time (TBT) mendekati 0ms
-  if ('requestIdleCallback' in window) {
-    (window as any).requestIdleCallback(() => loadThirdPartyScripts(), { timeout: 3000 });
-  } else {
-    setTimeout(loadThirdPartyScripts, 1500);
-  }
+  const triggerLoad = () => {
+    loadThirdPartyScripts();
+  };
+
+  const interactionEvents = ['scroll', 'touchstart', 'mousemove', 'click', 'keydown'];
+
+  // Pasang listener interaksi pengguna (passive agar tidak menghambat rendering/scroll)
+  interactionEvents.forEach((evt) => {
+    window.addEventListener(evt, triggerLoad, { once: true, passive: true });
+  });
+
+  // Fallback timeout setelah 5000ms jika pengguna tidak berinteraksi
+  const timer = setTimeout(loadThirdPartyScripts, 5000);
+
+  onUnmounted(() => {
+    clearTimeout(timer);
+    interactionEvents.forEach((evt) => {
+      window.removeEventListener(evt, triggerLoad);
+    });
+  });
 });
 </script>
 

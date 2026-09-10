@@ -7,7 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Performance
+- Eliminasi aset webfont Font Awesome (`fa-brands-400.woff2` 110 KB dan `fa-solid-900.woff2` 115 KB) serta bundle CSS Font Awesome (~70 KB) dari rantai kritis rendering (*critical request chain*) dengan menggantinya menggunakan komponen SVG native inline [`components/AppIcon.vue`](./components/AppIcon.vue).
+- Optimasi ukuran gambar LCP poster Hero dengan menyediakan file responsif `public/poster-mobile.webp` (756×755 px, 59 KB dari 157 KB, pemangkasan ~62%), kompresi WebP desktop `public/poster.webp` (1200×1199 px, 108 KB), dan pembaruan preload responsif (`imagesrcset` dan `imagesizes`) pada [`app.vue`](./app.vue).
+- Optimasi ukuran logo daerah `public/sinjai.webp` (100×100 px, 3.7 KB dari 29.8 KB, pemangkasan ~87%) untuk mengeliminasi peringatan Lighthouse Image Delivery.
+- Penundaan pemuatan skrip analitik Google Tag Manager pada [`components/AppPlugins.vue`](./components/AppPlugins.vue) menggunakan strategi *User Interaction Deferred* (dimuat saat ada interaksi scroll, touch, mouse, atau klik pengguna dengan fallback aman 5000 ms) guna menekan Total Blocking Time (TBT) mendekati 0 ms.
+- Nonaktifkan fitur `experimental.appManifest` pada [`nuxt.config.ts`](./nuxt.config.ts) untuk mengeliminasi permintaan latensi rantai kritis `meta/<id>.json` (~1.9 detik) pada navigasi awal halaman.
+
+### Fixed
+- Mengatasi galat Vite dev server `Pre-transform error: Failed to resolve import "#app-manifest"` dengan menonaktifkan appManifest virtual yang rentan desinkronisasi cache.
+
+### Added
+- Komponen ikon SVG mandiri [`components/AppIcon.vue`](./components/AppIcon.vue) yang memuat path vektor 28 ikon aktif secara inline, merender instan tanpa layout shift (*zero CLS/FOIT*), dan mengeliminasi audit *Reduce unused CSS*.
+
 ### Removed
+- Plugin `plugins/fontawesome.ts` dan berkas penimpa `assets/css/fontawesome-display.css` karena seluruh ikon telah dimigrasikan ke SVG mandiri.
 - Widget aksesibilitas pihak ketiga UserWay (`cdn.userway.org/widget.js`) beserta resource hint terkait pada [`app.vue`](./app.vue) dan [`components/AppPlugins.vue`](./components/AppPlugins.vue) untuk mengeliminasi 7 *third-party cookies* dan Hotjar tracker demi mencapai skor sempurna Lighthouse Best Practices 100 dengan tetap mempertahankan standar aksesibilitas WCAG 2.1 AA secara native.
 
 ### Performance

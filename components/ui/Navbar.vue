@@ -24,6 +24,7 @@
               width="40"
               height="40"
               class="h-8 lg:h-10 w-auto object-contain"
+              decoding="async"
             />
           </picture>
         </div>
@@ -62,7 +63,7 @@
           rel="noopener noreferrer"
           class="hidden lg:flex bg-red-700 hover:bg-red-800 text-white px-4 md:px-7 py-2 md:py-3 rounded-2xl text-[10px] md:text-xs font-bold transition-all duration-300 shadow-lg shadow-red-900/20 uppercase tracking-widest whitespace-nowrap items-center gap-2"
         >
-          <i class="fas fa-newspaper fa-fw"></i>
+          <AppIcon name="newspaper" />
           Portal Berita
         </a>
 
@@ -74,7 +75,7 @@
           aria-label="Menu Navigasi"
           :aria-expanded="isMobileMenuOpen"
         >
-          <i :class="isMobileMenuOpen ? 'fas fa-xmark' : 'fas fa-bars'" class="text-xl w-5 text-center block"></i>
+          <AppIcon :name="isMobileMenuOpen ? 'xmark' : 'bars'" class="text-xl w-5 block" />
         </button>
       </div>
     </div>
@@ -109,7 +110,7 @@
               rel="noopener noreferrer"
               class="w-full bg-red-700 hover:bg-red-800 text-white py-2.5 rounded-xl text-xs font-bold transition-all duration-300 shadow-md shadow-red-900/20 uppercase tracking-widest flex items-center justify-center gap-2"
             >
-              <i class="fas fa-newspaper fa-fw"></i>
+              <AppIcon name="newspaper" />
               Portal Berita
             </a>
           </div>

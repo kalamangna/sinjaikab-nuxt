@@ -24,7 +24,7 @@
           <div
             class="w-14 h-14 md:w-16 md:h-16 bg-red-50 rounded-2xl flex items-center justify-center text-red-700 mb-4 md:mb-5 group-hover:bg-red-700 group-hover:text-white transition-colors duration-300"
           >
-            <i :class="[program.icon, 'text-xl md:text-2xl fa-fw']"></i>
+            <AppIcon :name="program.icon" class="text-xl md:text-2xl" />
           </div>
           <h3
             class="font-bold text-slate-900 uppercase tracking-tight text-xs sm:text-sm md:text-base leading-tight"

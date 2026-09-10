@@ -66,11 +66,12 @@ useHead({
     {
       rel: "preload",
       as: "image",
-      href: `${config.app.baseURL}poster.webp`,
+      href: `${config.app.baseURL}poster-mobile.webp`,
+      imageSrcset: `${config.app.baseURL}poster-mobile.webp 756w, ${config.app.baseURL}poster.webp 1200w`,
+      imageSizes: "(max-width: 1023px) 100vw, 600px",
       type: "image/webp",
       fetchpriority: "high",
     },
-    { rel: "preconnect", href: "https://www.googletagmanager.com" },
     { rel: "dns-prefetch", href: "https://www.googletagmanager.com" },
   ],
   script: [

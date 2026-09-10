@@ -8,9 +8,10 @@
   >
     <!-- Icon Container -->
     <div class="mb-3 md:mb-4 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center bg-red-50 rounded-2xl group-hover:bg-red-700 transition-colors duration-300">
-      <i
-        :class="[icon, 'text-2xl sm:text-3xl md:text-4xl text-red-700 group-hover:text-white group-hover:scale-110 transition-all duration-300']"
-      ></i>
+      <AppIcon
+        :name="icon"
+        class="text-2xl sm:text-3xl md:text-4xl text-red-700 group-hover:text-white group-hover:scale-110 transition-all duration-300"
+      />
     </div>
     
     <!-- Text -->

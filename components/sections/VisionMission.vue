@@ -22,7 +22,7 @@
         >
           <div class="flex items-center gap-4 mb-6">
             <div class="p-3 bg-red-700 rounded-2xl text-white">
-              <i class="fas fa-eye fa-fw text-xl"></i>
+              <AppIcon name="eye" class="text-xl" />
             </div>
             <h3
               class="text-2xl font-bold text-slate-900 uppercase tracking-tight"
@@ -43,7 +43,7 @@
         >
           <div class="flex items-center gap-4 mb-6">
             <div class="p-3 bg-red-700 rounded-2xl text-white">
-              <i class="fas fa-bullseye fa-fw text-xl"></i>
+              <AppIcon name="bullseye" class="text-xl" />
             </div>
             <h3
               class="text-2xl font-bold text-slate-900 uppercase tracking-tight"

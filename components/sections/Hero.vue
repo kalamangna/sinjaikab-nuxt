@@ -53,7 +53,7 @@
               @click.prevent="scrollToSection('#layanan')"
               class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-red-700 hover:bg-red-800 text-white rounded-2xl font-bold transition-all duration-300 shadow-lg shadow-red-900/20 text-center uppercase tracking-wide cursor-pointer flex items-center justify-center gap-2"
             >
-              <i class="fas fa-th-large fa-fw"></i>
+              <AppIcon name="th-large" class="text-base" />
               Layanan Publik
             </NuxtLink>
 
@@ -63,7 +63,7 @@
               rel="noopener noreferrer"
               class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 rounded-2xl font-bold transition-all duration-300 text-center uppercase tracking-wide flex items-center justify-center gap-2"
             >
-              <i class="fas fa-newspaper fa-fw"></i>
+              <AppIcon name="newspaper" class="text-base" />
               Portal Berita
             </a>
           </div>
@@ -72,15 +72,22 @@
         <!-- Poster Image -->
         <div class="flex-1 w-full max-w-sm sm:max-w-md lg:max-w-none">
           <picture>
-            <source srcset="/poster.webp" type="image/webp" />
+            <source
+              type="image/webp"
+              srcset="/poster-mobile.webp 756w, /poster.webp 1200w"
+              sizes="(max-width: 1023px) 100vw, 600px"
+            />
             <img
-              src="/poster.png"
+              src="/poster-mobile.webp"
+              srcset="/poster-mobile.webp 756w, /poster.webp 1200w"
+              sizes="(max-width: 1023px) 100vw, 600px"
               alt="Poster Visi dan Program Prioritas Kabupaten Sinjai"
-              width="800"
-              height="800"
+              width="756"
+              height="755"
               class="w-full h-auto shadow-2xl border border-slate-100 rounded-xl"
               loading="eager"
               fetchpriority="high"
+              decoding="async"
             />
           </picture>
         </div>

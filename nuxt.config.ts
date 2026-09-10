@@ -13,5 +13,9 @@ export default defineNuxtConfig({
 
   modules: ["@nuxtjs/tailwindcss", "@vercel/analytics"],
 
+  experimental: {
+    appManifest: false,
+  },
+
   compatibilityDate: "2025-02-25",
 });

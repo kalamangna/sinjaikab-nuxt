@@ -14,6 +14,8 @@
                   width="40"
                   height="40"
                   class="h-10 w-auto object-contain"
+                  loading="lazy"
+                  decoding="async"
                 />
               </picture>
             </div>
@@ -41,7 +43,7 @@
               class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors duration-300"
             >
               <span class="sr-only">Facebook</span>
-              <i class="fab fa-facebook-f fa-fw text-lg"></i>
+              <AppIcon name="facebook-f" class="text-lg" />
             </a>
             <a
               href="https://www.instagram.com/sinjaikab"
@@ -50,7 +52,7 @@
               class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors duration-300"
             >
               <span class="sr-only">Instagram</span>
-              <i class="fab fa-instagram fa-fw text-lg"></i>
+              <AppIcon name="instagram" class="text-lg" />
             </a>
             <a
               href="https://www.tiktok.com/@pemkabsinjai"
@@ -59,7 +61,7 @@
               class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors duration-300"
             >
               <span class="sr-only">TikTok</span>
-              <i class="fab fa-tiktok fa-fw text-lg"></i>
+              <AppIcon name="tiktok" class="text-lg" />
             </a>
             <a
               href="https://www.youtube.com/@SINJAITV"
@@ -68,7 +70,7 @@
               class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors duration-300"
             >
               <span class="sr-only">YouTube</span>
-              <i class="fab fa-youtube fa-fw text-lg"></i>
+              <AppIcon name="youtube" class="text-lg" />
             </a>
             <a
               href="https://x.com/sinjaikab"
@@ -77,7 +79,7 @@
               class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors duration-300"
             >
               <span class="sr-only">X (Twitter)</span>
-              <i class="fab fa-x-twitter fa-fw text-lg"></i>
+              <AppIcon name="x-twitter" class="text-lg" />
             </a>
           </div>
         </div>
@@ -94,7 +96,7 @@
                 @click.prevent="scrollToSection('#visi-misi')"
                 class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer flex items-center gap-2 text-sm"
               >
-                <i class="fas fa-flag fa-fw text-xs text-red-500"></i>
+                <AppIcon name="flag" class="text-xs text-red-500" />
                 Visi &amp; Misi
               </NuxtLink>
             </li>
@@ -104,7 +106,7 @@
                 @click.prevent="scrollToSection('#program-prioritas')"
                 class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer flex items-center gap-2 text-sm"
               >
-                <i class="fas fa-star fa-fw text-xs text-red-500"></i>
+                <AppIcon name="star" class="text-xs text-red-500" />
                 Program Prioritas
               </NuxtLink>
             </li>
@@ -114,7 +116,7 @@
                 @click.prevent="scrollToSection('#layanan')"
                 class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer flex items-center gap-2 text-sm"
               >
-                <i class="fas fa-rocket fa-fw text-xs text-red-500"></i>
+                <AppIcon name="rocket" class="text-xs text-red-500" />
                 Layanan Digital
               </NuxtLink>
             </li>
@@ -128,14 +130,14 @@
           </h3>
           <ul class="space-y-4">
             <li class="flex items-start gap-3">
-              <i class="fas fa-map-marker-alt text-red-500 mt-0.5 flex-shrink-0"></i>
+              <AppIcon name="location-dot" class="text-red-500 mt-1 flex-shrink-0 text-sm" />
               <span class="text-slate-400 text-sm leading-relaxed">
                 Kantor Bupati Sinjai, Jl. Tanassang, Alehanuae, Sinjai Utara,
                 Sinjai, Sulawesi Selatan 92615
               </span>
             </li>
             <li class="flex items-center gap-3">
-              <i class="fas fa-envelope text-red-500 flex-shrink-0"></i>
+              <AppIcon name="envelope" class="text-red-500 flex-shrink-0 text-sm" />
               <span class="text-slate-400 text-sm">info@sinjaikab.go.id</span>
             </li>
           </ul>
