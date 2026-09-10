@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Perbaiki kerentanan `picomatch` (GHSA-3v7f-55p6-f55p, GHSA-c2c7-rcm5-vvqj — high) via `npm audit fix`. Total kerentanan berkurang dari 50 → 0.
 
 ### Fixed
-- Sinkronisasi dependensi `package-lock.json` dengan `package.json` (`unplugin` & `picomatch`) untuk mengatasi kegagalan perintah `npm ci` (error `EUSAGE`) pada runner GitHub Actions.
+- Kembalikan langkah instalasi pada workflow GitHub Actions (`.github/workflows/deploy.yml`) ke `npm install` untuk mencegah galat `EUSAGE` akibat perbedaan resolusi pohon dependensi lintas sistem operasi (Linux runner vs macOS).
 
 ### Changed
 - Perluas deskripsi meta pada `app.vue` (~155 karakter) memuat kata kunci layanan publik, transparansi, dan program daerah.
