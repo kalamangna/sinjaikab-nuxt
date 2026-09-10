@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /cpanel
+Disallow: /webmail
+Disallow: /whm
 
 # Khusus untuk Googlebot
 User-agent: Googlebot

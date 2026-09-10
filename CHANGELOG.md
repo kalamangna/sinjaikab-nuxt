@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Optimasi Technical & On-Page SEO pada `app.vue`: implementasi Schema.org JSON-LD `@graph` (entitas `WebSite`, `GovernmentOrganization`, `AdministrativeArea` beserta `GeoCoordinates` Kantor Bupati Sinjai), metadata Geotagging lokal (`geo.region`, `geo.placename`, `geo.position`, `ICBM`), meta `keywords` daerah, serta metadata dimensi Open Graph dan akun Twitter/X.
+- Proteksi *crawl budget* mesin pencari dengan menambahkan aturan `Disallow: /cpanel`, `Disallow: /webmail`, dan `Disallow: /whm` pada `public/robots.txt`.
 - Integrasi paket dan modul resmi [`@vercel/analytics`](https://vercel.com/docs/analytics) pada `nuxt.config.ts` untuk pemantauan pengunjung dan *page views* secara real-time.
 - Konfigurasi aturan redirect di [`vercel.json`](./vercel.json) untuk rute administratif server (`/cpanel` ke `https://cpanel.sinjaikab.go.id`, `/webmail` ke `https://webmail.sinjaikab.go.id`, dan `/whm` ke `https://whm.sinjaikab.go.id:2087`).
 - Berkas konfigurasi Vercel ([`vercel.json`](./vercel.json)) dengan HTTP Security Headers lengkap untuk platform Vercel.
