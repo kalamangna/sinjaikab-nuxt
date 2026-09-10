@@ -37,7 +37,7 @@ npm run generate
 ## Deployment
 
 Proyek terhubung dan dideploy otomatis via **Vercel** pada branch `main`:
-- Konfigurasi redirect rute `/web` ke root domain dan HTTP Security Headers diatur pada [`vercel.json`](./vercel.json).
+- HTTP Security Headers diatur pada [`vercel.json`](./vercel.json).
 
 
 

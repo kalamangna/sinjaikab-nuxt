@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Berkas konfigurasi Vercel ([`vercel.json`](./vercel.json)) dengan aturan redirect URL lama `/web` ke root domain serta HTTP Security Headers lengkap untuk platform Vercel.
+- Berkas konfigurasi Vercel ([`vercel.json`](./vercel.json)) dengan HTTP Security Headers lengkap untuk platform Vercel.
 - Structured Data Schema.org (`GovernmentOrganization`) via JSON-LD di `app.vue` untuk pengenalan entitas resmi dan Knowledge Graph Google.
 - Tautan aksesibilitas *Skip to Content* (`Lewati ke konten utama`) dan target `id="main-content"` pada `layouts/default.vue` (standar WCAG 2.1 AA).
 - Resource hint `rel="preconnect"` dan `rel="dns-prefetch"` pada `app.vue` untuk mempercepat koneksi ke CDN UserWay dan Google Tag Manager.
@@ -59,6 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Services (Layanan Digital): grid `grid-cols-2 md:grid-cols-4` — 8 item terbagi rata 4+4 di tablet dan desktop.
 
 ### Removed
+- Aturan redirect rute `/web` dan `/web/*` pada [`vercel.json`](./vercel.json).
 - Modul `@nuxt/image` dari dependensi proyek (`package.json`) dan `nuxt.config.ts` karena seluruh aset gambar menggunakan tag `<img>` native responsif.
 - Berkas konfigurasi cPanel (`.cpanel.yml`), Apache `.htaccess` (`public/.htaccess`), dan workflow GitHub Actions (`.github/workflows/deploy.yml`) setelah migrasi penuh ke platform Vercel.
 - Symlink usang `dist` di direktori root proyek.
