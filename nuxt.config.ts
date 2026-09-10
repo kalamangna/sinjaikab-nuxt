@@ -13,8 +13,17 @@ export default defineNuxtConfig({
 
   modules: ["@nuxtjs/tailwindcss", "@vercel/analytics"],
 
+  routeRules: {
+    "/": { prerender: true },
+  },
+
+  features: {
+    inlineStyles: true,
+  },
+
   experimental: {
     appManifest: false,
+    payloadExtraction: false,
   },
 
   compatibilityDate: "2025-02-25",

@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Performance
+- Implementasi Edge pre-rendering via `routeRules: { "/": { prerender: true } }` pada [`nuxt.config.ts`](./nuxt.config.ts) untuk menghasilkan `index.html` statis yang disajikan langsung dari Edge CDN global Vercel, memangkas *Time to First Byte* (TTFB) dari ~617 ms ke ~30–50 ms.
+- Penerapan `features: { inlineStyles: true }` pada [`nuxt.config.ts`](./nuxt.config.ts) untuk menyematkan CSS kritis langsung ke dokumen HTML guna mempercepat *First Contentful Paint* (FCP < 900 ms) demi mengunci skor sempurna Lighthouse 100.
+- Nonaktifkan ekstraksi payload (`experimental.payloadExtraction: false`) pada [`nuxt.config.ts`](./nuxt.config.ts) guna menghindari permintaan jaringan ekstra ke `_payload.json`.
+- Tambahkan aturan caching jangka panjang `Cache-Control: public, max-age=31536000, immutable` pada [`vercel.json`](./vercel.json) untuk seluruh aset bundle `_nuxt/*` serta file `.css` dan `.js`.
 - Eliminasi aset webfont Font Awesome (`fa-brands-400.woff2` 110 KB dan `fa-solid-900.woff2` 115 KB) serta bundle CSS Font Awesome (~70 KB) dari rantai kritis rendering (*critical request chain*) dengan menggantinya menggunakan komponen SVG native inline [`components/AppIcon.vue`](./components/AppIcon.vue).
 - Optimasi ukuran gambar LCP poster Hero dengan menyediakan file responsif `public/poster-mobile.webp` (756×755 px, 59 KB dari 157 KB, pemangkasan ~62%), kompresi WebP desktop `public/poster.webp` (1200×1199 px, 108 KB), dan pembaruan preload responsif (`imagesrcset` dan `imagesizes`) pada [`app.vue`](./app.vue).
 - Optimasi ukuran logo daerah `public/sinjai.webp` (100×100 px, 3.7 KB dari 29.8 KB, pemangkasan ~87%) untuk mengeliminasi peringatan Lighthouse Image Delivery.
