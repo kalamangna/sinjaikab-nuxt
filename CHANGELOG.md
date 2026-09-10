@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Performance
+- Penerapan *lazy client hydration* dan *code-splitting* pada seluruh section *below-the-fold* ([`app.vue`](./app.vue) dan [`layouts/default.vue`](./layouts/default.vue)) dengan komponen `<LazySectionsVisionMission />`, `<LazySectionsPriorityPrograms />`, `<LazySectionsServices />`, dan `<LazyUiFooter />` untuk memecah bundle JavaScript klien, mengeliminasi *long tasks* hidrasi Vue pada CPU mobile, dan menekan Total Blocking Time (TBT) ke 0 ms.
 - Implementasi Edge pre-rendering via `routeRules: { "/": { prerender: true } }` pada [`nuxt.config.ts`](./nuxt.config.ts) untuk menghasilkan `index.html` statis yang disajikan langsung dari Edge CDN global Vercel, memangkas *Time to First Byte* (TTFB) dari ~617 ms ke ~30–50 ms.
 - Penerapan `features: { inlineStyles: true }` pada [`nuxt.config.ts`](./nuxt.config.ts) untuk menyematkan CSS kritis langsung ke dokumen HTML guna mempercepat *First Contentful Paint* (FCP < 900 ms) demi mengunci skor sempurna Lighthouse 100.
 - Nonaktifkan ekstraksi payload (`experimental.payloadExtraction: false`) pada [`nuxt.config.ts`](./nuxt.config.ts) guna menghindari permintaan jaringan ekstra ke `_payload.json`.

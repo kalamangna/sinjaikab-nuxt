@@ -215,9 +215,9 @@ const services = [
 <template>
   <NuxtLayout>
     <SectionsHero />
-    <SectionsVisionMission />
-    <SectionsPriorityPrograms />
-    <SectionsServices :services="services" />
+    <LazySectionsVisionMission />
+    <LazySectionsPriorityPrograms />
+    <LazySectionsServices :services="services" />
     <AppPlugins />
   </NuxtLayout>
 </template>

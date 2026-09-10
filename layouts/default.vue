@@ -10,7 +10,7 @@
     <main id="main-content" tabindex="-1" class="flex-grow focus:outline-none">
       <slot />
     </main>
-    <UiFooter />
+    <LazyUiFooter />
   </div>
 </template>
 
