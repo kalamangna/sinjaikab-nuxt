@@ -7,8 +7,13 @@
       "permanent": false
     },
     {
-      "source": "/cpanel/:path*",
-      "destination": "https://cpanel.sinjaikab.go.id/:path*",
+      "source": "/cpanel/",
+      "destination": "https://cpanel.sinjaikab.go.id",
+      "permanent": false
+    },
+    {
+      "source": "/cpanel/:path+",
+      "destination": "https://cpanel.sinjaikab.go.id/:path+",
       "permanent": false
     },
     {
@@ -17,13 +22,58 @@
       "permanent": false
     },
     {
-      "source": "/webmail/:path*",
-      "destination": "https://webmail.sinjaikab.go.id/:path*",
+      "source": "/webmail/",
+      "destination": "https://webmail.sinjaikab.go.id",
+      "permanent": false
+    },
+    {
+      "source": "/webmail/:path+",
+      "destination": "https://webmail.sinjaikab.go.id/:path+",
       "permanent": false
     },
     {
       "source": "/whm",
       "destination": "https://whm.sinjaikab.go.id:2087",
+      "permanent": false
+    },
+    {
+      "source": "/whm/",
+      "destination": "https://whm.sinjaikab.go.id:2087",
+      "permanent": false
+    },
+    {
+      "source": "/whm/:path+",
+      "destination": "https://whm.sinjaikab.go.id:2087/:path+",
+      "permanent": false
+    },
+    {
+      "source": "/spbe",
+      "destination": "https://spbe.sinjaikab.go.id",
+      "permanent": false
+    },
+    {
+      "source": "/spbe/",
+      "destination": "https://spbe.sinjaikab.go.id",
+      "permanent": false
+    },
+    {
+      "source": "/spbe/:path+",
+      "destination": "https://spbe.sinjaikab.go.id/:path+",
+      "permanent": false
+    },
+    {
+      "source": "/agenda",
+      "destination": "https://apps.sinjaikab.go.id/agenda",
+      "permanent": false
+    },
+    {
+      "source": "/agenda/",
+      "destination": "https://apps.sinjaikab.go.id/agenda",
+      "permanent": false
+    },
+    {
+      "source": "/agenda/:path+",
+      "destination": "https://apps.sinjaikab.go.id/agenda/:path+",
       "permanent": false
     }
   ],
@@ -46,6 +96,15 @@
         {
           "key": "Permissions-Policy",
           "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(ico|png|jpg|jpeg|svg|webp|woff|woff2|ttf)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
       ]
     }

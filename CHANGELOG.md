@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Berkas penanganan galat kustom [`error.vue`](./error.vue) bertema resmi Pemerintah Kabupaten Sinjai untuk merespons status HTTP 404 pada URL yang tidak valid dan mencegah *Soft 404* pada Google Search Console.
+- Aturan caching jangka panjang (`Cache-Control: public, max-age=31536000, immutable`) pada [`vercel.json`](./vercel.json) untuk file aset statis gambar dan font (`.ico`, `.png`, `.jpg`, `.svg`, `.webp`, `.woff2`, `.ttf`).
+- Aturan redirect pada [`vercel.json`](./vercel.json) untuk rute `/spbe` dan `/spbe/:path+` ke `https://spbe.sinjaikab.go.id` serta rute warisan `/agenda` dan `/agenda/:path+` ke `https://apps.sinjaikab.go.id/agenda`.
+
+### Fixed
+- Penanganan variasi *trailing slash* (`/cpanel/`, `/webmail/`, `/whm/`, `/spbe/`, `/agenda/`) pada aturan pengalihan [`vercel.json`](./vercel.json) agar tidak jatuh kembali ke beranda Nuxt.
+- Tautan menu layanan SPBE pada [`app.vue`](./app.vue) diperbarui dari `https://sinjaikab.go.id/spbe/` menjadi `https://spbe.sinjaikab.go.id/`.
+- Validasi rute pada [`app.vue`](./app.vue) untuk melempar error 404 nyata saat mengakses rute selain root (`/`).
+
+### Added
 - Optimasi Technical & On-Page SEO pada `app.vue`: implementasi Schema.org JSON-LD `@graph` (entitas `WebSite`, `GovernmentOrganization`, `AdministrativeArea` beserta `GeoCoordinates` Kantor Bupati Sinjai), metadata Geotagging lokal (`geo.region`, `geo.placename`, `geo.position`, `ICBM`), meta `keywords` daerah, serta metadata dimensi Open Graph dan akun Twitter/X.
 - Proteksi *crawl budget* mesin pencari dengan menambahkan aturan `Disallow: /cpanel`, `Disallow: /webmail`, dan `Disallow: /whm` pada `public/robots.txt`.
 - Integrasi paket dan modul resmi [`@vercel/analytics`](https://vercel.com/docs/analytics) pada `nuxt.config.ts` untuk pemantauan pengunjung dan *page views* secara real-time.

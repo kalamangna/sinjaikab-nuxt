@@ -1,5 +1,14 @@
 <script lang="ts" setup>
 const config = useRuntimeConfig();
+const route = useRoute();
+
+if (route.path !== "/") {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Halaman Tidak Ditemukan",
+    fatal: true,
+  });
+}
 
 const title = "Pemerintah Kabupaten Sinjai";
 const description =
@@ -177,7 +186,7 @@ const services = [
   {
     name: "spbe",
     label: "SPBE",
-    href: "https://sinjaikab.go.id/spbe/",
+    href: "https://spbe.sinjaikab.go.id/",
     voice: "Sistem Elektronik",
     icon: "fa-solid fa-laptop-code",
   },
