@@ -14,9 +14,6 @@ const handleError = () => clearError({ redirect: '/' })
       <img class="mx-auto h-20 w-auto" src="/sinjai.png" alt="Pemerintah Kabupaten Sinjai" />
       <h1 class="text-6xl font-extrabold text-red-700 tracking-tight">404</h1>
       <h2 class="text-2xl font-bold text-gray-900">Halaman Tidak Ditemukan</h2>
-      <p class="text-gray-600">
-        Mohon maaf, alamat yang Anda tuju tidak tersedia atau telah dipindahkan.
-      </p>
       <div>
         <button
           @click="handleError"

@@ -46,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kembalikan langkah instalasi pada workflow GitHub Actions (`.github/workflows/deploy.yml`) ke `npm install` untuk mencegah galat `EUSAGE` akibat perbedaan resolusi pohon dependensi lintas sistem operasi (Linux runner vs macOS).
 
 ### Changed
+- Penyederhanaan tampilan antarmuka halaman galat 404 pada [`error.vue`](./error.vue) dengan menghapus teks deskripsi pengalihan agar lebih bersih dan minimalis.
 - Perbarui dokumentasi [`README.md`](./README.md) sesuai konteks migrasi Nuxt 3, Tailwind CSS, dan deployment Vercel.
 - Perluas deskripsi meta pada `app.vue` (~155 karakter) memuat kata kunci layanan publik, transparansi, dan program daerah.
 - Sempurnakan alt text gambar: Hero poster menjadi "Poster Visi dan Program Prioritas Kabupaten Sinjai", logo di Navbar & Footer menjadi "Lambang Daerah Kabupaten Sinjai".
