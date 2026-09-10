@@ -16,7 +16,7 @@
         <div
           class="bg-white p-1.5 rounded-xl shadow-sm border border-slate-100 shrink-0 group-hover:scale-105 transition-transform"
         >
-          <NuxtImg
+          <img
             src="/sinjai.png"
             alt="Lambang Daerah Kabupaten Sinjai"
             width="40"
