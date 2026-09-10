@@ -5,9 +5,10 @@
         <h2 class="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter mb-4">
           Layanan <span class="text-red-700">Digital</span>
         </h2>
-        <p class="text-slate-500 max-w-xl mx-auto">
+        <p class="text-slate-500 max-w-xl mx-auto mb-4">
           Akses cepat berbagai layanan publik dan sistem informasi pemerintahan Kabupaten Sinjai dalam satu pintu.
         </p>
+        <div class="w-20 h-1.5 bg-red-700 mx-auto rounded-full"></div>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">

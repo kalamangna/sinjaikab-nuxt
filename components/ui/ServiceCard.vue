@@ -3,13 +3,13 @@
     :href="href"
     target="_blank"
     rel="noopener noreferrer"
-    class="group flex flex-col items-center p-4 sm:p-5 md:p-6 bg-white rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-red-900/5 hover:-translate-y-1 transition-all duration-300"
+    class="group flex flex-col items-center p-4 sm:p-5 md:p-6 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-red-900/5 hover:-translate-y-1 transition-all duration-300"
     :title="description"
   >
     <!-- Icon Container -->
-    <div class="mb-3 md:mb-4 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center bg-slate-50 rounded-2xl group-hover:bg-red-50 transition-colors duration-300">
-      <i 
-        :class="[icon, 'text-2xl sm:text-3xl md:text-4xl text-slate-400 group-hover:text-red-700 group-hover:scale-110 transition-all duration-300']"
+    <div class="mb-3 md:mb-4 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center bg-red-50 rounded-2xl group-hover:bg-red-700 transition-colors duration-300">
+      <i
+        :class="[icon, 'text-2xl sm:text-3xl md:text-4xl text-red-700 group-hover:text-white group-hover:scale-110 transition-all duration-300']"
       ></i>
     </div>
     

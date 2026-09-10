@@ -5,26 +5,26 @@
         <!-- Brand -->
         <div class="lg:col-span-2">
           <div class="flex items-center gap-3 mb-5">
-            <div class="bg-white p-1.5 rounded-xl shrink-0">
+            <div class="bg-white p-1.5 rounded-xl shadow-sm border border-slate-100 shrink-0">
               <NuxtImg
                 src="/sinjai.png"
-                alt="Logo Sinjai"
+                alt="Lambang Daerah Kabupaten Sinjai"
                 width="40"
                 height="40"
                 class="h-10 w-auto object-contain"
               />
             </div>
-            <div>
-              <h2
-                class="font-black text-xl tracking-tighter uppercase leading-none"
+            <div class="flex flex-col gap-0.5">
+              <span
+                class="font-black text-sm lg:text-lg tracking-tighter uppercase leading-none"
               >
                 Pemkab Sinjai
-              </h2>
-              <p
-                class="text-[10px] font-bold text-red-500 uppercase tracking-[0.2em] leading-none mt-0.5"
+              </span>
+              <span
+                class="text-[9px] lg:text-[10px] font-bold text-red-400 uppercase tracking-[0.2em] leading-none"
               >
                 Official Website
-              </p>
+              </span>
             </div>
           </div>
           <p class="text-slate-400 max-w-sm mb-6 leading-relaxed text-sm">
@@ -35,7 +35,7 @@
               href="https://www.facebook.com/FP.KabupatenSinjai"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors"
+              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors duration-300"
             >
               <span class="sr-only">Facebook</span>
               <i class="fab fa-facebook-f fa-fw text-lg"></i>
@@ -44,7 +44,7 @@
               href="https://www.instagram.com/sinjaikab"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors"
+              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors duration-300"
             >
               <span class="sr-only">Instagram</span>
               <i class="fab fa-instagram fa-fw text-lg"></i>
@@ -53,7 +53,7 @@
               href="https://www.tiktok.com/@pemkabsinjai"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors"
+              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors duration-300"
             >
               <span class="sr-only">TikTok</span>
               <i class="fab fa-tiktok fa-fw text-lg"></i>
@@ -62,7 +62,7 @@
               href="https://www.youtube.com/@SINJAITV"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors"
+              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors duration-300"
             >
               <span class="sr-only">YouTube</span>
               <i class="fab fa-youtube fa-fw text-lg"></i>
@@ -71,7 +71,7 @@
               href="https://x.com/sinjaikab"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors"
+              class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-700 transition-colors duration-300"
             >
               <span class="sr-only">X (Twitter)</span>
               <i class="fab fa-x-twitter fa-fw text-lg"></i>
@@ -87,19 +87,9 @@
           <ul class="space-y-3">
             <li>
               <NuxtLink
-                to="/"
-                @click.prevent="scrollToSection('#')"
-                class="text-slate-400 hover:text-white transition-colors cursor-pointer flex items-center gap-2 text-sm"
-              >
-                <i class="fas fa-home fa-fw text-xs text-red-500"></i>
-                Beranda
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink
                 to="#visi-misi"
                 @click.prevent="scrollToSection('#visi-misi')"
-                class="text-slate-400 hover:text-white transition-colors cursor-pointer flex items-center gap-2 text-sm"
+                class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer flex items-center gap-2 text-sm"
               >
                 <i class="fas fa-flag fa-fw text-xs text-red-500"></i>
                 Visi &amp; Misi
@@ -109,7 +99,7 @@
               <NuxtLink
                 to="#program-prioritas"
                 @click.prevent="scrollToSection('#program-prioritas')"
-                class="text-slate-400 hover:text-white transition-colors cursor-pointer flex items-center gap-2 text-sm"
+                class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer flex items-center gap-2 text-sm"
               >
                 <i class="fas fa-star fa-fw text-xs text-red-500"></i>
                 Program Prioritas
@@ -119,22 +109,11 @@
               <NuxtLink
                 to="#layanan"
                 @click.prevent="scrollToSection('#layanan')"
-                class="text-slate-400 hover:text-white transition-colors cursor-pointer flex items-center gap-2 text-sm"
+                class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer flex items-center gap-2 text-sm"
               >
                 <i class="fas fa-rocket fa-fw text-xs text-red-500"></i>
                 Layanan Digital
               </NuxtLink>
-            </li>
-            <li>
-              <a
-                href="https://humas.sinjaikab.go.id/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-sm"
-              >
-                <i class="fas fa-newspaper fa-fw text-xs text-red-500"></i>
-                Portal Berita
-              </a>
             </li>
           </ul>
         </div>

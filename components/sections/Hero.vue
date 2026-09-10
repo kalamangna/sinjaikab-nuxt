@@ -51,7 +51,7 @@
             <NuxtLink
               to="#layanan"
               @click.prevent="scrollToSection('#layanan')"
-              class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-red-700 hover:bg-red-800 text-white rounded-2xl font-bold transition-all shadow-lg shadow-red-900/20 text-center uppercase tracking-wide cursor-pointer flex items-center justify-center gap-2"
+              class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-red-700 hover:bg-red-800 text-white rounded-2xl font-bold transition-all duration-300 shadow-lg shadow-red-900/20 text-center uppercase tracking-wide cursor-pointer flex items-center justify-center gap-2"
             >
               <i class="fas fa-th-large fa-fw"></i>
               Layanan Publik
@@ -61,9 +61,9 @@
               href="https://humas.sinjaikab.go.id/"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 rounded-2xl font-bold transition-all text-center uppercase tracking-wide flex items-center justify-center gap-2"
+              class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 rounded-2xl font-bold transition-all duration-300 text-center uppercase tracking-wide flex items-center justify-center gap-2"
             >
-              <i class="fas fa-external-link-alt fa-fw"></i>
+              <i class="fas fa-newspaper fa-fw"></i>
               Portal Berita
             </a>
           </div>
@@ -73,7 +73,7 @@
         <div class="flex-1 w-full max-w-sm sm:max-w-md lg:max-w-none">
           <NuxtImg
             src="/poster.png"
-            alt="Sinjai Bersatu"
+            alt="Poster Visi dan Program Prioritas Kabupaten Sinjai"
             format="webp"
             quality="80"
             width="800"

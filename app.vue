@@ -2,7 +2,8 @@
 const config = useRuntimeConfig();
 
 const title = "Pemerintah Kabupaten Sinjai";
-const description = "Website Resmi Pemerintah Kabupaten Sinjai.";
+const description =
+  "Portal resmi Pemerintah Kabupaten Sinjai. Menyajikan informasi publik, transparansi tata kelola, program prioritas daerah, dan akses layanan digital terpadu.";
 const baseUrl = config.public.baseUrl;
 const imageUrl = `${baseUrl}/meta.png`;
 
@@ -10,18 +11,25 @@ useHead({
   title,
   meta: [
     { name: "description", content: description },
+    { name: "author", content: "Diskominfo-SP Kabupaten Sinjai" },
+    { name: "robots", content: "index, follow, max-image-preview:large" },
+    { name: "theme-color", content: "#b91c1c" },
     // Open Graph
     { property: "og:type", content: "website" },
+    { property: "og:locale", content: "id_ID" },
+    { property: "og:site_name", content: "Pemerintah Kabupaten Sinjai" },
     { property: "og:url", content: baseUrl },
     { property: "og:title", content: title },
     { property: "og:description", content: description },
     { property: "og:image", content: imageUrl },
+    { property: "og:image:alt", content: "Portal Resmi Pemerintah Kabupaten Sinjai" },
     // Twitter
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:url", content: baseUrl },
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
     { name: "twitter:image", content: imageUrl },
+    { name: "twitter:image:alt", content: "Portal Resmi Pemerintah Kabupaten Sinjai" },
     // Viewport & Mobile
     {
       name: "viewport",
@@ -31,6 +39,45 @@ useHead({
   link: [
     { rel: "icon", type: "image/png", href: `${config.app.baseURL}sinjai.png` },
     { rel: "canonical", href: baseUrl },
+    { rel: "preconnect", href: "https://cdn.userway.org" },
+    { rel: "dns-prefetch", href: "https://cdn.userway.org" },
+    { rel: "preconnect", href: "https://www.googletagmanager.com" },
+    { rel: "dns-prefetch", href: "https://www.googletagmanager.com" },
+  ],
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "GovernmentOrganization",
+        name: "Pemerintah Kabupaten Sinjai",
+        alternateName: "Pemkab Sinjai",
+        url: baseUrl,
+        logo: `${baseUrl}/sinjai.png`,
+        image: imageUrl,
+        description: description,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Jl. Tanassang, Alehanuae, Sinjai Utara",
+          addressLocality: "Kabupaten Sinjai",
+          addressRegion: "Sulawesi Selatan",
+          postalCode: "92615",
+          addressCountry: "ID",
+        },
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "Customer Support",
+          email: "info@sinjaikab.go.id",
+        },
+        sameAs: [
+          "https://www.facebook.com/FP.KabupatenSinjai",
+          "https://www.instagram.com/sinjaikab",
+          "https://www.tiktok.com/@pemkabsinjai",
+          "https://www.youtube.com/@SINJAITV",
+          "https://x.com/sinjaikab",
+        ],
+      }),
+    },
   ],
   htmlAttrs: {
     lang: "id",

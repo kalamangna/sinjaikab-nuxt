@@ -12,26 +12,26 @@
       :class="isScrolled ? 'py-3' : 'py-4 md:py-5'"
     >
       <!-- Logo -->
-      <NuxtLink to="/" @click.prevent="scrollToSection('#')" class="flex items-center gap-2.5 sm:gap-3 group">
+      <NuxtLink to="/" @click.prevent="scrollToSection('#')" class="flex items-center gap-3 group">
         <div
           class="bg-white p-1.5 rounded-xl shadow-sm border border-slate-100 shrink-0 group-hover:scale-105 transition-transform"
         >
           <NuxtImg
             src="/sinjai.png"
-            alt="Logo Sinjai"
+            alt="Lambang Daerah Kabupaten Sinjai"
             width="40"
             height="40"
-            class="h-8 md:h-10 w-auto object-contain"
+            class="h-8 lg:h-10 w-auto object-contain"
           />
         </div>
-        <div class="flex flex-col -gap-1">
+        <div class="flex flex-col gap-0.5">
           <span
-            class="font-black text-xs sm:text-sm md:text-xl tracking-tighter text-slate-900 uppercase leading-none"
+            class="font-black text-sm lg:text-lg tracking-tighter text-slate-900 uppercase leading-none"
           >
             Pemkab Sinjai
           </span>
           <span
-            class="text-[7px] sm:text-[8px] md:text-[10px] font-bold text-red-700 uppercase tracking-[0.2em] leading-none"
+            class="text-[9px] lg:text-[10px] font-bold text-red-700 uppercase tracking-[0.2em] leading-none"
           >
             Official Website
           </span>
@@ -45,7 +45,7 @@
           :key="item.label"
           :to="item.href"
           @click.prevent="scrollToSection(item.href)"
-          class="text-sm font-bold text-slate-600 hover:text-red-700 uppercase tracking-wider transition-colors cursor-pointer"
+          class="text-sm font-bold text-slate-600 hover:text-red-700 uppercase tracking-wider transition-colors duration-200 cursor-pointer"
         >
           {{ item.label }}
         </NuxtLink>
@@ -57,7 +57,7 @@
           href="https://humas.sinjaikab.go.id/"
           target="_blank"
           rel="noopener noreferrer"
-          class="hidden lg:flex bg-red-700 hover:bg-red-800 text-white px-4 md:px-7 py-2 md:py-3 rounded-2xl text-[10px] md:text-xs font-bold transition-all shadow-lg shadow-red-900/20 uppercase tracking-widest whitespace-nowrap items-center gap-2"
+          class="hidden lg:flex bg-red-700 hover:bg-red-800 text-white px-4 md:px-7 py-2 md:py-3 rounded-2xl text-[10px] md:text-xs font-bold transition-all duration-300 shadow-lg shadow-red-900/20 uppercase tracking-widest whitespace-nowrap items-center gap-2"
         >
           <i class="fas fa-newspaper fa-fw"></i>
           Portal Berita
@@ -67,7 +67,7 @@
         <button
           type="button"
           @click="isMobileMenuOpen = !isMobileMenuOpen"
-          class="lg:hidden p-2 rounded-xl text-slate-700 hover:text-red-700 hover:bg-slate-100 transition-colors focus:outline-none"
+          class="lg:hidden p-2 rounded-xl text-slate-700 hover:text-red-700 hover:bg-slate-100 transition-colors duration-200 focus:outline-none"
           aria-label="Menu Navigasi"
           :aria-expanded="isMobileMenuOpen"
         >
@@ -95,7 +95,7 @@
             :key="item.label"
             :to="item.href"
             @click.prevent="handleMobileNavClick(item.href)"
-            class="block py-2.5 px-3 rounded-xl text-xs font-bold text-slate-700 hover:text-red-700 hover:bg-red-50 uppercase tracking-wider transition-colors"
+            class="block py-2.5 px-3 rounded-xl text-xs font-bold text-slate-700 hover:text-red-700 hover:bg-red-50 uppercase tracking-wider transition-colors duration-200"
           >
             {{ item.label }}
           </NuxtLink>
@@ -104,7 +104,7 @@
               href="https://humas.sinjaikab.go.id/"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-full bg-red-700 hover:bg-red-800 text-white py-2.5 rounded-xl text-xs font-bold transition-all shadow-md shadow-red-900/20 uppercase tracking-widest flex items-center justify-center gap-2"
+              class="w-full bg-red-700 hover:bg-red-800 text-white py-2.5 rounded-xl text-xs font-bold transition-all duration-300 shadow-md shadow-red-900/20 uppercase tracking-widest flex items-center justify-center gap-2"
             >
               <i class="fas fa-newspaper fa-fw"></i>
               Portal Berita
@@ -126,8 +126,8 @@ const isMobileMenuOpen = ref(false);
 
 const menuItems = [
   { label: "Visi & Misi", href: "#visi-misi" },
-  { label: "Program", href: "#program-prioritas" },
-  { label: "Layanan", href: "#layanan" },
+  { label: "Program Prioritas", href: "#program-prioritas" },
+  { label: "Layanan Digital", href: "#layanan" },
 ];
 
 const handleMobileNavClick = (href: string) => {

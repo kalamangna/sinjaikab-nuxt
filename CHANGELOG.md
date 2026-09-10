@@ -8,23 +8,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Structured Data Schema.org (`GovernmentOrganization`) via JSON-LD di `app.vue` untuk pengenalan entitas resmi dan Knowledge Graph Google.
+- Tautan aksesibilitas *Skip to Content* (`Lewati ke konten utama`) dan target `id="main-content"` pada `layouts/default.vue` (standar WCAG 2.1 AA).
+- Resource hint `rel="preconnect"` dan `rel="dns-prefetch"` pada `app.vue` untuk mempercepat koneksi ke CDN UserWay dan Google Tag Manager.
+- Meta tags pendukung di `app.vue`: `author`, `robots` (`index, follow, max-image-preview:large`), `theme-color` (`#b91c1c`), `og:locale` (`id_ID`), `og:site_name`, `og:image:alt`, dan `twitter:image:alt`.
+- Divider aksen merah (`w-20 h-1.5 bg-red-700 mx-auto rounded-full`) pada header section Layanan Digital di `Services.vue`.
 - Composable `composables/useScrollTo.ts` sebagai single source of truth untuk smooth scroll dengan offset navbar.
 - Tag `<link rel="canonical">` pada `useHead` di `app.vue` untuk mencegah *duplicate content* di mesin pencari.
 - Atribut `width` dan `height` pada `<NuxtImg>` logo di `Navbar.vue` dan `Footer.vue` untuk mencegah Cumulative Layout Shift (CLS).
 
 ### Security
+- Penambahan HTTP Security Headers pada `public/.htaccess`: `X-Content-Type-Options` ("nosniff"), `X-Frame-Options` ("SAMEORIGIN"), `Referrer-Policy` ("strict-origin-when-cross-origin"), dan `Permissions-Policy` ("camera=(), microphone=(), geolocation=()").
 - Tambahkan `rel="noopener noreferrer"` pada semua tautan `target="_blank"` di `Navbar.vue`, `Footer.vue`, `Hero.vue`, dan `ServiceCard.vue` untuk mencegah *tabnapping attack*.
 - Hapus `@nuxt/devtools` (GHSA-279x-mwfv-vcqv: unauthenticated RPC — critical) karena tidak kompatibel dengan patch yang membutuhkan Nuxt 4, dan fitur devtools memang tidak dipakai di production.
 - Perbaiki kerentanan `picomatch` (GHSA-3v7f-55p6-f55p, GHSA-c2c7-rcm5-vvqj — high) via `npm audit fix`. Total kerentanan berkurang dari 50 → 0.
 
 ### Changed
+- Perluas deskripsi meta pada `app.vue` (~155 karakter) memuat kata kunci layanan publik, transparansi, dan program daerah.
+- Sempurnakan alt text gambar: Hero poster menjadi "Poster Visi dan Program Prioritas Kabupaten Sinjai", logo di Navbar & Footer menjadi "Lambang Daerah Kabupaten Sinjai".
+- Konsistensikan gaya logo dan teks "Pemkab Sinjai" serta "Official Website" antara `Navbar.vue` dan `Footer.vue` (elemen `<span>`, gap, ukuran responsif, warna).
+- Perbarui label menu di `Navbar.vue` menjadi "Program Prioritas" dan "Layanan Digital" agar selaras dengan judul section dan tautan cepat footer.
+- Sederhanakan Tautan Cepat di `Footer.vue` dengan menghapus tautan Beranda dan Portal Berita yang redundan.
+- Penyeragaman gaya icon container pada `ServiceCard.vue` (`bg-red-50` default -> hover `bg-red-700` dengan ikon teks putih) dan border-radius konsisten `rounded-3xl`.
+- Penyeragaman durasi transisi (`duration-200` pada tautan/menu, `duration-300` pada tombol/kartu/sosial media) di seluruh komponen.
 - Konsolidasi fungsi `scrollToSection` yang duplikat di `Hero.vue`, `Navbar.vue`, dan `Footer.vue` ke dalam composable bersama `composables/useScrollTo.ts`.
 - Ganti URL Portal ASN dari `http://` ke `https://` pada `app.vue`.
 - Ganti `npm install` menjadi `npm ci` pada workflow GitHub Actions untuk instalasi yang lebih deterministik di CI.
 - Hapus konfigurasi `devtools: { enabled: false }` dari `nuxt.config.ts` karena paket sudah dihapus.
 - Hapus padding `py-8 md:py-12` dari `<main>` di `layouts/default.vue` — tiap section sudah mengatur padding vertikal sendiri.
 - Navbar: klik logo scroll to top halaman secara smooth.
-- Navbar: hapus item menu "Beranda" karena fungsinya sudah digantikan klik logo.
 - Navbar: perbaiki glitch hamburger — pisahkan padding bar dari `<nav>` ke container inner agar logo tidak bergeser saat menu dibuka, stabilkan transisi dropdown, fix ikon hamburger `w-5 block` agar tidak layout shift.
 - Navbar: dropdown mobile menggunakan `container mx-auto px-4 md:px-6` agar sejajar dengan konten navbar.
 - Navbar: ubah breakpoint dari `md` ke `lg` — hamburger menu tampil di mobile **dan tablet**, desktop menu hanya di `lg+`.
@@ -38,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Services (Layanan Digital): grid `grid-cols-2 md:grid-cols-4` — 8 item terbagi rata 4+4 di tablet dan desktop.
 
 ### Removed
+- Berkas `.npmrc` usang (pnpm config) untuk membersihkan log peringatan build npm.
 - `@nuxt/devtools` dari `devDependencies` (kerentanan critical, tidak dipakai di production).
 - `@nuxtjs/color-mode` dari `devDependencies` (terdaftar tapi tidak diimplementasikan).
 - `@nuxtjs/sitemap` dari `dependencies` (terdaftar tapi tidak diaktifkan di `nuxt.config.ts`).
