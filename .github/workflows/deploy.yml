@@ -29,8 +29,13 @@ jobs:
       - name: Generate Static Site
         run: npm run generate
 
-      - name: Copy .cpanel.yml to output
-        run: cp .cpanel.yml .output/public/.cpanel.yml
+      - name: Prepare Deployment Artifacts
+        run: |
+          cp -r .nuxt/dist/client/* .output/public/ || true
+          cp -r public/* .output/public/ || true
+          cp public/.htaccess .output/public/.htaccess || true
+          cp .cpanel.yml .output/public/.cpanel.yml
+          touch .output/public/.nojekyll
 
       - name: Deploy to Branch 'deploy'
         uses: peaceiris/actions-gh-pages@v4

@@ -16,7 +16,7 @@
         <div
           class="bg-white p-1.5 rounded-xl shadow-sm border border-slate-100 shrink-0 group-hover:scale-105 transition-transform"
         >
-          <NuxtImg
+          <img
             src="/sinjai.png"
             alt="Lambang Daerah Kabupaten Sinjai"
             class="h-8 lg:h-10 w-auto object-contain"
@@ -144,7 +144,8 @@ const handleResize = () => {
 };
 
 onMounted(() => {
-  window.addEventListener("scroll", handleScroll);
+  handleScroll();
+  window.addEventListener("scroll", handleScroll, { passive: true });
   window.addEventListener("resize", handleResize);
 });
 

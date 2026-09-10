@@ -71,14 +71,11 @@
 
         <!-- Poster Image -->
         <div class="flex-1 w-full max-w-sm sm:max-w-md lg:max-w-none">
-          <NuxtImg
+          <img
             src="/poster.png"
             alt="Poster Visi dan Program Prioritas Kabupaten Sinjai"
-            format="webp"
-            quality="80"
             width="800"
             height="800"
-            sizes="sm:100vw md:50vw lg:600px"
             class="w-full h-auto shadow-2xl border border-slate-100 rounded-xl"
             loading="eager"
             fetchpriority="high"
