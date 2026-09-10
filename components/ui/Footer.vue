@@ -6,11 +6,9 @@
         <div class="lg:col-span-2">
           <div class="flex items-center gap-3 mb-5">
             <div class="bg-white p-1.5 rounded-xl shadow-sm border border-slate-100 shrink-0">
-              <img
+              <NuxtImg
                 src="/sinjai.png"
                 alt="Lambang Daerah Kabupaten Sinjai"
-                width="40"
-                height="40"
                 class="h-10 w-auto object-contain"
               />
             </div>

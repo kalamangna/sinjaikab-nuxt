@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Perbaiki kerentanan `picomatch` (GHSA-3v7f-55p6-f55p, GHSA-c2c7-rcm5-vvqj — high) via `npm audit fix`. Total kerentanan berkurang dari 50 → 0.
 
 ### Fixed
-- Ganti komponen `<NuxtImg>` logo di `Navbar.vue` dan `Footer.vue` dengan tag `<img>` native langsung ke `/sinjai.png` untuk mengatasi masalah logo tidak tampil di production cPanel (akibat Apache memblokir/gagal melayani path ampersand `_ipx/q_80&s_40x40/`).
+- Sesuaikan komponen `<NuxtImg>` logo di `Navbar.vue` dan `Footer.vue` dengan menghapus modifier dimensi manual yang memicu karakter ampersand (`_ipx/q_80&s_40x40/`), sehingga menghasilkan path bersih `_ipx/q_80/sinjai.png` yang kompatibel 100% dengan web server Apache di cPanel.
 - Tata letak grid Program Prioritas diubah ke CSS Grid murni (`grid-cols-2 lg:grid-cols-5` dengan kartu ke-5 di tengah) untuk mengatasi masalah overflow lebar desktop pada rumus flex kalkulasi sebelumnya.
 - Kembalikan langkah instalasi pada workflow GitHub Actions (`.github/workflows/deploy.yml`) ke `npm install` untuk mencegah galat `EUSAGE` akibat perbedaan resolusi pohon dependensi lintas sistem operasi (Linux runner vs macOS).
 
