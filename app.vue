@@ -30,6 +30,7 @@ useHead({
   ],
   link: [
     { rel: "icon", type: "image/png", href: `${config.app.baseURL}sinjai.png` },
+    { rel: "canonical", href: baseUrl },
   ],
   htmlAttrs: {
     lang: "id",
@@ -89,7 +90,7 @@ const services = [
   {
     name: "asn",
     label: "Portal ASN",
-    href: "http://apps.sinjaikab.go.id/gateway/public/login",
+    href: "https://apps.sinjaikab.go.id/gateway/public/login",
     voice: "Layanan Kepegawaian",
     icon: "fa-solid fa-id-card-clip",
   },

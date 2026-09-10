@@ -15,10 +15,10 @@
         <div class="w-20 h-1.5 bg-red-700 mx-auto rounded-full"></div>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
+      <div class="grid lg:grid-cols-2 gap-6 lg:gap-8 items-start">
         <!-- Visi -->
         <div
-          class="bg-slate-50 p-8 md:p-10 rounded-3xl border border-slate-100 shadow-sm"
+          class="bg-slate-50 p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm"
         >
           <div class="flex items-center gap-4 mb-6">
             <div class="p-3 bg-red-700 rounded-2xl text-white">
@@ -39,7 +39,7 @@
 
         <!-- Misi -->
         <div
-          class="bg-white p-8 md:p-10 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/50"
+          class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/50"
         >
           <div class="flex items-center gap-4 mb-6">
             <div class="p-3 bg-red-700 rounded-2xl text-white">

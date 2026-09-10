@@ -2,6 +2,7 @@
   <a 
     :href="href"
     target="_blank"
+    rel="noopener noreferrer"
     class="group flex flex-col items-center p-4 sm:p-5 md:p-6 bg-white rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-red-900/5 hover:-translate-y-1 transition-all duration-300"
     :title="description"
   >
