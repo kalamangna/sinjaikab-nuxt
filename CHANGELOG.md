@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Konfigurasi aturan redirect di [`vercel.json`](./vercel.json) untuk rute administratif server (`/cpanel` ke `https://cpanel.sinjaikab.go.id`, `/webmail` ke `https://webmail.sinjaikab.go.id`, dan `/whm` ke `https://whm.sinjaikab.go.id:2087`).
 - Berkas konfigurasi Vercel ([`vercel.json`](./vercel.json)) dengan HTTP Security Headers lengkap untuk platform Vercel.
 - Structured Data Schema.org (`GovernmentOrganization`) via JSON-LD di `app.vue` untuk pengenalan entitas resmi dan Knowledge Graph Google.
 - Tautan aksesibilitas *Skip to Content* (`Lewati ke konten utama`) dan target `id="main-content"` pada `layouts/default.vue` (standar WCAG 2.1 AA).

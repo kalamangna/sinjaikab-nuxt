@@ -1,5 +1,32 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/cpanel",
+      "destination": "https://cpanel.sinjaikab.go.id",
+      "permanent": false
+    },
+    {
+      "source": "/cpanel/:path*",
+      "destination": "https://cpanel.sinjaikab.go.id/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/webmail",
+      "destination": "https://webmail.sinjaikab.go.id",
+      "permanent": false
+    },
+    {
+      "source": "/webmail/:path*",
+      "destination": "https://webmail.sinjaikab.go.id/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/whm",
+      "destination": "https://whm.sinjaikab.go.id:2087",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
