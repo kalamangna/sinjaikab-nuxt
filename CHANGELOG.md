@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Performance
+- Optimasi Core Web Vitals (LCP) melalui kompresi format modern WebP untuk poster Hero (`public/poster.webp` 157 KB dari 1.5 MB, pemangkasan ~90%) dan logo Pemkab Sinjai (`public/sinjai.webp` 30 KB dari 118 KB, pemangkasan ~75%).
+- Implementasi elemen responsif `<picture>` pada `Hero.vue`, `Navbar.vue`, dan `Footer.vue` dengan prioritas WebP dan fallback PNG.
+- Penambahan resource hint `<link rel="preload">` untuk `poster.webp` pada `app.vue` guna memicu pengunduhan dini aset LCP utama.
+
 ### Added
 - Berkas penanganan galat kustom [`error.vue`](./error.vue) bertema resmi Pemerintah Kabupaten Sinjai untuk merespons status HTTP 404 pada URL yang tidak valid dan mencegah *Soft 404* pada Google Search Console.
 - Aturan caching jangka panjang (`Cache-Control: public, max-age=31536000, immutable`) pada [`vercel.json`](./vercel.json) untuk file aset statis gambar dan font (`.ico`, `.png`, `.jpg`, `.svg`, `.webp`, `.woff2`, `.ttf`).

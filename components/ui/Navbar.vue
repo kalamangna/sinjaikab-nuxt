@@ -16,11 +16,16 @@
         <div
           class="bg-white p-1.5 rounded-xl shadow-sm border border-slate-100 shrink-0 group-hover:scale-105 transition-transform"
         >
-          <img
-            src="/sinjai.png"
-            alt="Lambang Daerah Kabupaten Sinjai"
-            class="h-8 lg:h-10 w-auto object-contain"
-          />
+          <picture>
+            <source srcset="/sinjai.webp" type="image/webp" />
+            <img
+              src="/sinjai.png"
+              alt="Lambang Daerah Kabupaten Sinjai"
+              width="40"
+              height="40"
+              class="h-8 lg:h-10 w-auto object-contain"
+            />
+          </picture>
         </div>
         <div class="flex flex-col gap-0.5">
           <span

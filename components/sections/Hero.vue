@@ -71,15 +71,18 @@
 
         <!-- Poster Image -->
         <div class="flex-1 w-full max-w-sm sm:max-w-md lg:max-w-none">
-          <img
-            src="/poster.png"
-            alt="Poster Visi dan Program Prioritas Kabupaten Sinjai"
-            width="800"
-            height="800"
-            class="w-full h-auto shadow-2xl border border-slate-100 rounded-xl"
-            loading="eager"
-            fetchpriority="high"
-          />
+          <picture>
+            <source srcset="/poster.webp" type="image/webp" />
+            <img
+              src="/poster.png"
+              alt="Poster Visi dan Program Prioritas Kabupaten Sinjai"
+              width="800"
+              height="800"
+              class="w-full h-auto shadow-2xl border border-slate-100 rounded-xl"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </picture>
         </div>
       </div>
     </div>

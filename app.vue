@@ -64,6 +64,13 @@ useHead({
   link: [
     { rel: "icon", type: "image/png", href: `${config.app.baseURL}sinjai.png` },
     { rel: "canonical", href: baseUrl },
+    {
+      rel: "preload",
+      as: "image",
+      href: `${config.app.baseURL}poster.webp`,
+      type: "image/webp",
+      fetchpriority: "high",
+    },
     { rel: "preconnect", href: "https://cdn.userway.org" },
     { rel: "dns-prefetch", href: "https://cdn.userway.org" },
     { rel: "preconnect", href: "https://www.googletagmanager.com" },
