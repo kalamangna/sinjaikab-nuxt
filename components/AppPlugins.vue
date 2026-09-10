@@ -21,15 +21,6 @@ onMounted(() => {
       gtmScript.async = true;
       document.head.appendChild(gtmScript);
     }
-
-    // 2. UserWay Accessibility Widget
-    if (!document.querySelector('script[src*="cdn.userway.org/widget.js"]')) {
-      const userwayScript = document.createElement('script');
-      userwayScript.src = 'https://cdn.userway.org/widget.js';
-      userwayScript.setAttribute('data-account', 'S41ThPrHz4');
-      userwayScript.async = true;
-      document.body.appendChild(userwayScript);
-    }
   };
 
   // Muat script saat browser idle agar Total Blocking Time (TBT) mendekati 0ms

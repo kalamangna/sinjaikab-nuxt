@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+- Widget aksesibilitas pihak ketiga UserWay (`cdn.userway.org/widget.js`) beserta resource hint terkait pada [`app.vue`](./app.vue) dan [`components/AppPlugins.vue`](./components/AppPlugins.vue) untuk mengeliminasi 7 *third-party cookies* dan Hotjar tracker demi mencapai skor sempurna Lighthouse Best Practices 100 dengan tetap mempertahankan standar aksesibilitas WCAG 2.1 AA secara native.
+
 ### Performance
 - Pangkas Total Blocking Time (TBT) dengan memindahkan inisialisasi script UserWay Accessibility Widget dan Google Tag Manager ke antrean browser idle (`requestIdleCallback`) pada [`components/AppPlugins.vue`](./components/AppPlugins.vue).
 - Eliminasi peringatan "Font Display" dan perkecil ukuran bundle CSS Font Awesome dengan hanya mengimpor modul `solid` dan `brands`, mengeliminasi webfont `fa-regular` yang tidak terpakai, serta menerapkan `@font-face { font-display: swap; }` pada [`assets/css/fontawesome-display.css`](./assets/css/fontawesome-display.css).
