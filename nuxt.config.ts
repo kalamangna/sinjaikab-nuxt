@@ -20,13 +20,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxtjs/tailwindcss", "@nuxt/image"],
-
-  image: {
-    provider: "ipx",
-    quality: 80,
-    format: ["webp"],
-  },
+  modules: ["@nuxtjs/tailwindcss"],
 
   compatibilityDate: "2025-02-25",
 });

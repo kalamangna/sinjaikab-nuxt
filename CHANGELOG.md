@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kembalikan langkah instalasi pada workflow GitHub Actions (`.github/workflows/deploy.yml`) ke `npm install` untuk mencegah galat `EUSAGE` akibat perbedaan resolusi pohon dependensi lintas sistem operasi (Linux runner vs macOS).
 
 ### Changed
+- Perbarui dokumentasi [`README.md`](./README.md) sesuai konteks migrasi Nuxt 3, Tailwind CSS, dan deployment Vercel.
 - Perluas deskripsi meta pada `app.vue` (~155 karakter) memuat kata kunci layanan publik, transparansi, dan program daerah.
 - Sempurnakan alt text gambar: Hero poster menjadi "Poster Visi dan Program Prioritas Kabupaten Sinjai", logo di Navbar & Footer menjadi "Lambang Daerah Kabupaten Sinjai".
 - Konsistensikan gaya logo dan teks "Pemkab Sinjai" serta "Official Website" antara `Navbar.vue` dan `Footer.vue` (elemen `<span>`, gap, ukuran responsif, warna).
@@ -58,17 +59,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Services (Layanan Digital): grid `grid-cols-2 md:grid-cols-4` — 8 item terbagi rata 4+4 di tablet dan desktop.
 
 ### Removed
+- Modul `@nuxt/image` dari dependensi proyek (`package.json`) dan `nuxt.config.ts` karena seluruh aset gambar menggunakan tag `<img>` native responsif.
+- Berkas konfigurasi cPanel (`.cpanel.yml`), Apache `.htaccess` (`public/.htaccess`), dan workflow GitHub Actions (`.github/workflows/deploy.yml`) setelah migrasi penuh ke platform Vercel.
+- Symlink usang `dist` di direktori root proyek.
 - Berkas `.npmrc` usang (pnpm config) untuk membersihkan log peringatan build npm.
 - `@nuxt/devtools` dari `devDependencies` (kerentanan critical, tidak dipakai di production).
 - `@nuxtjs/color-mode` dari `devDependencies` (terdaftar tapi tidak diimplementasikan).
 - `@nuxtjs/sitemap` dari `dependencies` (terdaftar tapi tidak diaktifkan di `nuxt.config.ts`).
 - `composables/useVoice.ts` — dead code, tidak digunakan di mana pun.
-
-
-- Berkas konfigurasi cPanel Git Version Control (`.cpanel.yml`) untuk sinkronisasi otomatis ke `/home/sinjaikab/public_html`.
-- Berkas `public/.htaccess` untuk HTTPS enforcement, redirect rute lama `/web`, SPA fallback, kompresi Gzip (`mod_deflate`), dan browser caching (`mod_expires`).
-- Berkas verifikasi Google Search Console (`googledc5c91fd2931e98f.html`), `robots.txt`, dan `sitemap.xml` di direktori `public/`.
-- Menu navigasi mobile (tombol hamburger dan dropdown menu responsif) pada `Navbar.vue`.
 
 ### Changed
 - Konfigurasi `baseURL` pada `nuxt.config.ts` diubah dari `/web/` ke root domain (`/`).

@@ -1,41 +1,33 @@
 # Official Website Pemerintah Kabupaten Sinjai
 
-Website resmi Pemerintah Kabupaten Sinjai yang menyediakan akses cepat ke berbagai layanan publik dan sistem informasi pemerintahan.
+Website resmi Pemerintah Kabupaten Sinjai berbasis Nuxt 3 dan Tailwind CSS untuk menyajikan informasi publik, program prioritas daerah, dan layanan digital terpadu.
+
+- **URL Produksi**: [https://sinjaikab.go.id](https://sinjaikab.go.id)
+- **Preview (Vercel)**: [https://sinjaikab-nuxt.vercel.app](https://sinjaikab-nuxt.vercel.app)
 
 ## Fitur Utama
 
-- **Portal Berita**: Berita terbaru seputar Kabupaten Sinjai.
-- **Layanan Digital**: Akses ke berbagai sistem informasi seperti LPSE, SIMPEG, PPID, JDIH, dan lainnya.
-- **Program Prioritas**: Informasi mengenai program prioritas pembangunan daerah.
-- **Visi & Misi**: Panduan strategis pembangunan Kabupaten Sinjai 2025–2030.
+- **Portal Berita & Layanan Digital**: Akses langsung ke Humas Sinjai, PPID, JDIH, INAPROC/LPSE, Satu Data, Portal ASN, DPRD, dan Bapenda.
+- **Visi & Misi dan Program Prioritas**: Publikasi arah kebijakan dan 5 pilar program prioritas daerah.
+- **Aksesibilitas & SEO**: Standar WCAG 2.1 AA (Skip to Content, UserWay), Schema.org JSON-LD, Open Graph, dan HTTP Security Headers.
 
 ## Teknologi
 
-- **Framework**: [Nuxt 3](https://nuxt.com/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Icons**: [Font Awesome 7](https://fontawesome.com/)
-- **Assets**: Optimized images with [@nuxt/image](https://image.nuxt.com/)
+- [Nuxt 3](https://nuxt.com/) (Vue 3)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Font Awesome Free](https://fontawesome.com/)
+- [Vercel](https://vercel.com/)
 
-## Pengembangan
-
-### Setup
+## Pengembangan Lokal
 
 ```bash
-# Install dependencies
+# Instal dependensi
 npm install
-```
 
-### Development
-
-```bash
-# Start development server
+# Jalankan server development
 npm run dev
-```
 
-### Production
-
-```bash
-# Build for production
+# Build untuk production
 npm run build
 
 # Generate static site
@@ -44,31 +36,8 @@ npm run generate
 
 ## Deployment
 
-### Opsi A: Deployment ke Vercel (Direkomendasikan)
+Proyek terhubung dan dideploy otomatis via **Vercel** pada branch `main`:
+- Konfigurasi redirect rute `/web` ke root domain dan HTTP Security Headers diatur pada [`vercel.json`](./vercel.json).
 
-Proyek ini telah dikonfigurasi secara optimal untuk platform **Vercel** dengan berkas [`vercel.json`](./vercel.json) yang memuat HTTP Security Headers dan aturan redirect otomatis:
 
-1. Buka [Vercel Dashboard](https://vercel.com/dashboard) dan pilih **Add New Project**.
-2. Hubungkan repositori GitHub: `kalamangna/sinjaikab-nuxt`.
-3. Vercel akan otomatis mengenali framework **Nuxt.js**:
-   - **Framework Preset**: Nuxt.js
-   - **Build Command**: `npm run generate` (untuk static export) atau `npm run build`
-   - **Output Directory**: `.output/public`
-4. Klik **Deploy**. Setiap commit baru pada branch `main` akan di-deploy secara otomatis dengan CDN Global, SSL gratis, dan kompresi Brotli/Gzip otomatis.
-
----
-
-### Opsi B: Deployment ke cPanel (via Git Version Control)
-
-Proyek ini juga tetap mendukung integrasi **GitHub Actions** dan fitur bawaan **cPanel Git™ Version Control**:
-
-1. Setiap kali melakukan `git push` ke branch `main`, GitHub Actions akan:
-   - Mengompilasi situs statis (`npm run generate`).
-   - Menyiapkan bundle klien (`_nuxt/`), seluruh gambar publik, dan berkas konfigurasi `.cpanel.yml` serta `.htaccess`.
-   - Mengunggah seluruh hasil build yang siap saji ke branch **`deploy`** di GitHub.
-2. Di cPanel:
-   - Buka menu **Git™ Version Control**.
-   - Hubungkan repositori `https://github.com/kalamangna/sinjaikab-nuxt.git` dengan memilih branch **`deploy`**.
-   - Setiap ada pembaruan, klik tombol **Update from Remote** lalu **Deploy HEAD Commit**.
-   - cPanel akan secara otomatis menyalin seluruh file hasil generate ke `/home/sinjaikab/public_html/`.
 
