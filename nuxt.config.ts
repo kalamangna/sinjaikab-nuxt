@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: ["@nuxtjs/tailwindcss", "@vercel/analytics"],
 
   compatibilityDate: "2025-02-25",
 });
