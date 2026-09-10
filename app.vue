@@ -11,8 +11,7 @@ if (route.path !== "/") {
 }
 
 const title = "Pemerintah Kabupaten Sinjai";
-const description =
-  "Portal resmi Pemerintah Kabupaten Sinjai. Menyajikan informasi publik, transparansi tata kelola, program prioritas daerah, dan akses layanan digital terpadu.";
+const description = "Website Resmi Pemerintah Kabupaten Sinjai.";
 const baseUrl = config.public.baseUrl;
 const imageUrl = `${baseUrl}/meta.png`;
 
