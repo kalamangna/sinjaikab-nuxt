@@ -145,10 +145,10 @@
       <div
         class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-2"
       >
-        <p class="text-slate-500 text-xs sm:text-sm">
+        <p class="text-slate-400 text-xs sm:text-sm">
           &copy; {{ new Date().getFullYear() }} Pemerintah Kabupaten Sinjai
         </p>
-        <p class="text-slate-500 text-xs">
+        <p class="text-slate-400 text-xs">
           Diskominfo-SP Sinjai
         </p>
       </div>

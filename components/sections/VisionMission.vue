@@ -8,7 +8,7 @@
           Visi & <span class="text-red-700">Misi</span>
         </h2>
         <p
-          class="text-slate-500 font-bold uppercase tracking-widest text-sm mb-4"
+          class="text-slate-600 font-bold uppercase tracking-widest text-sm mb-4"
         >
           Periode 2025–2030
         </p>

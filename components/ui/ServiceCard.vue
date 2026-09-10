@@ -17,7 +17,7 @@
     <h3 class="text-xs sm:text-sm md:text-base font-bold text-slate-900 text-center mb-1 group-hover:text-red-700 transition-colors uppercase tracking-tight">
       {{ title }}
     </h3>
-    <p class="text-[9px] sm:text-[10px] md:text-xs text-slate-400 text-center line-clamp-1 group-hover:text-slate-500 transition-colors">
+    <p class="text-[9px] sm:text-[10px] md:text-xs text-slate-600 text-center line-clamp-1 group-hover:text-slate-700 transition-colors">
       {{ description }}
     </p>
   </a>

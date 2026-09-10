@@ -2,15 +2,6 @@
 export default defineNuxtConfig({
   app: {
     baseURL: "/",
-    head: {
-      script: [
-        {
-          src: "https://cdn.userway.org/widget.js",
-          "data-account": "S41ThPrHz4", // Replace with your actual UserWay Account ID
-          async: true,
-        },
-      ],
-    },
   },
 
   runtimeConfig: {
