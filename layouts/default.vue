@@ -11,6 +11,7 @@
       <slot />
     </main>
     <LazyUiFooter />
+    <UiAccessibilityTrigger />
   </div>
 </template>
 

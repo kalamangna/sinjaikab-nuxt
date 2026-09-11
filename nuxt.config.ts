@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     public: {
       gtagId: "G-QX439KY437",
       baseUrl: process.env.NUXT_PUBLIC_BASE_URL || "https://sinjaikab.go.id",
+      userwayAccount: process.env.NUXT_PUBLIC_USERWAY_ACCOUNT || "S41ThPrHz4",
     },
   },
 

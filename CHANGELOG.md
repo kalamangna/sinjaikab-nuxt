@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Integrasi widget aksesibilitas pihak ketiga UserWay secara *on-demand* melalui composable [`composables/useUserWay.ts`](./composables/useUserWay.ts) dan komponen pemicu mengambang [`components/ui/AccessibilityTrigger.vue`](./components/ui/AccessibilityTrigger.vue) beserta tautan pemicu pada [`components/ui/Footer.vue`](./components/ui/Footer.vue). Script UserWay (`cdn.userway.org/widget.js`) hanya diunduh dan dieksekusi saat pengguna berinteraksi langsung dengan tombol aksesibilitas, menjaga skor Lighthouse Performance & Best Practices tetap 100 tanpa memuat cookie pelacak di awal.
+- Konfigurasi `userwayAccount` pada `runtimeConfig.public` di [`nuxt.config.ts`](./nuxt.config.ts) dengan dukungan variabel lingkungan `NUXT_PUBLIC_USERWAY_ACCOUNT`.
+- Ikon SVG `universal-access` (Font Awesome Solid) pada [`components/AppIcon.vue`](./components/AppIcon.vue).
+
 ### Performance
 - Penerapan *lazy client hydration* dan *code-splitting* pada seluruh section *below-the-fold* ([`app.vue`](./app.vue) dan [`layouts/default.vue`](./layouts/default.vue)) dengan komponen `<LazySectionsVisionMission />`, `<LazySectionsPriorityPrograms />`, `<LazySectionsServices />`, dan `<LazyUiFooter />` untuk memecah bundle JavaScript klien, mengeliminasi *long tasks* hidrasi Vue pada CPU mobile, dan menekan Total Blocking Time (TBT) ke 0 ms.
 - Implementasi Edge pre-rendering via `routeRules: { "/": { prerender: true } }` pada [`nuxt.config.ts`](./nuxt.config.ts) untuk menghasilkan `index.html` statis yang disajikan langsung dari Edge CDN global Vercel, memangkas *Time to First Byte* (TTFB) dari ~617 ms ke ~30–50 ms.
