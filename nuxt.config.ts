@@ -2,13 +2,21 @@
 export default defineNuxtConfig({
   app: {
     baseURL: "/",
+    head: {
+      script: [
+        {
+          src: "https://cdn.userway.org/widget.js",
+          "data-account": "S41ThPrHz4",
+          async: true,
+        },
+      ],
+    },
   },
 
   runtimeConfig: {
     public: {
       gtagId: "G-QX439KY437",
       baseUrl: process.env.NUXT_PUBLIC_BASE_URL || "https://sinjaikab.go.id",
-      userwayAccount: process.env.NUXT_PUBLIC_USERWAY_ACCOUNT || "S41ThPrHz4",
     },
   },
 

@@ -120,16 +120,6 @@
                 Layanan Digital
               </NuxtLink>
             </li>
-            <li>
-              <button
-                type="button"
-                @click="loadAndOpen"
-                class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer flex items-center gap-2 text-sm text-left"
-              >
-                <AppIcon name="universal-access" class="text-xs text-red-500" />
-                Aksesibilitas
-              </button>
-            </li>
           </ul>
         </div>
 
@@ -170,5 +160,4 @@
 
 <script setup lang="ts">
 const { scrollToSection } = useScrollTo();
-const { loadAndOpen } = useUserWay();
 </script>

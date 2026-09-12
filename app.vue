@@ -72,6 +72,8 @@ useHead({
       type: "image/webp",
       fetchpriority: "high",
     },
+    { rel: "preconnect", href: "https://cdn.userway.org" },
+    { rel: "dns-prefetch", href: "https://cdn.userway.org" },
     { rel: "dns-prefetch", href: "https://www.googletagmanager.com" },
   ],
   script: [
