@@ -5,9 +5,11 @@ export default defineNuxtConfig({
     head: {
       script: [
         {
-          src: "https://cdn.userway.org/widget.js",
-          "data-account": "S41ThPrHz4",
-          async: true,
+          src: "https://cdn.jsdelivr.net/gh/kalamangna/a11y-sinjaikab@main/dist/widget.min.js",
+          "data-position": "bottom-right",
+          "data-lang": "id",
+          "data-color": "#0056b3",
+          defer: true,
         },
       ],
     },

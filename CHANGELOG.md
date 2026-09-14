@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Integrasi widget aksesibilitas `a11y-sinjaikab` (`kalamangna/a11y-sinjaikab`) via CDN jsDelivr pada [`nuxt.config.ts`](./nuxt.config.ts) serta resource hint `preconnect` dan `dns-prefetch` pada [`app.vue`](./app.vue).
+
+### Removed
+- Widget aksesibilitas UserWay (`https://cdn.userway.org/widget.js`) beserta resource hint terkait.
+
 ### Changed
 - Mengembalikan konfigurasi widget aksesibilitas UserWay ke setelan bawaan (*default head script*) pada [`nuxt.config.ts`](./nuxt.config.ts) dengan dukungan resource hint `preconnect` dan `dns-prefetch` pada [`app.vue`](./app.vue).
 
