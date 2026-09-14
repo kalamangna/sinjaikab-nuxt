@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Memperbarui versi CDN widget aksesibilitas `a11y-sinjaikab` ke rilis stabil [`v1.0.1`](https://github.com/kalamangna/a11y-sinjaikab/releases/tag/v1.0.1) pada [`nuxt.config.ts`](./nuxt.config.ts) dengan perbaikan kompatibilitas elemen kustom dan stabilitas posisi fixed pada mode kontras tinggi.
+
 ### Added
 - Integrasi widget aksesibilitas `a11y-sinjaikab` (`kalamangna/a11y-sinjaikab`) via CDN jsDelivr pada [`nuxt.config.ts`](./nuxt.config.ts) serta resource hint `preconnect` dan `dns-prefetch` pada [`app.vue`](./app.vue).
 
