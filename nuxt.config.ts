@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     head: {
       script: [
         {
-          src: "https://cdn.jsdelivr.net/gh/kalamangna/a11y-sinjaikab@v1.0.1/dist/widget.min.js",
+          src: "https://cdn.jsdelivr.net/gh/kalamangna/a11y-sinjaikab@v1.0.2/dist/widget.min.js",
           "data-position": "bottom-right",
           "data-lang": "id",
           "data-color": "#0056b3",
