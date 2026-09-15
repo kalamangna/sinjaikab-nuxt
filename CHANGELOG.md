@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Memperbarui URL CDN integrasi widget aksesibilitas `a11y-sinjaikab` pada [`nuxt.config.ts`](./nuxt.config.ts) mengarah ke cabang `@main` agar selalu sinkron dengan rilis terbaru.
+
 ### Added
 - Integrasi widget aksesibilitas `a11y-sinjaikab` (`kalamangna/a11y-sinjaikab`) via CDN jsDelivr rilis [`v1.0.0`](https://github.com/kalamangna/a11y-sinjaikab/releases/tag/v1.0.0) pada [`nuxt.config.ts`](./nuxt.config.ts) dengan standar kepatuhan ARIA/axe-core (`visibility: hidden`, `inert`, *focus trap*), enkapsulasi Shadow DOM, serta resource hint `preconnect` dan `dns-prefetch` pada [`app.vue`](./app.vue).
 
