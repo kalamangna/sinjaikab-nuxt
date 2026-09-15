@@ -16,6 +16,9 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    supabaseUrl: process.env.SUPABASE_URL || "",
+    supabaseKey: process.env.SUPABASE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || "",
+    a11yAdminSecret: process.env.A11Y_ADMIN_SECRET || "sinjaikab-a11y-2026",
     public: {
       gtagId: "G-QX439KY437",
       baseUrl: process.env.NUXT_PUBLIC_BASE_URL || "https://sinjaikab.go.id",

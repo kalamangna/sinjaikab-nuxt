@@ -2,7 +2,9 @@
 const config = useRuntimeConfig();
 const route = useRoute();
 
-if (route.path !== "/") {
+const isAdminA11y = computed(() => route.path === "/admin/a11y-stats");
+
+if (route.path !== "/" && !isAdminA11y.value) {
   throw createError({
     statusCode: 404,
     statusMessage: "Halaman Tidak Ditemukan",
@@ -215,7 +217,8 @@ const services = [
 </script>
 
 <template>
-  <NuxtLayout>
+  <A11yStatsDashboard v-if="isAdminA11y" />
+  <NuxtLayout v-else>
     <SectionsHero />
     <LazySectionsVisionMission />
     <LazySectionsPriorityPrograms />
