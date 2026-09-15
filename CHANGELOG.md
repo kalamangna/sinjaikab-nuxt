@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dashboard visualisasi telemetri aksesibilitas terproteksi pada rute `/admin/a11y-stats` (`components/A11yStatsDashboard.vue`) dengan kartu KPI, distribusi fitur ramah disabilitas, tabel domain terdaftar, dan feed interaksi *realtime*.
 
 ### Changed
-- Merombak tampilan dashboard statistik `/admin/a11y-stats` menjadi desain minimalis terang (*light & clean*), memangkas elemen berlebihan, dan berfokus pada 3 metrik inti serta tabel bersih daftar website terpasang.
+- Merombak tampilan dashboard statistik `/admin/a11y-stats` (`components/A11yStatsDashboard.vue`) dengan desain minimalis terang (*light & clean*), menampilkan 4 metrik ringkas (Domain, Tayangan, Buka Panel, Fitur Digunakan), distribusi preferensi fitur ramah disabilitas, daftar website terpasang, serta tabel riwayat interaksi terkini secara terstruktur tanpa elemen berlebihan.
 - Memperbarui posisi tombol pemicu widget aksesibilitas `a11y-sinjaikab` menjadi pojok kiri bawah (`bottom-left`) pada [`nuxt.config.ts`](./nuxt.config.ts).
 - Memperbarui URL CDN integrasi widget aksesibilitas `a11y-sinjaikab` pada [`nuxt.config.ts`](./nuxt.config.ts) mengarah ke cabang `@main` agar selalu sinkron dengan rilis terbaru.
 
