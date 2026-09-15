@@ -47,15 +47,36 @@ export async function recordTelemetry(payload: TelemetryPayload) {
         },
       });
 
-      // 2. Upsert domain record
-      await $fetch(`${supabaseUrl}/rest/v1/a11y_domains?on_conflict=domain`, {
-        method: 'POST',
-        headers: { ...headers, Prefer: 'resolution=merge-duplicates,return=minimal' },
-        body: {
-          domain: cleanDomain,
-          last_active_at: nowIso,
-        },
-      });
+      // 2. Upsert domain record with incremented impression count
+      const existingRows: any[] = await $fetch(
+        `${supabaseUrl}/rest/v1/a11y_domains?domain=eq.${encodeURIComponent(cleanDomain)}&select=id,total_impressions`,
+        { headers }
+      ).catch(() => []);
+
+      if (existingRows && existingRows.length > 0) {
+        const currentImpressions = Number(existingRows[0].total_impressions) || 1;
+        const newImpressions = payload.type === 'impression' ? currentImpressions + 1 : currentImpressions;
+        await $fetch(`${supabaseUrl}/rest/v1/a11y_domains?id=eq.${existingRows[0].id}`, {
+          method: 'PATCH',
+          headers: { ...headers, Prefer: 'return=minimal' },
+          body: {
+            last_active_at: nowIso,
+            total_impressions: newImpressions,
+          },
+        }).catch(() => {});
+      } else {
+        await $fetch(`${supabaseUrl}/rest/v1/a11y_domains`, {
+          method: 'POST',
+          headers: { ...headers, Prefer: 'return=minimal' },
+          body: {
+            domain: cleanDomain,
+            first_seen_at: nowIso,
+            last_active_at: nowIso,
+            total_impressions: 1,
+            is_active: true,
+          },
+        }).catch(() => {});
+      }
       return true;
     } catch (error) {
       console.warn('[A11y Telemetry] Supabase error, falling back to memory:', error);
@@ -111,7 +132,7 @@ export async function getTelemetryStats() {
         headers,
       });
 
-      const totalImpressions = events.filter((e) => e.event_type === 'impression').length;
+      const totalImpressions = domains.reduce((sum, d) => sum + (Number(d.total_impressions) || 0), 0);
       const totalModalOpens = events.filter((e) => e.event_type === 'modal_open').length;
 
       // Group feature frequency

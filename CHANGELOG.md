@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dashboard visualisasi telemetri aksesibilitas terproteksi pada rute `/admin/a11y-stats` (`components/A11yStatsDashboard.vue`) dengan kartu KPI, distribusi fitur ramah disabilitas, tabel domain terdaftar, dan feed interaksi *realtime*.
 
 ### Changed
+- Mengoptimasi sistem sinkronisasi telemetri aksesibilitas dengan auto-refresh berkala (10 detik) dan penonaktifan cache browser/CDN (`Cache-Control: no-store`) pada endpoint [`server/api/a11y/stats.get.ts`](./server/api/a11y/stats.get.ts) serta [`components/A11yStatsDashboard.vue`](./components/A11yStatsDashboard.vue).
+- Memperbaiki kalkulasi inkrementasi akumulasi tayangan website terpasang pada [`server/utils/supabase.ts`](./server/utils/supabase.ts) agar bertambah akurat setiap tayangan baru masuk.
 - Merombak tampilan dashboard statistik `/admin/a11y-stats` (`components/A11yStatsDashboard.vue`) dengan desain minimalis terang (*light & clean*), menampilkan 4 metrik ringkas (Domain, Tayangan, Buka Panel, Fitur Digunakan), distribusi preferensi fitur ramah disabilitas, daftar website terpasang, serta tabel riwayat interaksi terkini secara terstruktur tanpa elemen berlebihan.
 - Memindahkan dependensi inti `nuxt`, `@nuxtjs/tailwindcss`, dan `@fortawesome/fontawesome-free` dari `devDependencies` ke `dependencies` pada [`package.json`](./package.json) guna memastikan tersedianya binary eksekusi `nuxt` saat proses instalasi production di Vercel.
 - Memperbarui posisi tombol pemicu widget aksesibilitas `a11y-sinjaikab` menjadi pojok kiri bawah (`bottom-left`) pada [`nuxt.config.ts`](./nuxt.config.ts).

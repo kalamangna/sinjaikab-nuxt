@@ -17,6 +17,11 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // Disable caching so dashboard always gets fresh live data
+  setHeader(event, 'Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+  setHeader(event, 'Pragma', 'no-cache');
+  setHeader(event, 'Expires', '0');
+
   const stats = await getTelemetryStats();
   return {
     success: true,
