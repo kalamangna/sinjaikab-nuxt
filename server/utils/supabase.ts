@@ -24,6 +24,16 @@ export async function recordTelemetry(payload: TelemetryPayload) {
   const cleanPath = (payload.path || '/').trim().slice(0, 500);
   const nowIso = new Date().toISOString();
 
+  // Exclude internal vercel preview domains, localhost, and admin dashboard
+  if (
+    cleanDomain.includes('.vercel.app') ||
+    cleanDomain.includes('localhost') ||
+    cleanDomain === '127.0.0.1' ||
+    cleanPath.toLowerCase().includes('/admin/a11y-stats')
+  ) {
+    return true;
+  }
+
   // If Supabase credentials are configured, persist to database
   if (supabaseUrl && supabaseKey) {
     try {
@@ -122,14 +132,23 @@ export async function getTelemetryStats() {
         'Content-Type': 'application/json',
       };
 
-      // Fetch domains
-      const domains: any[] = await $fetch(`${supabaseUrl}/rest/v1/a11y_domains?select=*&order=last_active_at.desc`, {
+      // Fetch domains (filter out vercel preview & localhost)
+      const rawDomains: any[] = await $fetch(`${supabaseUrl}/rest/v1/a11y_domains?select=*&order=last_active_at.desc`, {
         headers,
       });
+      const domains = (rawDomains || []).filter((d) => {
+        const dom = (d.domain || '').toLowerCase();
+        return !dom.includes('.vercel.app') && !dom.includes('localhost') && dom !== '127.0.0.1';
+      });
 
-      // Fetch recent 200 events for feature distribution
-      const events: any[] = await $fetch(`${supabaseUrl}/rest/v1/a11y_events?select=*&order=created_at.desc&limit=200`, {
+      // Fetch recent events (filter out vercel preview, localhost, and admin stats path)
+      const rawEvents: any[] = await $fetch(`${supabaseUrl}/rest/v1/a11y_events?select=*&order=created_at.desc&limit=300`, {
         headers,
+      });
+      const events = (rawEvents || []).filter((e) => {
+        const dom = (e.domain || '').toLowerCase();
+        const p = (e.path || '').toLowerCase();
+        return !dom.includes('.vercel.app') && !dom.includes('localhost') && dom !== '127.0.0.1' && !p.includes('/admin/a11y-stats');
       });
 
       const totalImpressions = domains.reduce((sum, d) => sum + (Number(d.total_impressions) || 0), 0);
@@ -156,19 +175,27 @@ export async function getTelemetryStats() {
   }
 
   // Fallback: In-memory store
-  const domains = Array.from(memoryDomains.values());
+  const domains = Array.from(memoryDomains.values()).filter((d) => {
+    const dom = (d.domain || '').toLowerCase();
+    return !dom.includes('.vercel.app') && !dom.includes('localhost') && dom !== '127.0.0.1';
+  });
+  const events = memoryEvents.filter((e) => {
+    const dom = (e.domain || '').toLowerCase();
+    const p = (e.path || '').toLowerCase();
+    return !dom.includes('.vercel.app') && !dom.includes('localhost') && dom !== '127.0.0.1' && !p.includes('/admin/a11y-stats');
+  });
   const featureCounts: Record<string, number> = {};
-  memoryEvents.filter((e) => e.type === 'feature_toggle' && e.feature).forEach((e) => {
+  events.filter((e) => e.type === 'feature_toggle' && e.feature).forEach((e) => {
     if (e.feature) featureCounts[e.feature] = (featureCounts[e.feature] || 0) + 1;
   });
 
   return {
     totalDomains: domains.length,
-    totalEventsSampled: memoryEvents.length,
-    totalImpressions: memoryEvents.filter((e) => e.type === 'impression').length,
-    totalModalOpens: memoryEvents.filter((e) => e.type === 'modal_open').length,
+    totalEventsSampled: events.length,
+    totalImpressions: events.filter((e) => e.type === 'impression').length,
+    totalModalOpens: events.filter((e) => e.type === 'modal_open').length,
     featureCounts,
     domains,
-    recentEvents: memoryEvents.slice(0, 30),
+    recentEvents: events.slice(0, 30),
   };
 }

@@ -26,9 +26,15 @@ export default defineEventHandler(async (event) => {
       return '';
     }
 
-    // Exclude admin dashboard inspection from analytics
+    // Exclude internal environments (vercel.app, localhost) and admin dashboard
+    const cleanDomain = String(body.domain || '').toLowerCase().trim();
     const cleanPath = String(body.path || '/').toLowerCase().trim();
-    if (cleanPath.includes('/admin/a11y-stats')) {
+    if (
+      cleanDomain.includes('.vercel.app') ||
+      cleanDomain.includes('localhost') ||
+      cleanDomain === '127.0.0.1' ||
+      cleanPath.includes('/admin/a11y-stats')
+    ) {
       setResponseStatus(event, 204);
       return '';
     }
