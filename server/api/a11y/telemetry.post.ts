@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Exclude internal environments (vercel.app, localhost) and admin dashboard
-    const cleanDomain = String(body.domain || '').toLowerCase().trim();
+    const cleanDomain = String(body.domain || '').toLowerCase().trim().replace(/^www\./i, '');
     const cleanPath = String(body.path || '/').toLowerCase().trim();
     if (
       cleanDomain.includes('.vercel.app') ||
@@ -39,6 +39,7 @@ export default defineEventHandler(async (event) => {
       return '';
     }
 
+    body.domain = cleanDomain;
     await recordTelemetry(body);
     setResponseStatus(event, 204);
     return '';

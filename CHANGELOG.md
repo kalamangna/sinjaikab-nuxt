@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dashboard visualisasi telemetri aksesibilitas terproteksi pada rute `/admin/a11y-stats` (`components/A11yStatsDashboard.vue`) dengan kartu KPI, distribusi fitur ramah disabilitas, tabel domain terdaftar, dan feed interaksi *realtime*.
 
 ### Changed
+- Menggabungkan statistik domain `www` ke apex domain utama (contoh: `www.panaikang.desa.id` otomatis disatukan ke `panaikang.desa.id`) pada saat pencatatan telemetri ([`server/api/a11y/telemetry.post.ts`](./server/api/a11y/telemetry.post.ts)) maupun agregasi visualisasi dashboard ([`server/utils/supabase.ts`](./server/utils/supabase.ts)).
 - Mengecualikan domain pratinjau Vercel (`*.vercel.app`) dan path dashboard admin (`/admin/a11y-stats`) secara menyeluruh pada [`server/api/a11y/telemetry.post.ts`](./server/api/a11y/telemetry.post.ts) serta menyaring keluaran pembacaan data analitik pada [`server/utils/supabase.ts`](./server/utils/supabase.ts).
 - Menghapus interval penyegaran otomatis (*auto-refresh*) pada [`components/A11yStatsDashboard.vue`](./components/A11yStatsDashboard.vue) dan mengembalikannya ke tombol segarkan manual.
 - Menghapus seluruh nilai *hardcoded* kredensial Supabase pada [`nuxt.config.ts`](./nuxt.config.ts) agar konfigurasi sepenuhnya diambil dari Environment Variables (`SUPABASE_URL` dan `SUPABASE_KEY`) pada dashboard Vercel, serta menyediakan berkas acuan [`.env.example`](./.env.example).

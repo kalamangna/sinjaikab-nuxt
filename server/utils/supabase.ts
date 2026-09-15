@@ -15,12 +15,20 @@ const memoryDomains = new Map<string, { domain: string; first_seen_at: string; l
 const memoryEvents: Array<TelemetryPayload & { created_at: string; id: number }> = [];
 let eventIdCounter = 1;
 
+export function normalizeDomain(domain: string): string {
+  return (domain || 'unknown')
+    .toLowerCase()
+    .trim()
+    .replace(/^www\./i, '')
+    .slice(0, 255);
+}
+
 export async function recordTelemetry(payload: TelemetryPayload) {
   const config = useRuntimeConfig();
   const supabaseUrl = config.supabaseUrl;
   const supabaseKey = config.supabaseKey;
 
-  const cleanDomain = (payload.domain || 'unknown').toLowerCase().trim().slice(0, 255);
+  const cleanDomain = normalizeDomain(payload.domain);
   const cleanPath = (payload.path || '/').trim().slice(0, 500);
   const nowIso = new Date().toISOString();
 
@@ -132,24 +140,53 @@ export async function getTelemetryStats() {
         'Content-Type': 'application/json',
       };
 
-      // Fetch domains (filter out vercel preview & localhost)
+      // Fetch domains (filter out vercel preview & localhost, merge www into apex)
       const rawDomains: any[] = await $fetch(`${supabaseUrl}/rest/v1/a11y_domains?select=*&order=last_active_at.desc`, {
         headers,
       });
-      const domains = (rawDomains || []).filter((d) => {
-        const dom = (d.domain || '').toLowerCase();
-        return !dom.includes('.vercel.app') && !dom.includes('localhost') && dom !== '127.0.0.1';
-      });
 
-      // Fetch recent events (filter out vercel preview, localhost, and admin stats path)
+      const domainMap = new Map<string, any>();
+      for (const d of rawDomains || []) {
+        const dom = normalizeDomain(d.domain);
+        if (dom.includes('.vercel.app') || dom.includes('localhost') || dom === '127.0.0.1') continue;
+        const impressions = Number(d.total_impressions) || 0;
+        if (impressions <= 0 && d.is_active === false) continue;
+
+        if (domainMap.has(dom)) {
+          const existing = domainMap.get(dom);
+          existing.total_impressions = (Number(existing.total_impressions) || 0) + impressions;
+          if (new Date(d.last_active_at) > new Date(existing.last_active_at)) {
+            existing.last_active_at = d.last_active_at;
+          }
+          if (new Date(d.first_seen_at) < new Date(existing.first_seen_at)) {
+            existing.first_seen_at = d.first_seen_at;
+          }
+        } else {
+          domainMap.set(dom, {
+            ...d,
+            domain: dom,
+            total_impressions: impressions,
+          });
+        }
+      }
+      const domains = Array.from(domainMap.values()).sort(
+        (a, b) => new Date(b.last_active_at).getTime() - new Date(a.last_active_at).getTime()
+      );
+
+      // Fetch recent events (filter out vercel preview, localhost, admin stats, and normalize domain)
       const rawEvents: any[] = await $fetch(`${supabaseUrl}/rest/v1/a11y_events?select=*&order=created_at.desc&limit=300`, {
         headers,
       });
-      const events = (rawEvents || []).filter((e) => {
-        const dom = (e.domain || '').toLowerCase();
-        const p = (e.path || '').toLowerCase();
-        return !dom.includes('.vercel.app') && !dom.includes('localhost') && dom !== '127.0.0.1' && !p.includes('/admin/a11y-stats');
-      });
+      const events = (rawEvents || [])
+        .filter((e) => {
+          const dom = normalizeDomain(e.domain);
+          const p = (e.path || '').toLowerCase();
+          return !dom.includes('.vercel.app') && !dom.includes('localhost') && dom !== '127.0.0.1' && !p.includes('/admin/a11y-stats');
+        })
+        .map((e) => ({
+          ...e,
+          domain: normalizeDomain(e.domain),
+        }));
 
       const totalImpressions = domains.reduce((sum, d) => sum + (Number(d.total_impressions) || 0), 0);
       const totalModalOpens = events.filter((e) => e.event_type === 'modal_open').length;
@@ -175,15 +212,32 @@ export async function getTelemetryStats() {
   }
 
   // Fallback: In-memory store
-  const domains = Array.from(memoryDomains.values()).filter((d) => {
-    const dom = (d.domain || '').toLowerCase();
-    return !dom.includes('.vercel.app') && !dom.includes('localhost') && dom !== '127.0.0.1';
-  });
-  const events = memoryEvents.filter((e) => {
-    const dom = (e.domain || '').toLowerCase();
-    const p = (e.path || '').toLowerCase();
-    return !dom.includes('.vercel.app') && !dom.includes('localhost') && dom !== '127.0.0.1' && !p.includes('/admin/a11y-stats');
-  });
+  const memoryDomainMap = new Map<string, any>();
+  for (const d of Array.from(memoryDomains.values())) {
+    const dom = normalizeDomain(d.domain);
+    if (dom.includes('.vercel.app') || dom.includes('localhost') || dom === '127.0.0.1') continue;
+    if (memoryDomainMap.has(dom)) {
+      const existing = memoryDomainMap.get(dom);
+      existing.total_impressions += Number(d.total_impressions) || 0;
+    } else {
+      memoryDomainMap.set(dom, { ...d, domain: dom, total_impressions: Number(d.total_impressions) || 1 });
+    }
+  }
+  const domains = Array.from(memoryDomainMap.values()).sort(
+    (a, b) => new Date(b.last_active_at).getTime() - new Date(a.last_active_at).getTime()
+  );
+
+  const events = memoryEvents
+    .filter((e) => {
+      const dom = normalizeDomain(e.domain);
+      const p = (e.path || '').toLowerCase();
+      return !dom.includes('.vercel.app') && !dom.includes('localhost') && dom !== '127.0.0.1' && !p.includes('/admin/a11y-stats');
+    })
+    .map((e) => ({
+      ...e,
+      domain: normalizeDomain(e.domain),
+    }));
+
   const featureCounts: Record<string, number> = {};
   events.filter((e) => e.type === 'feature_toggle' && e.feature).forEach((e) => {
     if (e.feature) featureCounts[e.feature] = (featureCounts[e.feature] || 0) + 1;
