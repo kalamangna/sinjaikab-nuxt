@@ -152,15 +152,18 @@ const totalFeatureUsage = computed(() => {
 });
 
 const sortedFeatureList = computed(() => {
-  if (!stats.value?.featureCounts) return [];
-  const total = totalFeatureUsage.value || 1;
-  return Object.entries(stats.value.featureCounts)
-    .map(([key, count]: [string, any]) => ({
-      key,
-      label: getFeatureLabel(key),
-      count: Number(count),
-      percentage: Math.round((Number(count) / total) * 100),
-    }))
+  const counts = stats.value?.featureCounts || {};
+  const total = totalFeatureUsage.value;
+  return Object.keys(FEATURE_LABELS)
+    .map((key) => {
+      const count = Number(counts[key]) || 0;
+      return {
+        key,
+        label: FEATURE_LABELS[key],
+        count,
+        percentage: total > 0 ? Math.round((count / total) * 100) : 0,
+      };
+    })
     .sort((a, b) => b.count - a.count);
 });
 </script>
