@@ -6,7 +6,7 @@ export default defineNuxtConfig({
       script: [
         {
           src: "https://cdn.jsdelivr.net/gh/kalamangna/a11y-sinjaikab@main/dist/widget.min.js",
-          "data-position": "bottom-right",
+          "data-position": "bottom-left",
           "data-lang": "id",
           "data-color": "#0056b3",
           defer: true,

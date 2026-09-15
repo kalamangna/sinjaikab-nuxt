@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Memperbarui posisi tombol pemicu widget aksesibilitas `a11y-sinjaikab` menjadi pojok kiri bawah (`bottom-left`) pada [`nuxt.config.ts`](./nuxt.config.ts).
 - Memperbarui URL CDN integrasi widget aksesibilitas `a11y-sinjaikab` pada [`nuxt.config.ts`](./nuxt.config.ts) mengarah ke cabang `@main` agar selalu sinkron dengan rilis terbaru.
 
 ### Added
