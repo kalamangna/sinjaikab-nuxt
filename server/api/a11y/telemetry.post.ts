@@ -10,7 +10,17 @@ export default defineEventHandler(async (event) => {
   });
 
   try {
-    const body = await readBody(event);
+    let body = await readBody(event);
+
+    // If body was sent as text/plain or string, parse JSON
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch {
+        body = null;
+      }
+    }
+
     if (!body || typeof body !== 'object' || !body.domain) {
       setResponseStatus(event, 204);
       return '';
