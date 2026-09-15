@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Merombak tampilan dashboard statistik `/admin/a11y-stats` (`components/A11yStatsDashboard.vue`) dengan desain minimalis terang (*light & clean*), menampilkan 4 metrik ringkas (Domain, Tayangan, Buka Panel, Fitur Digunakan), distribusi preferensi fitur ramah disabilitas, daftar website terpasang, serta tabel riwayat interaksi terkini secara terstruktur tanpa elemen berlebihan.
+- Memindahkan dependensi inti `nuxt`, `@nuxtjs/tailwindcss`, dan `@fortawesome/fontawesome-free` dari `devDependencies` ke `dependencies` pada [`package.json`](./package.json) guna memastikan tersedianya binary eksekusi `nuxt` saat proses instalasi production di Vercel.
 - Memperbarui posisi tombol pemicu widget aksesibilitas `a11y-sinjaikab` menjadi pojok kiri bawah (`bottom-left`) pada [`nuxt.config.ts`](./nuxt.config.ts).
 - Memperbarui URL CDN integrasi widget aksesibilitas `a11y-sinjaikab` pada [`nuxt.config.ts`](./nuxt.config.ts) mengarah ke cabang `@main` agar selalu sinkron dengan rilis terbaru.
 
