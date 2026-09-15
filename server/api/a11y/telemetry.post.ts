@@ -26,6 +26,13 @@ export default defineEventHandler(async (event) => {
       return '';
     }
 
+    // Exclude admin dashboard inspection from analytics
+    const cleanPath = String(body.path || '/').toLowerCase().trim();
+    if (cleanPath.includes('/admin/a11y-stats')) {
+      setResponseStatus(event, 204);
+      return '';
+    }
+
     await recordTelemetry(body);
     setResponseStatus(event, 204);
     return '';

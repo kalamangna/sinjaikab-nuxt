@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dashboard visualisasi telemetri aksesibilitas terproteksi pada rute `/admin/a11y-stats` (`components/A11yStatsDashboard.vue`) dengan kartu KPI, distribusi fitur ramah disabilitas, tabel domain terdaftar, dan feed interaksi *realtime*.
 
 ### Changed
+- Mengecualikan pencatatan telemetri pada path `/admin/a11y-stats` di endpoint [`server/api/a11y/telemetry.post.ts`](./server/api/a11y/telemetry.post.ts) agar inspeksi dashboard tidak dihitung ke dalam analitik tayangan publik.
 - Memperbarui daftar preferensi fitur pada [`components/A11yStatsDashboard.vue`](./components/A11yStatsDashboard.vue) agar selalu menampilkan seluruh 7 fitur aksesibilitas resmi secara lengkap beserta rasio penggunaan masing-masing.
 - Mengoptimasi sistem sinkronisasi telemetri aksesibilitas dengan auto-refresh berkala (10 detik) dan penonaktifan cache browser/CDN (`Cache-Control: no-store`) pada endpoint [`server/api/a11y/stats.get.ts`](./server/api/a11y/stats.get.ts) serta [`components/A11yStatsDashboard.vue`](./components/A11yStatsDashboard.vue).
 - Memperbaiki kalkulasi inkrementasi akumulasi tayangan website terpasang pada [`server/utils/supabase.ts`](./server/utils/supabase.ts) agar bertambah akurat setiap tayangan baru masuk.
