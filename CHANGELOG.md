@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Sistem telemetri dan endpoint API statistik widget aksesibilitas `a11y-sinjaikab` (`server/api/a11y/telemetry.post.ts` dan `server/api/a11y/stats.get.ts`) dengan integrasi Supabase PostgreSQL (`server/utils/supabase.ts`) dan skema tabel database (`server/database/a11y_schema.sql`).
+- Menghubungkan kredensial proyek Supabase resmi (`rsnxumcwrpwczatxujyr.supabase.co`) ke konfigurasi server.
 - Dashboard visualisasi telemetri aksesibilitas terproteksi pada rute `/admin/a11y-stats` (`components/A11yStatsDashboard.vue`) dengan kartu KPI, distribusi fitur ramah disabilitas, tabel domain terdaftar, dan feed interaksi *realtime*.
 
 ### Changed

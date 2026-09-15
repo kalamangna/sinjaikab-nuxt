@@ -1,6 +1,7 @@
 -- ==============================================================================
 -- Skema Basis Data Telemetri Widget Aksesibilitas Sinjai (a11y-sinjaikab)
--- Dapat dijalankan langsung di SQL Editor Supabase
+-- Dapat dijalankan langsung di SQL Editor Supabase:
+-- https://supabase.com/dashboard/project/rsnxumcwrpwczatxujyr/sql/new
 -- ==============================================================================
 
 -- 1. Tabel Registrasi & Agregat Domain Pengguna
@@ -33,9 +34,18 @@ CREATE INDEX IF NOT EXISTS idx_a11y_events_type ON a11y_events(event_type);
 ALTER TABLE a11y_domains ENABLE ROW LEVEL SECURITY;
 ALTER TABLE a11y_events ENABLE ROW LEVEL SECURITY;
 
--- Kebijakan akses untuk service role / API
-CREATE POLICY "Allow server API access to a11y_domains" ON a11y_domains
-    FOR ALL USING (true) WITH CHECK (true);
+-- Kebijakan Akses (RLS Policies) untuk anon key
+DROP POLICY IF EXISTS "Allow public insert a11y_domains" ON a11y_domains;
+CREATE POLICY "Allow public insert a11y_domains" ON a11y_domains FOR INSERT WITH CHECK (true);
 
-CREATE POLICY "Allow server API access to a11y_events" ON a11y_events
-    FOR ALL USING (true) WITH CHECK (true);
+DROP POLICY IF EXISTS "Allow public update a11y_domains" ON a11y_domains;
+CREATE POLICY "Allow public update a11y_domains" ON a11y_domains FOR UPDATE USING (true);
+
+DROP POLICY IF EXISTS "Allow public select a11y_domains" ON a11y_domains;
+CREATE POLICY "Allow public select a11y_domains" ON a11y_domains FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Allow public insert a11y_events" ON a11y_events;
+CREATE POLICY "Allow public insert a11y_events" ON a11y_events FOR INSERT WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Allow public select a11y_events" ON a11y_events;
+CREATE POLICY "Allow public select a11y_events" ON a11y_events FOR SELECT USING (true);
