@@ -6,8 +6,6 @@ const loading = ref(false);
 const stats = ref<any>(null);
 const lastUpdated = ref('');
 
-let refreshInterval: any = null;
-
 onMounted(() => {
   const savedKey = sessionStorage.getItem('a11y_admin_key');
   if (savedKey) {
@@ -15,26 +13,6 @@ onMounted(() => {
     fetchStats();
   }
 });
-
-onUnmounted(() => {
-  stopAutoRefresh();
-});
-
-function startAutoRefresh() {
-  stopAutoRefresh();
-  refreshInterval = setInterval(() => {
-    if (isAuthenticated.value && !loading.value) {
-      fetchStats(true); // background silent refresh
-    }
-  }, 10000);
-}
-
-function stopAutoRefresh() {
-  if (refreshInterval) {
-    clearInterval(refreshInterval);
-    refreshInterval = null;
-  }
-}
 
 async function handleLogin() {
   if (!accessKey.value.trim()) {
@@ -45,8 +23,8 @@ async function handleLogin() {
   await fetchStats();
 }
 
-async function fetchStats(isSilent = false) {
-  if (!isSilent) loading.value = true;
+async function fetchStats() {
+  loading.value = true;
   authError.value = '';
   try {
     const res: any = await $fetch(`/api/a11y/stats?_t=${Date.now()}`, {
@@ -57,25 +35,20 @@ async function fetchStats(isSilent = false) {
 
     if (res && res.success) {
       stats.value = res.data;
-      lastUpdated.value = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      lastUpdated.value = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
       isAuthenticated.value = true;
       sessionStorage.setItem('a11y_admin_key', accessKey.value.trim());
-      if (!refreshInterval) startAutoRefresh();
     }
   } catch (err: any) {
-    if (!isSilent) {
-      isAuthenticated.value = false;
-      authError.value = err.data?.statusMessage || 'Kunci akses tidak valid.';
-      sessionStorage.removeItem('a11y_admin_key');
-      stopAutoRefresh();
-    }
+    isAuthenticated.value = false;
+    authError.value = err.data?.statusMessage || 'Kunci akses tidak valid.';
+    sessionStorage.removeItem('a11y_admin_key');
   } finally {
-    if (!isSilent) loading.value = false;
+    loading.value = false;
   }
 }
 
 function handleLogout() {
-  stopAutoRefresh();
   isAuthenticated.value = false;
   accessKey.value = '';
   sessionStorage.removeItem('a11y_admin_key');
@@ -326,13 +299,7 @@ const sortedFeatureList = computed(() => {
                 <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700">Website Terpasang</h3>
                 <p class="text-[11px] text-slate-400 mt-0.5">Daftar domain yang aktif memuat widget</p>
               </div>
-              <div class="flex items-center gap-2 text-[11px] text-slate-400">
-                <span class="inline-flex items-center gap-1.5 text-emerald-600 font-medium bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-md">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  Live (10s)
-                </span>
-                <span>Sinkron {{ lastUpdated }}</span>
-              </div>
+              <span class="text-[11px] text-slate-400">Sinkron {{ lastUpdated }}</span>
             </div>
 
             <div class="overflow-x-auto flex-1">
