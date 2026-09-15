@@ -1,4 +1,12 @@
 <script setup lang="ts">
+useHead({
+  title: 'Statistik Aksesibilitas - Pemerintah Kabupaten Sinjai',
+  meta: [
+    { name: 'robots', content: 'noindex, nofollow' },
+    { name: 'description', content: 'Dashboard statistik dan telemetri pemakaian widget aksesibilitas web Pemerintah Kabupaten Sinjai.' },
+  ],
+});
+
 const accessKey = ref('');
 const isAuthenticated = ref(false);
 const authError = ref('');

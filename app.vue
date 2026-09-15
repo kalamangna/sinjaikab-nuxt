@@ -12,22 +12,35 @@ if (route.path !== "/" && !isAdminA11y.value) {
   });
 }
 
-const title = "Pemerintah Kabupaten Sinjai";
-const description = "Website Resmi Pemerintah Kabupaten Sinjai.";
+const pageTitle = computed(() =>
+  isAdminA11y.value
+    ? "Statistik Aksesibilitas - Pemerintah Kabupaten Sinjai"
+    : "Pemerintah Kabupaten Sinjai"
+);
+const pageDescription = computed(() =>
+  isAdminA11y.value
+    ? "Dashboard statistik dan telemetri pemakaian widget aksesibilitas web Pemerintah Kabupaten Sinjai."
+    : "Website Resmi Pemerintah Kabupaten Sinjai."
+);
+const robotsMeta = computed(() =>
+  isAdminA11y.value
+    ? "noindex, nofollow"
+    : "index, follow, max-image-preview:large"
+);
 const baseUrl = config.public.baseUrl;
 const imageUrl = `${baseUrl}/meta.png`;
 
 useHead({
-  title,
+  title: pageTitle,
   meta: [
-    { name: "description", content: description },
+    { name: "description", content: pageDescription },
     {
       name: "keywords",
       content:
         "pemerintah kabupaten sinjai, pemkab sinjai, sinjaikab, bupati sinjai, diskominfo sinjai, portal sinjai, sinjai bersatu, layanan publik sinjai, sulawesi selatan",
     },
     { name: "author", content: "Diskominfo-SP Kabupaten Sinjai" },
-    { name: "robots", content: "index, follow, max-image-preview:large" },
+    { name: "robots", content: robotsMeta },
     { name: "theme-color", content: "#b91c1c" },
     // Local SEO & Geotagging
     { name: "geo.region", content: "ID-SN" },
@@ -39,8 +52,8 @@ useHead({
     { property: "og:locale", content: "id_ID" },
     { property: "og:site_name", content: "Pemerintah Kabupaten Sinjai" },
     { property: "og:url", content: baseUrl },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
+    { property: "og:title", content: pageTitle },
+    { property: "og:description", content: pageDescription },
     { property: "og:image", content: imageUrl },
     { property: "og:image:secure_url", content: imageUrl },
     { property: "og:image:type", content: "image/png" },
@@ -52,8 +65,8 @@ useHead({
     { name: "twitter:site", content: "@sinjaikab" },
     { name: "twitter:creator", content: "@sinjaikab" },
     { name: "twitter:url", content: baseUrl },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
+    { name: "twitter:title", content: pageTitle },
+    { name: "twitter:description", content: pageDescription },
     { name: "twitter:image", content: imageUrl },
     { name: "twitter:image:alt", content: "Portal Resmi Pemerintah Kabupaten Sinjai" },
     // Viewport & Mobile
@@ -90,7 +103,7 @@ useHead({
             url: baseUrl,
             name: "Pemerintah Kabupaten Sinjai",
             alternateName: "Portal Resmi Pemkab Sinjai",
-            description: description,
+            description: pageDescription.value,
             inLanguage: "id-ID",
             publisher: {
               "@id": `${baseUrl}#organization`,
@@ -108,7 +121,7 @@ useHead({
             url: baseUrl,
             logo: `${baseUrl}/sinjai.png`,
             image: imageUrl,
-            description: description,
+            description: pageDescription.value,
             address: {
               "@type": "PostalAddress",
               streetAddress: "Jl. Tanassang, Alehanuae, Sinjai Utara",
