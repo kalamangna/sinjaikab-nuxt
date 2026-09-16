@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Micro-interaction interaktif pada tombol salin tautan ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) dengan label konfirmasi visual *"Tautan Disalin!"* berikon centang hijau.
 
 ### Changed
+- Relokasi tombol aksi unduh dokumen dan bagikan tautan langsung ke header kartu Pratinjau Dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)), menghilangkan kartu aksi terpisah di bilah sisi (*sidebar*) sehingga posisi kartu Metadata berada di urutan teratas dan tampilan konten menjadi lebih ringkas dan terfokus.
 - Standardisasi nama halaman dan entitas SEO dari `Informasi Pemkab` menjadi **`Informasi Publik`** pada judul Hero, meta title, dan skema data terstruktur JSON-LD Schema.org di [`pages/informasi/index.vue`](./pages/informasi/index.vue) dan [`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue).
 - Penataan ulang tata letak halaman detail dokumen: kartu Deskripsi Dokumen diposisikan di atas kartu Pratinjau Dokumen, serta pemusatan seluruh metadata (sumber, kategori, jenis, sifat akses, tanggal) secara terstruktur pada Metadata Card di bilah sisi (*sidebar*).
 - Penyesuaian jarak Hero halaman detail dokumen (`pt-32 md:pt-36 lg:pt-40` dan `pb-36 md:pb-44 lg:pb-48`) guna memberi ruang yang proporsional dan tidak rapat terhadap *fixed navbar* serta kartu dokumen.

@@ -64,13 +64,43 @@
 
             <!-- Pratinjau Dokumen -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 hover:border-red-100/50 transition-all duration-300 overflow-hidden">
-              <div class="border-b border-slate-100 bg-slate-50/50 px-6 sm:px-8 py-5 flex justify-between items-center">
-                <h2 class="text-xl font-black text-slate-900 flex items-center">
-                  <i class="fas fa-eye text-red-700 mr-2.5"></i> Pratinjau Dokumen
-                </h2>
-                <span class="text-xs bg-slate-100 text-slate-600 font-bold px-3 py-1 rounded-full">
-                  <i class="fas fa-eye mr-1 text-slate-400"></i> {{ dokumen.views_count || 0 }} Kali Dilihat
-                </span>
+              <div class="border-b border-slate-100 bg-slate-50/50 px-6 sm:px-8 py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <h2 class="text-xl font-black text-slate-900 flex items-center">
+                    <i class="fas fa-eye text-red-700 mr-2.5"></i> Pratinjau Dokumen
+                  </h2>
+                  <span class="text-xs bg-slate-100 text-slate-600 font-bold px-3 py-1 rounded-full">
+                    <i class="fas fa-eye mr-1 text-slate-400"></i> {{ dokumen.views_count || 0 }} Kali Dilihat
+                  </span>
+                </div>
+
+                <!-- Action Buttons di Header Pratinjau -->
+                <div class="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+                  <template v-if="dokumen.file_path">
+                    <a :href="getDownloadUrl(dokumen)" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       :download="(!isGoogleDriveFolder(dokumen.file_path) && !isExternalWebpage(dokumen.file_path)) ? (dokumen.judul || 'dokumen') : undefined"
+                       class="inline-flex items-center justify-center px-4 py-2 bg-red-700 hover:bg-red-800 text-white font-bold rounded-xl shadow-sm shadow-red-900/20 uppercase tracking-wider text-xs transition-all duration-300">
+                      <i :class="[(isGoogleDriveFolder(dokumen.file_path) || isExternalWebpage(dokumen.file_path)) ? 'fa-external-link-alt' : 'fa-cloud-download-alt', 'fas mr-2 text-xs']"></i> 
+                      {{ (isGoogleDriveFolder(dokumen.file_path) || isExternalWebpage(dokumen.file_path)) ? 'Buka Tautan' : 'Unduh Dokumen' }}
+                    </a>
+                  </template>
+                  <span v-else class="inline-flex items-center px-4 py-2 bg-slate-100 text-slate-400 font-bold rounded-xl text-xs uppercase tracking-wider cursor-not-allowed">
+                    <i class="fas fa-ban mr-1.5"></i> File Tidak Tersedia
+                  </span>
+
+                  <button @click="copyShareLink(dokumen)" 
+                     :class="[
+                       'inline-flex items-center justify-center px-3.5 py-2 border font-bold rounded-xl shadow-sm transition-all duration-300 uppercase tracking-wider text-xs',
+                       isCopied 
+                         ? 'bg-emerald-50 border-emerald-300 text-emerald-700' 
+                         : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700 hover:text-red-700'
+                     ]">
+                    <i :class="[isCopied ? 'fas fa-check text-emerald-600' : 'fas fa-share-alt', 'mr-1.5 text-xs']"></i> 
+                    {{ isCopied ? 'Tautan Disalin!' : 'Bagikan' }}
+                  </button>
+                </div>
               </div>
               <div class="p-0 h-[620px] md:h-[720px] w-full bg-slate-100">
                 <template v-if="dokumen.file_path">
@@ -105,36 +135,8 @@
             </div>
           </div>
 
-          <!-- Kolom Kanan: Sidebar Action & Metadata -->
+          <!-- Kolom Kanan: Sidebar Metadata & Kembali -->
           <div class="lg:col-span-1 space-y-6 md:space-y-8">
-            <!-- Action Card -->
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-100 hover:border-red-100/50 p-6 space-y-3 transition-all duration-300">
-              <template v-if="dokumen.file_path">
-                <a :href="getDownloadUrl(dokumen)" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   :download="(!isGoogleDriveFolder(dokumen.file_path) && !isExternalWebpage(dokumen.file_path)) ? (dokumen.judul || 'dokumen') : undefined"
-                   class="w-full inline-flex items-center justify-center px-6 py-3.5 bg-red-700 hover:bg-red-800 text-white font-bold rounded-2xl shadow-lg shadow-red-900/20 uppercase tracking-wider text-xs transition-all duration-300">
-                  <i :class="[(isGoogleDriveFolder(dokumen.file_path) || isExternalWebpage(dokumen.file_path)) ? 'fa-external-link-alt' : 'fa-cloud-download-alt', 'fas mr-2 text-sm']"></i> 
-                  {{ (isGoogleDriveFolder(dokumen.file_path) || isExternalWebpage(dokumen.file_path)) ? 'Buka Tautan' : 'Unduh Dokumen' }}
-                </a>
-              </template>
-              <span v-else class="w-full flex items-center justify-center px-6 py-3.5 bg-slate-100 text-slate-400 font-bold rounded-2xl cursor-not-allowed text-xs uppercase tracking-wider">
-                <i class="fas fa-ban mr-2"></i> File Tidak Tersedia
-              </span>
-
-              <button @click="copyShareLink(dokumen)" 
-                 :class="[
-                   'w-full inline-flex items-center justify-center px-6 py-3 border font-bold rounded-2xl shadow-sm transition-all duration-300 uppercase tracking-wider text-xs',
-                   isCopied 
-                     ? 'bg-emerald-50 border-emerald-300 text-emerald-700' 
-                     : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700 hover:text-red-700'
-                 ]">
-                <i :class="[isCopied ? 'fas fa-check text-emerald-600' : 'fas fa-share-alt', 'mr-2 text-sm']"></i> 
-                {{ isCopied ? 'Tautan Disalin!' : 'Bagikan' }}
-              </button>
-            </div>
-
             <!-- Metadata Card -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 hover:border-red-100/50 transition-all duration-300 overflow-hidden">
               <div class="border-b border-slate-100 bg-slate-50/50 px-6 sm:px-8 py-5">
@@ -181,7 +183,7 @@
               </div>
             </div>
 
-            <NuxtLink to="/informasi" class="w-full flex items-center justify-center px-6 py-3.5 bg-white border border-slate-200 text-slate-600 hover:text-slate-900 font-bold rounded-2xl hover:bg-slate-50 transition-all duration-300 shadow-sm uppercase tracking-wider text-xs">
+            <NuxtLink to="/informasi" class="w-full flex items-center justify-center px-6 py-3.5 bg-white border border-slate-200 text-slate-600 hover:text-red-700 hover:border-red-200 font-bold rounded-2xl hover:bg-red-50/50 transition-all duration-300 shadow-sm uppercase tracking-wider text-xs">
               <i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar
             </NuxtLink>
           </div>
@@ -207,12 +209,16 @@
 
             <!-- Pratinjau Dokumen Skeleton -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
-              <div class="border-b border-slate-100 bg-slate-50/50 px-6 sm:px-8 py-5 flex justify-between items-center">
-                <div class="flex items-center">
+              <div class="border-b border-slate-100 bg-slate-50/50 px-6 sm:px-8 py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
                   <i class="fas fa-eye text-red-700 mr-2.5"></i>
                   <span class="font-black text-slate-900 text-xl">Pratinjau Dokumen</span>
+                  <div class="h-6 w-24 bg-slate-200/70 rounded-full animate-pulse"></div>
                 </div>
-                <div class="h-6 w-24 bg-slate-200/70 rounded-full animate-pulse"></div>
+                <div class="flex items-center gap-2.5 animate-pulse">
+                  <div class="h-9 w-28 bg-red-200/60 rounded-xl"></div>
+                  <div class="h-9 w-20 bg-slate-200/70 rounded-xl"></div>
+                </div>
               </div>
               <div class="h-[620px] md:h-[720px] w-full bg-slate-100/70 flex flex-col items-center justify-center p-8 relative">
                 <div class="text-center">
@@ -226,12 +232,6 @@
 
           <!-- Kolom Kanan: Sidebar Skeleton -->
           <div class="lg:col-span-1 space-y-6 md:space-y-8">
-            <!-- Action Card Skeleton -->
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 space-y-3 animate-pulse">
-              <div class="h-12 bg-red-100/80 rounded-2xl w-full"></div>
-              <div class="h-11 bg-slate-100 rounded-2xl w-full"></div>
-            </div>
-
             <!-- Metadata Card Skeleton -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
               <div class="border-b border-slate-100 bg-slate-50/50 px-6 sm:px-8 py-5 flex items-center">
@@ -261,7 +261,7 @@
               </div>
             </div>
 
-            <!-- Tombol Kembali -->
+            <!-- Tombol Kembali Skeleton -->
             <NuxtLink to="/informasi" class="w-full flex items-center justify-center px-6 py-3.5 bg-white border border-slate-200 text-slate-600 hover:text-slate-900 font-bold rounded-2xl hover:bg-slate-50 transition-all duration-300 shadow-sm uppercase tracking-wider text-xs">
               <i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar
             </NuxtLink>
