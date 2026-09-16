@@ -264,7 +264,19 @@ const formatDate = (dateStr) => {
   return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })
 }
 
-useHead(computed(() => ({
-  title: dokumen.value ? `${dokumen.value.judul} - Informasi Pemkab` : 'Informasi Pemkab'
-})))
+const pageTitle = computed(() => dokumen.value ? `${dokumen.value.judul} - Informasi Pemkab` : 'Informasi Pemkab');
+const pageDesc = computed(() => {
+  if (!dokumen.value) return 'Detail dokumen Informasi Publik Kabupaten Sinjai.';
+  if (dokumen.value.deskripsi) return dokumen.value.deskripsi.replace(/(<([^>]+)>)/gi, '').substring(0, 160);
+  return 'Detail dokumen Informasi Publik Kabupaten Sinjai.';
+});
+
+useSeoMeta({
+  title: pageTitle,
+  ogTitle: pageTitle,
+  description: pageDesc,
+  ogDescription: pageDesc,
+  ogImage: 'https://sinjaikab.go.id/sinjai.png',
+  twitterCard: 'summary_large_image',
+})
 </script>

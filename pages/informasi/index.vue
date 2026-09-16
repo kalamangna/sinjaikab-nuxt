@@ -345,8 +345,13 @@ const pageTitle = computed(() => {
 
 
 
-useHead({
-  title: pageTitle
+useSeoMeta({
+  title: pageTitle,
+  ogTitle: pageTitle,
+  description: 'Transparansi Dokumen Pemerintah Kabupaten Sinjai yang dapat Anda akses, telusuri, dan unduh dengan mudah.',
+  ogDescription: 'Transparansi Dokumen Pemerintah Kabupaten Sinjai yang dapat Anda akses, telusuri, dan unduh dengan mudah.',
+  ogImage: 'https://sinjaikab.go.id/sinjai.png',
+  twitterCard: 'summary_large_image',
 })
 
 
