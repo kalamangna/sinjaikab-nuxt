@@ -26,3 +26,7 @@ logs
 # Markdown files
 *.md
 GEMINI.md
+
+# AI files
+*.cjs
+scratch/
