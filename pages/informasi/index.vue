@@ -54,7 +54,7 @@
                 </button>
             </div>
 
-            <div class="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center bg-white p-5 sm:p-6 lg:p-7 rounded-3xl shadow-sm border border-slate-100 hover:border-red-100/80 transition-all duration-300 mb-8 sm:mb-10 relative z-50">
+            <div class="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center bg-white p-4 sm:p-6 lg:p-7 rounded-3xl shadow-sm border border-slate-100 hover:border-red-100/80 transition-all duration-300 mb-8 sm:mb-10 relative z-50">
                     <div class="flex-1 relative" style="z-index: 50;">
                         <CustomSelect 
                             v-model="filters.kategori" 
@@ -146,8 +146,8 @@
 
                     <!-- KONDISI 1: DATA DOKUMEN ADA -->
                     <template v-if="items.length > 0">
-                        <div class="hidden md:block overflow-x-hidden relative z-10 w-full">
-                            <table class="w-full bg-transparent table-fixed">
+                        <div class="hidden md:block overflow-x-auto relative z-10 w-full">
+                            <table class="w-full bg-transparent table-fixed min-w-[760px]">
                                 <thead>
                                     <tr class="bg-slate-50 border-b border-slate-200 text-left">
                                         <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-14 text-center">No</th>
@@ -164,21 +164,12 @@
                                             {{ (currentPage - 1) * Number(filters.per_page) + index + 1 }}
                                         </td>
                                         <td class="py-4 px-6 whitespace-normal align-middle">
-                                            <div class="flex items-center">
-                                                <div class="flex-shrink-0">
-                                                    <div class="w-11 h-11 rounded-2xl bg-red-50 border border-red-100/60 text-red-700 flex items-center justify-center shadow-sm group-hover:bg-red-700 group-hover:text-white transition-colors duration-300">
-                                                        <i class="fas fa-file-pdf text-lg"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="ml-4">
-                                                    <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="block text-base font-bold text-slate-900 hover:text-red-700 transition-all duration-300 leading-tight line-clamp-1 group-hover:line-clamp-none">
-                                                        {{ dokumen.judul }}
-                                                    </NuxtLink>
-                                                    <p v-if="dokumen.deskripsi" class="text-sm text-slate-500 mt-1 transition-all duration-300 line-clamp-1 group-hover:line-clamp-none">
-                                                        {{ dokumen.deskripsi }}
-                                                    </p>
-                                                </div>
-                                            </div>
+                                            <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="block text-base font-bold text-slate-900 hover:text-red-700 transition-all duration-300 leading-snug line-clamp-1 group-hover:line-clamp-none">
+                                                {{ dokumen.judul }}
+                                            </NuxtLink>
+                                            <p v-if="dokumen.deskripsi" class="text-sm text-slate-500 mt-1 transition-all duration-300 line-clamp-1 group-hover:line-clamp-none">
+                                                {{ dokumen.deskripsi }}
+                                            </p>
                                         </td>
                                         <td class="py-4 px-6 whitespace-normal align-middle">
                                             <span class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200/60 mb-1">
@@ -190,8 +181,8 @@
                                             </span>
                                         </td>
                                         <td class="py-4 px-6 whitespace-normal align-middle">
-                                            <span v-if="dokumen.organization" class="inline-flex items-center text-xs font-semibold text-slate-700 leading-snug">
-                                                <i class="fas fa-building mr-2 text-emerald-600 shrink-0"></i> {{ dokumen.organization.name }}
+                                            <span v-if="dokumen.organization" class="block text-xs font-semibold text-slate-700 leading-snug">
+                                                {{ dokumen.organization.name }}
                                             </span>
                                             <span v-else class="text-xs text-slate-400 italic">Pemerintah Kabupaten</span>
                                         </td>
@@ -211,38 +202,39 @@
                         </div>
           
                         <div class="block md:hidden relative z-10 p-4 sm:p-6 space-y-4 bg-slate-50/50">
-                            <div v-for="dokumen in items" :key="'mob-'+dokumen.id" class="bg-white rounded-2xl shadow-sm border border-slate-100 hover:border-red-100 p-5 sm:p-6 relative flex flex-col group transition-all duration-300">
-                                <div class="flex items-start">
-                                    <div class="w-11 h-11 flex-shrink-0 rounded-2xl bg-red-50 text-red-700 border border-red-100/60 flex items-center justify-center shadow-sm mt-0.5 group-hover:bg-red-700 group-hover:text-white transition-colors duration-300">
-                                        <i class="fas fa-file-pdf text-lg"></i>
-                                    </div>
-                                    <div class="ml-3 flex-grow min-w-0">
-                                        <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="block text-sm sm:text-base font-bold text-slate-900 hover:text-red-700 transition-all duration-300 leading-snug line-clamp-1 group-hover:line-clamp-none">
-                                            {{ dokumen.judul }}
-                                        </NuxtLink>
-                                        <p v-if="dokumen.deskripsi" class="text-xs text-slate-500 mt-1.5 transition-all duration-300 line-clamp-1 group-hover:line-clamp-none leading-relaxed">
-                                            {{ dokumen.deskripsi }}
-                                        </p>
-                                    </div>
+                            <div v-for="dokumen in items" :key="'mob-'+dokumen.id" class="bg-white rounded-2xl shadow-sm border border-slate-100 hover:border-red-100 p-4 sm:p-6 relative flex flex-col group transition-all duration-300">
+                                <div>
+                                    <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="block text-sm sm:text-base font-bold text-slate-900 hover:text-red-700 transition-all duration-300 leading-snug line-clamp-2 group-hover:line-clamp-none">
+                                        {{ dokumen.judul }}
+                                    </NuxtLink>
+                                    <p v-if="dokumen.deskripsi" class="text-xs text-slate-500 mt-1.5 transition-all duration-300 line-clamp-2 group-hover:line-clamp-none leading-relaxed">
+                                        {{ dokumen.deskripsi }}
+                                    </p>
                                 </div>
           
                                 <div class="mt-3.5 pt-3 border-t border-slate-100 flex flex-col gap-2">
-                                    <div v-if="dokumen.organization" class="text-xs text-slate-600 font-medium flex items-center">
-                                        <i class="fas fa-building mr-1.5 text-emerald-600 shrink-0"></i> {{ dokumen.organization.name }}
+                                    <div v-if="dokumen.organization" class="text-xs text-slate-600 font-medium">
+                                        {{ dokumen.organization.name }}
                                     </div>
-                                    <div class="flex items-center justify-between gap-2 text-xs">
-                                        <span class="px-2.5 py-0.5 bg-slate-100 text-slate-700 font-semibold rounded-md text-[11px]">
-                                            {{ dokumen.kategori }}
-                                        </span>
-                                        <span class="text-slate-400 font-medium text-[11px] flex items-center">
-                                            <i class="fas fa-calendar mr-1"></i> {{ formatDate(dokumen.published_at || dokumen.created_at) }}
+                                    <div class="flex items-center justify-between gap-2 text-xs flex-wrap">
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span class="px-2.5 py-0.5 bg-slate-100 text-slate-700 font-semibold rounded-md text-[11px]">
+                                                {{ dokumen.kategori }}
+                                            </span>
+                                            <span v-if="dokumen.jenis_dokumen" class="px-2.5 py-0.5 bg-red-50 text-red-700 font-semibold rounded-md text-[11px] border border-red-100">
+                                                {{ dokumen.jenis_dokumen }}
+                                            </span>
+                                        </div>
+                                        <span class="text-slate-400 font-medium text-[11px]">
+                                            {{ formatDate(dokumen.published_at || dokumen.created_at) }}
                                         </span>
                                     </div>
                                 </div>
           
                                 <div class="mt-3 pt-3 border-t border-slate-100 flex justify-end">
-                                    <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="inline-flex items-center justify-center w-9 h-9 bg-red-50 hover:bg-red-700 text-red-700 hover:text-white border border-red-200/80 rounded-xl text-sm transition-all duration-300 shadow-sm" title="Lihat Detail">
-                                        <i class="fas fa-eye"></i>
+                                    <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="inline-flex items-center justify-center px-4 py-2 bg-red-50 hover:bg-red-700 text-red-700 hover:text-white border border-red-200/80 rounded-xl text-xs font-bold transition-all duration-300 shadow-sm gap-1.5" title="Lihat Detail">
+                                        <i class="fas fa-eye text-xs"></i>
+                                        <span>Lihat Detail</span>
                                     </NuxtLink>
                                 </div>
                             </div>
@@ -252,8 +244,8 @@
                     <!-- KONDISI 2: SKELETON TABLE LOADING (Saat pemuatan awal dokumen) -->
                     <div v-else-if="isLoading" class="w-full">
                         <!-- Skeleton Desktop Table -->
-                        <div class="hidden md:block overflow-x-hidden relative z-10 w-full">
-                            <table class="w-full bg-transparent table-fixed">
+                        <div class="hidden md:block overflow-x-auto relative z-10 w-full">
+                            <table class="w-full bg-transparent table-fixed min-w-[760px]">
                                 <thead>
                                     <tr class="bg-slate-50 border-b border-slate-200 text-left">
                                         <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-14 text-center">No</th>
@@ -270,12 +262,9 @@
                                             <div class="h-4 w-6 bg-slate-200/80 rounded mx-auto"></div>
                                         </td>
                                         <td class="py-5 px-6 align-middle">
-                                            <div class="flex items-center">
-                                                <div class="w-11 h-11 rounded-2xl bg-slate-200/70 flex-shrink-0"></div>
-                                                <div class="ml-4 flex-1 space-y-2">
-                                                    <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
-                                                    <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
-                                                </div>
+                                            <div class="space-y-2">
+                                                <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
+                                                <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
                                             </div>
                                         </td>
                                         <td class="py-5 px-6 align-middle">
@@ -299,12 +288,9 @@
                         <!-- Skeleton Mobile Cards -->
                         <div class="block md:hidden relative z-10 p-4 sm:p-6 space-y-4 bg-slate-50/50">
                             <div v-for="n in 3" :key="'skel-mob-' + n" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-6 flex flex-col space-y-3.5 animate-pulse">
-                                <div class="flex items-start">
-                                    <div class="w-11 h-11 flex-shrink-0 rounded-2xl bg-slate-200/70"></div>
-                                    <div class="ml-3 flex-grow space-y-2">
-                                        <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
-                                        <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
-                                    </div>
+                                <div class="space-y-2">
+                                    <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
+                                    <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
                                 </div>
                                 <div class="pt-3 border-t border-slate-100 space-y-2">
                                     <div class="h-3 bg-slate-200/60 rounded w-1/3"></div>
@@ -332,18 +318,18 @@
                     </div>
                     
                     <!-- Pagination -->
-                    <div v-if="!isLoading && items.length > 0 && lastPage > 1" class="relative z-10 px-6 py-6 border-t border-slate-100 bg-white/80 backdrop-blur-sm flex justify-center">
-                        <nav class="inline-flex rounded-2xl shadow-sm border border-slate-100 bg-white p-1">
-                            <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1" class="px-4 py-2 text-sm font-bold text-slate-500 rounded-xl hover:bg-red-50 hover:text-red-700 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-slate-400 transition-colors">
+                    <div v-if="!isLoading && items.length > 0 && lastPage > 1" class="relative z-10 px-3 sm:px-6 py-4 sm:py-6 border-t border-slate-100 bg-white/80 backdrop-blur-sm flex justify-center">
+                        <nav class="inline-flex max-w-full overflow-x-auto rounded-2xl shadow-sm border border-slate-100 bg-white p-1">
+                            <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-500 rounded-xl hover:bg-red-50 hover:text-red-700 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-slate-400 transition-colors">
                                 <i class="fas fa-chevron-left"></i>
                             </button>
                             <template v-for="page in visiblePages" :key="page">
-                                <span v-if="page === '...'" class="px-4 py-2 text-sm font-bold text-slate-400">...</span>
-                                <button v-else @click="changePage(page)" :class="['px-4 py-2 text-sm font-bold rounded-xl transition-colors', page === currentPage ? 'bg-red-700 text-white shadow-md shadow-red-900/20' : 'text-slate-600 hover:bg-red-50 hover:text-red-700']">
+                                <span v-if="page === '...'" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-400">...</span>
+                                <button v-else @click="changePage(page)" :class="['px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition-colors', page === currentPage ? 'bg-red-700 text-white shadow-md shadow-red-900/20' : 'text-slate-600 hover:bg-red-50 hover:text-red-700']">
                                     {{ page }}
                                 </button>
                             </template>
-                            <button @click="changePage(currentPage + 1)" :disabled="currentPage === lastPage" class="px-4 py-2 text-sm font-bold text-slate-500 rounded-xl hover:bg-red-50 hover:text-red-700 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-slate-400 transition-colors">
+                            <button @click="changePage(currentPage + 1)" :disabled="currentPage === lastPage" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-500 rounded-xl hover:bg-red-50 hover:text-red-700 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-slate-400 transition-colors">
                                 <i class="fas fa-chevron-right"></i>
                             </button>
                         </nav>
@@ -353,8 +339,8 @@
                 <!-- Fallback SSR ClientOnly -->
                 <template #fallback>
                     <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden relative min-h-[400px]">
-                        <div class="hidden md:block overflow-x-hidden relative z-10 w-full">
-                            <table class="w-full bg-transparent table-fixed">
+                        <div class="hidden md:block overflow-x-auto relative z-10 w-full">
+                            <table class="w-full bg-transparent table-fixed min-w-[760px]">
                                 <thead>
                                     <tr class="bg-slate-50 border-b border-slate-200 text-left">
                                         <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-14 text-center">No</th>
@@ -371,12 +357,9 @@
                                             <div class="h-4 w-6 bg-slate-200/80 rounded mx-auto"></div>
                                         </td>
                                         <td class="py-5 px-6 align-middle">
-                                            <div class="flex items-center">
-                                                <div class="w-11 h-11 rounded-2xl bg-slate-200/70 flex-shrink-0"></div>
-                                                <div class="ml-4 flex-1 space-y-2">
-                                                    <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
-                                                    <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
-                                                </div>
+                                            <div class="space-y-2">
+                                                <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
+                                                <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
                                             </div>
                                         </td>
                                         <td class="py-5 px-6 align-middle">
@@ -398,12 +381,9 @@
                         </div>
                         <div class="block md:hidden relative z-10 p-4 sm:p-6 space-y-4 bg-slate-50/50">
                             <div v-for="n in 3" :key="'fallback-mob-' + n" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-6 flex flex-col space-y-3.5 animate-pulse">
-                                <div class="flex items-start">
-                                    <div class="w-11 h-11 flex-shrink-0 rounded-2xl bg-slate-200/70"></div>
-                                    <div class="ml-3 flex-grow space-y-2">
-                                        <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
-                                        <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
-                                    </div>
+                                <div class="space-y-2">
+                                    <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
+                                    <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
                                 </div>
                                 <div class="pt-3 border-t border-slate-100 space-y-2">
                                     <div class="h-3 bg-slate-200/60 rounded w-1/3"></div>

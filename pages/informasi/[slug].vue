@@ -5,12 +5,12 @@
       <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
       <div class="container mx-auto px-4 md:px-6 relative z-10">
         <!-- Jika Dokumen Selesai Dimuat -->
-        <h1 v-if="dokumen" class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg leading-tight max-w-4xl">
+        <h1 v-if="dokumen" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg leading-tight max-w-4xl break-words">
           {{ dokumen.judul }}
         </h1>
 
         <!-- Jika Terjadi Error / Dokumen Tidak Ditemukan -->
-        <h1 v-else-if="isError" class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg leading-tight max-w-4xl">
+        <h1 v-else-if="isError" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg leading-tight max-w-4xl">
           Dokumen Tidak Ditemukan
         </h1>
 
@@ -45,17 +45,17 @@
         </div>
 
         <!-- KONDISI 2: DATA DOKUMEN SIAP -->
-        <div v-else-if="dokumen" class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 xl:gap-12">
+        <div v-else-if="dokumen" class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 xl:gap-12 items-start">
           <!-- Kolom Kiri: Deskripsi & Pratinjau Dokumen -->
           <div class="lg:col-span-2 space-y-8 md:space-y-10">
             <!-- Deskripsi Dokumen -->
             <div v-if="dokumen.deskripsi" class="bg-white rounded-3xl shadow-sm border border-slate-100 hover:border-red-100/50 transition-all duration-300 overflow-hidden">
-              <div class="border-b border-slate-100 bg-slate-50/50 px-6 sm:px-8 py-5">
+              <div class="border-b border-slate-100 bg-slate-50/50 px-4 sm:px-8 py-4 sm:py-5">
                 <h2 class="text-xl font-black text-slate-900 flex items-center">
                   <i class="fas fa-info-circle text-red-700 mr-2.5"></i> Deskripsi Dokumen
                 </h2>
               </div>
-              <div class="p-6 sm:p-10">
+              <div class="p-5 sm:p-8 md:p-10">
                 <div class="prose prose-slate max-w-none text-slate-700 leading-relaxed text-base sm:text-lg">
                   <div v-html="dokumen.deskripsi"></div>
                 </div>
@@ -64,47 +64,17 @@
 
             <!-- Pratinjau Dokumen -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 hover:border-red-100/50 transition-all duration-300 overflow-hidden">
-              <div class="border-b border-slate-100 bg-slate-50/50 px-6 sm:px-8 py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
-                  <h2 class="text-xl font-black text-slate-900 flex items-center">
-                    <i class="fas fa-eye text-red-700 mr-2.5"></i> Pratinjau Dokumen
-                  </h2>
-                  <span class="text-xs bg-slate-100 text-slate-600 font-bold px-3 py-1 rounded-full">
-                    <i class="fas fa-eye mr-1 text-slate-400"></i> {{ dokumen.views_count || 0 }} Kali Dilihat
-                  </span>
-                </div>
-
-                <!-- Action Buttons di Header Pratinjau -->
-                <div class="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
-                  <template v-if="dokumen.file_path">
-                    <a :href="getDownloadUrl(dokumen)" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       :download="(!isGoogleDriveFolder(dokumen.file_path) && !isExternalWebpage(dokumen.file_path)) ? (dokumen.judul || 'dokumen') : undefined"
-                       class="inline-flex items-center justify-center px-4 py-2 bg-red-700 hover:bg-red-800 text-white font-bold rounded-xl shadow-sm shadow-red-900/20 uppercase tracking-wider text-xs transition-all duration-300">
-                      <i :class="[(isGoogleDriveFolder(dokumen.file_path) || isExternalWebpage(dokumen.file_path)) ? 'fa-external-link-alt' : 'fa-cloud-download-alt', 'fas mr-2 text-xs']"></i> 
-                      {{ (isGoogleDriveFolder(dokumen.file_path) || isExternalWebpage(dokumen.file_path)) ? 'Buka Tautan' : 'Unduh Dokumen' }}
-                    </a>
-                  </template>
-                  <span v-else class="inline-flex items-center px-4 py-2 bg-slate-100 text-slate-400 font-bold rounded-xl text-xs uppercase tracking-wider cursor-not-allowed">
-                    <i class="fas fa-ban mr-1.5"></i> File Tidak Tersedia
-                  </span>
-
-                  <button @click="copyShareLink(dokumen)" 
-                     :class="[
-                       'inline-flex items-center justify-center px-3.5 py-2 border font-bold rounded-xl shadow-sm transition-all duration-300 uppercase tracking-wider text-xs',
-                       isCopied 
-                         ? 'bg-emerald-50 border-emerald-300 text-emerald-700' 
-                         : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700 hover:text-red-700'
-                     ]">
-                    <i :class="[isCopied ? 'fas fa-check text-emerald-600' : 'fas fa-share-alt', 'mr-1.5 text-xs']"></i> 
-                    {{ isCopied ? 'Tautan Disalin!' : 'Bagikan' }}
-                  </button>
-                </div>
+              <div class="border-b border-slate-100 bg-slate-50/50 px-4 sm:px-8 py-4 sm:py-5 flex justify-between items-center flex-wrap gap-3">
+                <h2 class="text-xl font-black text-slate-900 flex items-center">
+                  <i class="fas fa-eye text-red-700 mr-2.5"></i> Pratinjau Dokumen
+                </h2>
+                <span class="text-xs bg-slate-100 text-slate-600 font-bold px-3 py-1 rounded-full">
+                  <i class="fas fa-eye mr-1 text-slate-400"></i> {{ dokumen.views_count || 0 }} Kali Dilihat
+                </span>
               </div>
-              <div class="p-0 h-[620px] md:h-[720px] w-full bg-slate-100">
+              <div class="p-0 h-[480px] sm:h-[620px] md:h-[720px] w-full bg-slate-100">
                 <template v-if="dokumen.file_path">
-                  <div v-if="isGoogleDriveFolder(dokumen.file_path) || isExternalWebpage(dokumen.file_path)" class="w-full h-full flex flex-col items-center justify-center bg-slate-100 p-8 text-center">
+                  <div v-if="isGoogleDriveFolder(dokumen.file_path) || isExternalWebpage(dokumen.file_path)" class="w-full h-full flex flex-col items-center justify-center bg-slate-100 p-6 sm:p-8 text-center">
                     <div class="w-16 h-16 rounded-2xl bg-slate-200/70 flex items-center justify-center text-slate-400 mb-3">
                       <i class="fas fa-external-link-alt text-2xl"></i>
                     </div>
@@ -132,24 +102,51 @@
                   <p>File tidak tersedia</p>
                 </div>
               </div>
+
+              <!-- Action Bar di Bawah Pratinjau Dokumen (Tanpa Teks Tambahan) -->
+              <div class="border-t border-slate-100 bg-slate-50/50 px-4 sm:px-8 py-4 sm:py-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3">
+                <template v-if="dokumen.file_path">
+                  <a :href="getDownloadUrl(dokumen)" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     :download="(!isGoogleDriveFolder(dokumen.file_path) && !isExternalWebpage(dokumen.file_path)) ? (dokumen.judul || 'dokumen') : undefined"
+                     class="inline-flex items-center justify-center px-6 py-3 bg-red-700 hover:bg-red-800 text-white font-bold rounded-2xl shadow-md shadow-red-900/20 uppercase tracking-wider text-xs transition-all duration-300">
+                    <i :class="[(isGoogleDriveFolder(dokumen.file_path) || isExternalWebpage(dokumen.file_path)) ? 'fa-external-link-alt' : 'fa-cloud-download-alt', 'fas mr-2 text-xs']"></i> 
+                    {{ (isGoogleDriveFolder(dokumen.file_path) || isExternalWebpage(dokumen.file_path)) ? 'Buka Tautan' : 'Unduh Dokumen' }}
+                  </a>
+                </template>
+                <span v-else class="inline-flex items-center justify-center px-6 py-3 bg-slate-100 text-slate-400 font-bold rounded-2xl cursor-not-allowed text-xs uppercase tracking-wider">
+                  <i class="fas fa-ban mr-1.5"></i> File Tidak Tersedia
+                </span>
+
+                <button @click="copyShareLink(dokumen)" 
+                   :class="[
+                     'inline-flex items-center justify-center px-5 py-3 border font-bold rounded-2xl shadow-sm transition-all duration-300 uppercase tracking-wider text-xs',
+                     isCopied 
+                       ? 'bg-emerald-50 border-emerald-300 text-emerald-700' 
+                       : 'bg-white hover:bg-slate-100 border-slate-200 text-slate-700 hover:text-red-700'
+                   ]">
+                  <i :class="[isCopied ? 'fas fa-check text-emerald-600' : 'fas fa-share-alt', 'mr-2 text-xs']"></i> 
+                  {{ isCopied ? 'Tautan Disalin!' : 'Bagikan' }}
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- Kolom Kanan: Sidebar Metadata & Kembali -->
-          <div class="lg:col-span-1 space-y-6 md:space-y-8">
+          <!-- Kolom Kanan: Sidebar Metadata & Kembali (Sticky) -->
+          <div class="lg:col-span-1 space-y-6 md:space-y-8 lg:sticky lg:top-28 self-start">
             <!-- Metadata Card -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 hover:border-red-100/50 transition-all duration-300 overflow-hidden">
-              <div class="border-b border-slate-100 bg-slate-50/50 px-6 sm:px-8 py-5">
+              <div class="border-b border-slate-100 bg-slate-50/50 px-4 sm:px-8 py-4 sm:py-5">
                 <h2 class="text-lg font-black text-slate-900 flex items-center">
                   <i class="fas fa-list-ul text-red-700 mr-2.5"></i> Metadata
                 </h2>
               </div>
-              <div class="p-6 sm:p-8">
+              <div class="p-5 sm:p-8">
                 <ul class="space-y-5">
                   <li class="flex flex-col">
                     <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Sumber</span>
-                    <span class="text-sm font-bold text-slate-800 flex items-start">
-                      <i class="fas fa-building mt-0.5 mr-2 text-emerald-600"></i> 
+                    <span class="text-sm font-bold text-slate-800">
                       {{ dokumen.organization ? dokumen.organization.name : 'Pemerintah Kabupaten' }}
                     </span>
                   </li>
@@ -166,17 +163,17 @@
                   </li>
                   <li class="pt-5 border-t border-slate-100 flex flex-col">
                     <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Sifat Akses</span>
-                    <span v-if="dokumen.visibility === 'public'" class="text-sm font-bold text-emerald-600 flex items-center">
-                      <i class="fas fa-globe mr-1.5"></i> Publik
+                    <span v-if="dokumen.visibility === 'public'" class="text-sm font-bold text-emerald-600">
+                      Publik
                     </span>
-                    <span v-else class="text-sm font-bold text-amber-600 flex items-center">
-                      <i class="fas fa-lock mr-1.5"></i> Terbatas
+                    <span v-else class="text-sm font-bold text-amber-600">
+                      Terbatas
                     </span>
                   </li>
                   <li class="pt-5 border-t border-slate-100 flex flex-col">
                     <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Tanggal Publikasi</span>
-                    <span class="text-sm font-bold text-slate-700 flex items-center">
-                      <i class="fas fa-clock mr-1.5 text-red-700"></i> {{ formatDate(dokumen.published_at || dokumen.created_at) }}
+                    <span class="text-sm font-bold text-slate-700">
+                      {{ formatDate(dokumen.published_at || dokumen.created_at) }}
                     </span>
                   </li>
                 </ul>
@@ -190,16 +187,16 @@
         </div>
 
         <!-- KONDISI 3: SKELETON LOADING STATE (Saat isLoading / data belum siap) -->
-        <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 xl:gap-12">
+        <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 xl:gap-12 items-start">
           <!-- Kolom Kiri: Deskripsi Skeleton & Pratinjau Skeleton -->
           <div class="lg:col-span-2 space-y-8 md:space-y-10">
             <!-- Deskripsi Dokumen Skeleton -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
-              <div class="border-b border-slate-100 bg-slate-50/50 px-6 sm:px-8 py-5 flex items-center">
+              <div class="border-b border-slate-100 bg-slate-50/50 px-4 sm:px-8 py-4 sm:py-5 flex items-center">
                 <i class="fas fa-info-circle text-red-700 mr-2.5"></i>
                 <span class="font-black text-slate-900 text-xl">Deskripsi Dokumen</span>
               </div>
-              <div class="p-6 sm:p-10 space-y-3.5 animate-pulse">
+              <div class="p-5 sm:p-8 md:p-10 space-y-3.5 animate-pulse">
                 <div class="h-4 bg-slate-200/80 rounded-lg w-full"></div>
                 <div class="h-4 bg-slate-200/70 rounded-lg w-11/12"></div>
                 <div class="h-4 bg-slate-200/60 rounded-lg w-4/5"></div>
@@ -209,36 +206,37 @@
 
             <!-- Pratinjau Dokumen Skeleton -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
-              <div class="border-b border-slate-100 bg-slate-50/50 px-6 sm:px-8 py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
+              <div class="border-b border-slate-100 bg-slate-50/50 px-4 sm:px-8 py-4 sm:py-5 flex justify-between items-center flex-wrap gap-3">
+                <div class="flex items-center">
                   <i class="fas fa-eye text-red-700 mr-2.5"></i>
                   <span class="font-black text-slate-900 text-xl">Pratinjau Dokumen</span>
-                  <div class="h-6 w-24 bg-slate-200/70 rounded-full animate-pulse"></div>
                 </div>
-                <div class="flex items-center gap-2.5 animate-pulse">
-                  <div class="h-9 w-28 bg-red-200/60 rounded-xl"></div>
-                  <div class="h-9 w-20 bg-slate-200/70 rounded-xl"></div>
-                </div>
+                <div class="h-6 w-24 bg-slate-200/70 rounded-full animate-pulse"></div>
               </div>
-              <div class="h-[620px] md:h-[720px] w-full bg-slate-100/70 flex flex-col items-center justify-center p-8 relative">
+              <div class="p-0 h-[480px] sm:h-[620px] md:h-[720px] w-full bg-slate-100/70 flex flex-col items-center justify-center p-8 relative">
                 <div class="text-center">
                   <i class="fas fa-circle-notch fa-spin text-4xl text-red-700 mb-4"></i>
                   <p class="text-slate-600 font-bold text-sm tracking-wide">Memuat data dokumen...</p>
                   <p class="text-slate-400 text-xs mt-1">Menyiapkan pratinjau berkas informasi publik</p>
                 </div>
               </div>
+              <!-- Skeleton Action Bar di Bawah Pratinjau -->
+              <div class="border-t border-slate-100 bg-slate-50/50 px-4 sm:px-8 py-4 sm:py-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3 animate-pulse">
+                <div class="h-11 w-36 bg-red-200/60 rounded-2xl"></div>
+                <div class="h-11 w-28 bg-slate-200/70 rounded-2xl"></div>
+              </div>
             </div>
           </div>
 
-          <!-- Kolom Kanan: Sidebar Skeleton -->
-          <div class="lg:col-span-1 space-y-6 md:space-y-8">
+          <!-- Kolom Kanan: Sidebar Skeleton (Sticky) -->
+          <div class="lg:col-span-1 space-y-6 md:space-y-8 lg:sticky lg:top-28 self-start">
             <!-- Metadata Card Skeleton -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
-              <div class="border-b border-slate-100 bg-slate-50/50 px-6 sm:px-8 py-5 flex items-center">
+              <div class="border-b border-slate-100 bg-slate-50/50 px-4 sm:px-8 py-4 sm:py-5 flex items-center">
                 <i class="fas fa-list-ul text-red-700 mr-2.5"></i>
                 <span class="font-black text-slate-900 text-lg">Metadata</span>
               </div>
-              <div class="p-6 sm:p-8 space-y-5 animate-pulse">
+              <div class="p-5 sm:p-8 space-y-5 animate-pulse">
                 <div>
                   <div class="h-3 bg-slate-200 rounded w-16 mb-2"></div>
                   <div class="h-5 bg-slate-200/80 rounded-lg w-44"></div>
