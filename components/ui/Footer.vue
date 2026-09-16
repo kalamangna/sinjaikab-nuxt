@@ -92,8 +92,8 @@
           <ul class="space-y-3">
             <li>
               <NuxtLink
-                to="#visi-misi"
-                @click.prevent="scrollToSection('#visi-misi')"
+                :to="route.path === '/' ? '#visi-misi' : '/#visi-misi'"
+                @click.prevent="handleNavClick('#visi-misi')"
                 class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer flex items-center gap-2 text-sm"
               >
                 <AppIcon name="flag" class="text-xs text-red-500" />
@@ -102,8 +102,8 @@
             </li>
             <li>
               <NuxtLink
-                to="#program-prioritas"
-                @click.prevent="scrollToSection('#program-prioritas')"
+                :to="route.path === '/' ? '#program-prioritas' : '/#program-prioritas'"
+                @click.prevent="handleNavClick('#program-prioritas')"
                 class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer flex items-center gap-2 text-sm"
               >
                 <AppIcon name="star" class="text-xs text-red-500" />
@@ -112,8 +112,8 @@
             </li>
             <li>
               <NuxtLink
-                to="#layanan"
-                @click.prevent="scrollToSection('#layanan')"
+                :to="route.path === '/' ? '#layanan' : '/#layanan'"
+                @click.prevent="handleNavClick('#layanan')"
                 class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer flex items-center gap-2 text-sm"
               >
                 <AppIcon name="rocket" class="text-xs text-red-500" />
@@ -160,4 +160,25 @@
 
 <script setup lang="ts">
 const { scrollToSection } = useScrollTo();
+const route = useRoute();
+const router = useRouter();
+
+const handleNavClick = (href) => {
+  if (href === '#') {
+    if (route.path === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      router.push('/');
+    }
+    return;
+  }
+
+  if (href.startsWith('#')) {
+    if (route.path === '/') {
+      scrollToSection(href);
+    } else {
+      router.push('/' + href);
+    }
+  }
+};
 </script>

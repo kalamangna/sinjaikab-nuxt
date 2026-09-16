@@ -12,7 +12,7 @@
       :class="isScrolled ? 'py-3' : 'py-4 md:py-5'"
     >
       <!-- Logo -->
-      <NuxtLink to="/" @click.prevent="scrollToSection('#')" class="flex items-center gap-3 group">
+      <NuxtLink :to="route.path === '/' ? '#' : '/'" @click.prevent="handleNavClick('#')" class="flex items-center gap-3 group">
         <div
           class="bg-white p-1.5 rounded-xl shadow-sm border border-slate-100 shrink-0 group-hover:scale-105 transition-transform"
         >
@@ -43,12 +43,12 @@
       </NuxtLink>
 
       <!-- Desktop Menu -->
-      <div class="hidden lg:flex items-center gap-8">
+      <div class="hidden lg:flex items-center gap-8" v-if="!route.path.startsWith('/informasi')">
         <NuxtLink
           v-for="item in menuItems"
           :key="item.label"
-          :to="item.href"
-          @click.prevent="scrollToSection(item.href)"
+          :to="item.href.startsWith('#') ? (route.path === '/' ? item.href : '/' + item.href) : item.href"
+          @click.prevent="handleNavClick(item.href)"
           class="text-sm font-bold text-slate-600 hover:text-red-700 uppercase tracking-wider transition-colors duration-200 cursor-pointer"
         >
           {{ item.label }}
@@ -94,15 +94,17 @@
         class="lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md py-4"
       >
         <div class="container mx-auto px-4 md:px-6 space-y-1">
-          <NuxtLink
-            v-for="item in menuItems"
-            :key="item.label"
-            :to="item.href"
-            @click.prevent="handleMobileNavClick(item.href)"
-            class="block py-2.5 px-3 rounded-xl text-xs font-bold text-slate-700 hover:text-red-700 hover:bg-red-50 uppercase tracking-wider transition-colors duration-200"
-          >
-            {{ item.label }}
-          </NuxtLink>
+          <template v-if="!route.path.startsWith('/informasi')">
+            <NuxtLink
+              v-for="item in menuItems"
+              :key="item.label"
+              :to="item.href.startsWith('#') ? (route.path === '/' ? item.href : '/' + item.href) : item.href"
+              @click.prevent="handleMobileNavClick(item.href)"
+              class="block py-2.5 px-3 rounded-xl text-xs font-bold text-slate-700 hover:text-red-700 hover:bg-red-50 uppercase tracking-wider transition-colors duration-200"
+            >
+              {{ item.label }}
+            </NuxtLink>
+          </template>
           <div class="pt-3 border-t border-slate-100">
             <a
               href="https://humas.sinjaikab.go.id/"
@@ -132,11 +134,36 @@ const menuItems = [
   { label: "Visi & Misi", href: "#visi-misi" },
   { label: "Program Prioritas", href: "#program-prioritas" },
   { label: "Layanan Digital", href: "#layanan" },
+  { label: "Informasi", href: "/informasi" },
 ];
 
-const handleMobileNavClick = (href: string) => {
+const route = useRoute();
+const router = useRouter();
+
+const handleNavClick = (href) => {
+  if (href === '#') {
+    if (route.path === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      router.push('/');
+    }
+    return;
+  }
+
+  if (href.startsWith('#')) {
+    if (route.path === '/') {
+      scrollToSection(href);
+    } else {
+      router.push('/' + href);
+    }
+  } else {
+    router.push(href);
+  }
+};
+
+const handleMobileNavClick = (href) => {
   isMobileMenuOpen.value = false;
-  scrollToSection(href);
+  handleNavClick(href);
 };
 
 const handleScroll = () => {
