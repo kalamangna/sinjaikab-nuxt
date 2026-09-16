@@ -420,8 +420,14 @@ const formatDate = (dateStr) => {
 const { data, pending: isLoading, refresh } = useAsyncData(
   'informasi-pemkab',
   () => $fetch('https://ppidkab.sinjaikab.go.id/api/v1/informasi-pemkab', { params: filters.value }),
-  { watch: [filters] }
+  { watch: [filters], server: false }
 )
+
+onMounted(() => {
+  if (!data.value) {
+    refresh()
+  }
+})
 
 const kategori_jenis = computed(() => data.value?.kategori_jenis || {})
 

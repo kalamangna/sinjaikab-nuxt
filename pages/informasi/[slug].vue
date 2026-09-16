@@ -1,6 +1,7 @@
 <template>
   <div class="w-full min-h-screen bg-gray-50">
-    <div v-if="isLoading && !dokumen" class="min-h-[60vh] flex items-center justify-center">
+    <ClientOnly>
+      <div v-if="isLoading && !dokumen" class="min-h-[60vh] flex items-center justify-center">
       <div class="text-center p-8 bg-white rounded-2xl shadow-xl max-w-md mx-4">
         <i class="fas fa-spinner fa-spin text-4xl text-red-600 mb-4"></i>
         <p class="text-gray-600">Memuat data dokumen...</p>
@@ -204,11 +205,20 @@
                 </div>
             </div>
         </div>
+      <template #fallback>
+        <div class="min-h-[60vh] flex items-center justify-center">
+          <div class="text-center p-8 bg-white rounded-2xl shadow-xl max-w-md mx-4">
+            <i class="fas fa-spinner fa-spin text-4xl text-red-600 mb-4"></i>
+            <p class="text-gray-600">Memuat data dokumen...</p>
+          </div>
+        </div>
+      </template>
+    </ClientOnly>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 const route = useRoute()
 const config = useRuntimeConfig()
@@ -218,13 +228,22 @@ const rawBaseUrl = config.public?.baseUrl || 'https://sinjaikab.go.id'
 const baseUrl = rawBaseUrl.endsWith('/') ? rawBaseUrl.slice(0, -1) : rawBaseUrl
 const pageUrl = computed(() => `${baseUrl}/informasi/${encodeURIComponent(String(slug))}`)
 
-const { data: detailData, pending: isLoading } = useAsyncData(
+const hasMounted = ref(false)
+const { data: detailData, pending: isLoading, refresh } = useAsyncData(
   'informasi-' + slug,
-  () => $fetch('https://ppidkab.sinjaikab.go.id/api/v1/informasi-pemkab/' + slug)
+  () => $fetch('https://ppidkab.sinjaikab.go.id/api/v1/informasi-pemkab/' + slug),
+  { server: false }
 )
 
+onMounted(() => {
+  hasMounted.value = true
+  if (!detailData.value) {
+    refresh()
+  }
+})
+
 const dokumen = computed(() => detailData.value || null)
-const isError = computed(() => !dokumen.value && !isLoading.value)
+const isError = computed(() => hasMounted.value && !dokumen.value && !isLoading.value)
 
 const getDownloadUrl = (dok) => {
   if (!dok) return '#'

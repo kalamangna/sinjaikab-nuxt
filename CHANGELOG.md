@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Skema Structured Data Schema.org JSON-LD `BreadcrumbList` pada halaman daftar ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) dan detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)).
 - Skema Structured Data Schema.org JSON-LD `DigitalDocument` pada halaman detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) memuat metadata judul, deskripsi, tanggal rilis/pembaruan, penerbit, dan OPD pembuat.
 
-### Changed
+### Fixed
+- Mengembalikan pengambilan data daftar informasi ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) dan detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) ke sisi klien (`server: false` dengan pelindung `<ClientOnly>`) guna mencegah galat timeout dan daftar dokumen kosong akibat pemblokiran IP server datacenter luar negeri oleh firewall server API PPID.
 - Mengaktifkan Server-Side Rendering (SSR) penuh pada halaman daftar informasi ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) dan detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) dengan melepas pembungkus `<ClientOnly>` agar konten teks dokumen dapat dirayapi langsung oleh bot mesin pencari dalam respon HTML awal.
 - Standardisasi pola `titleTemplate` (`%s - Pemerintah Kabupaten Sinjai`) dan penentuan Canonical URL dinamis yang presisi per rute aktif tanpa query string filter guna mencegah *duplicate content penalty*.
 - Pembaruan berkas [`public/robots.txt`](./public/robots.txt) dengan menambahkan aturan pengecualian indeks untuk halaman internal/admin (`Disallow: /admin` dan `Disallow: /admin/`).
