@@ -276,7 +276,7 @@ useSeoMeta({
   ogTitle: pageTitle,
   description: pageDesc,
   ogDescription: pageDesc,
-  ogImage: 'https://sinjaikab.go.id/sinjai.png',
+  ogImage: 'https://sinjaikab.go.id/meta.png',
   twitterCard: 'summary_large_image',
 })
 </script>

@@ -350,7 +350,7 @@ useSeoMeta({
   ogTitle: pageTitle,
   description: 'Transparansi Dokumen Pemerintah Kabupaten Sinjai yang dapat Anda akses, telusuri, dan unduh dengan mudah.',
   ogDescription: 'Transparansi Dokumen Pemerintah Kabupaten Sinjai yang dapat Anda akses, telusuri, dan unduh dengan mudah.',
-  ogImage: 'https://sinjaikab.go.id/sinjai.png',
+  ogImage: 'https://sinjaikab.go.id/meta.png',
   twitterCard: 'summary_large_image',
 })
 
