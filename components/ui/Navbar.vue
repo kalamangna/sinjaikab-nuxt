@@ -2,14 +2,14 @@
   <nav
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b"
     :class="[
-      isScrolled || isMobileMenuOpen
+      isSolidNavbar
         ? 'bg-white/95 backdrop-blur-md border-slate-200 shadow-sm'
         : 'bg-transparent border-transparent',
     ]"
   >
     <div
       class="container mx-auto px-4 md:px-6 flex items-center justify-between transition-all duration-300"
-      :class="isScrolled ? 'py-3' : 'py-4 md:py-5'"
+      :class="isScrolled || isSubPage ? 'py-3' : 'py-4 md:py-5'"
     >
       <!-- Logo -->
       <NuxtLink :to="route.path === '/' ? '#' : '/'" @click.prevent="handleNavClick('#')" class="flex items-center gap-3 group">
@@ -123,22 +123,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 
 const { scrollToSection } = useScrollTo();
 
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
 
+const route = useRoute();
+const router = useRouter();
+
+const isSubPage = computed(() => route.path !== "/");
+const isSolidNavbar = computed(
+  () => isSubPage.value || isScrolled.value || isMobileMenuOpen.value
+);
+
+// Tutup menu mobile dan sinkronisasi status scroll saat berpindah rute (Poin 3)
+watch(
+  () => route.path,
+  () => {
+    isMobileMenuOpen.value = false;
+    handleScroll();
+  }
+);
 const menuItems = [
   { label: "Visi & Misi", href: "#visi-misi" },
   { label: "Program Prioritas", href: "#program-prioritas" },
   { label: "Layanan Digital", href: "#layanan" },
   { label: "Informasi", href: "/informasi" },
 ];
-
-const route = useRoute();
-const router = useRouter();
 
 const handleNavClick = (href) => {
   if (href === '#') {

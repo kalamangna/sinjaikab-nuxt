@@ -1,10 +1,18 @@
 <template>
   <div>
-    <div class="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 pt-6 md:pt-10 pb-24 overflow-hidden">
+    <div class="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 pt-20 md:pt-24 pb-24 overflow-hidden">
         <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
         <div class="max-w-7xl mx-auto w-full px-4 relative z-10 text-center">
             <!-- Breadcrumbs -->
-            
+            <div class="flex justify-start mb-2">
+                <Breadcrumbs
+                    :breadcrumbs="[
+                        { title: 'Beranda', url: '/', icon: 'fas fa-home' },
+                        { title: 'Informasi Pemkab' }
+                    ]"
+                    theme="dark"
+                />
+            </div>
 
             <div class="flex justify-center items-center mt-12 md:mt-16 mb-4 flex-col">
                 <picture class="mb-4">
@@ -331,6 +339,11 @@ watch(() => notification.value.message, (newMsg) => {
 })
 
 // OG meta dinamis berbasis filter aktif
+const config = useRuntimeConfig()
+const rawBaseUrl = config.public?.baseUrl || 'https://sinjaikab.go.id'
+const baseUrl = rawBaseUrl.endsWith('/') ? rawBaseUrl.slice(0, -1) : rawBaseUrl
+const pageCanonical = `${baseUrl}/informasi`
+
 const pageTitle = computed(() => {
   const jd = route.query.jenis_dokumen
   const kat = route.query.kategori
@@ -343,17 +356,44 @@ const pageTitle = computed(() => {
   return 'Informasi Pemkab'
 })
 
-
-
 useSeoMeta({
   title: pageTitle,
   ogTitle: pageTitle,
   description: 'Transparansi Dokumen Pemerintah Kabupaten Sinjai yang dapat Anda akses, telusuri, dan unduh dengan mudah.',
   ogDescription: 'Transparansi Dokumen Pemerintah Kabupaten Sinjai yang dapat Anda akses, telusuri, dan unduh dengan mudah.',
-  ogImage: 'https://sinjaikab.go.id/meta.png',
+  ogUrl: pageCanonical,
+  ogImage: `${baseUrl}/meta.png`,
   twitterCard: 'summary_large_image',
 })
 
+useHead({
+  link: [
+    { rel: 'canonical', href: pageCanonical }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Beranda',
+            'item': baseUrl
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': 'Informasi Pemkab',
+            'item': pageCanonical
+          }
+        ]
+      })
+    }
+  ]
+})
 
 const filters = ref({
   kategori: route.query.kategori || '',
@@ -380,7 +420,7 @@ const formatDate = (dateStr) => {
 const { data, pending: isLoading, refresh } = useAsyncData(
   'informasi-pemkab',
   () => $fetch('https://ppidkab.sinjaikab.go.id/api/v1/informasi-pemkab', { params: filters.value }),
-  { watch: [filters], server: false }
+  { watch: [filters] }
 )
 
 const kategori_jenis = computed(() => data.value?.kategori_jenis || {})

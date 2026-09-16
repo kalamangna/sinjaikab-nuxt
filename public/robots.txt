@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/
 Disallow: /cpanel
 Disallow: /webmail
 Disallow: /whm
@@ -7,6 +9,8 @@ Disallow: /whm
 # Khusus untuk Googlebot
 User-agent: Googlebot
 Allow: /
+Disallow: /admin
+Disallow: /admin/
 
 # Khusus untuk Facebook Crawler
 User-agent: Facebot
@@ -15,4 +19,5 @@ Allow: /
 # Jangan blokir file CSS dan JS agar Google bisa merender halaman dengan baik
 Allow: /*.css$
 Allow: /*.js$
+
 Sitemap: https://sinjaikab.go.id/sitemap.xml

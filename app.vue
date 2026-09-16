@@ -19,10 +19,25 @@ const robotsMeta = computed(() =>
     ? "noindex, nofollow"
     : "index, follow, max-image-preview:large"
 );
-const baseUrl = config.public.baseUrl;
+const rawBaseUrl = (config.public.baseUrl as string) || "https://sinjaikab.go.id";
+const baseUrl = rawBaseUrl.endsWith("/") ? rawBaseUrl.slice(0, -1) : rawBaseUrl;
 const imageUrl = `${baseUrl}/meta.png`;
 
+const canonicalUrl = computed(() => {
+  const path = route.path === "/" ? "" : route.path;
+  return `${baseUrl}${path}`;
+});
+
 useHead({
+  titleTemplate: (titleChunk?: string) => {
+    if (!titleChunk || titleChunk === "Pemerintah Kabupaten Sinjai") {
+      return "Pemerintah Kabupaten Sinjai";
+    }
+    if (titleChunk.includes("Pemerintah Kabupaten Sinjai")) {
+      return titleChunk;
+    }
+    return `${titleChunk} - Pemerintah Kabupaten Sinjai`;
+  },
   title: pageTitle,
   meta: [
     { name: "description", content: pageDescription },
@@ -43,7 +58,7 @@ useHead({
     { property: "og:type", content: "website" },
     { property: "og:locale", content: "id_ID" },
     { property: "og:site_name", content: "Pemerintah Kabupaten Sinjai" },
-    { property: "og:url", content: baseUrl },
+    { property: "og:url", content: canonicalUrl },
     { property: "og:title", content: pageTitle },
     { property: "og:description", content: pageDescription },
     { property: "og:image", content: imageUrl },
@@ -56,7 +71,7 @@ useHead({
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@sinjaikab" },
     { name: "twitter:creator", content: "@sinjaikab" },
-    { name: "twitter:url", content: baseUrl },
+    { name: "twitter:url", content: canonicalUrl },
     { name: "twitter:title", content: pageTitle },
     { name: "twitter:description", content: pageDescription },
     { name: "twitter:image", content: imageUrl },
@@ -69,7 +84,7 @@ useHead({
   ],
   link: [
     { rel: "icon", type: "image/png", href: `${config.app.baseURL}sinjai.png` },
-    { rel: "canonical", href: baseUrl },
+    { rel: "canonical", href: canonicalUrl },
     {
       rel: "preload",
       as: "image",
@@ -99,6 +114,14 @@ useHead({
             inLanguage: "id-ID",
             publisher: {
               "@id": `${baseUrl}#organization`,
+            },
+            potentialAction: {
+              "@type": "SearchAction",
+              target: {
+                "@type": "EntryPoint",
+                urlTemplate: `${baseUrl}/informasi?search={search_term_string}`,
+              },
+              "query-input": "required name=search_term_string",
             },
           },
           {

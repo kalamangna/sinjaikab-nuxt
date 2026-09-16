@@ -1,28 +1,37 @@
 <template>
   <div class="w-full min-h-screen bg-gray-50">
-    <ClientOnly>
-        <div v-if="isLoading" class="min-h-[60vh]">
-            <!-- Spacer while global loading screen is active -->
-        </div>
+    <div v-if="isLoading && !dokumen" class="min-h-[60vh] flex items-center justify-center">
+      <div class="text-center p-8 bg-white rounded-2xl shadow-xl max-w-md mx-4">
+        <i class="fas fa-spinner fa-spin text-4xl text-red-600 mb-4"></i>
+        <p class="text-gray-600">Memuat data dokumen...</p>
+      </div>
+    </div>
 
-        <div v-else-if="isError" class="flex items-center justify-center min-h-[60vh]">
-            <div class="text-center p-8 bg-white rounded-2xl shadow-xl max-w-md mx-4">
-                <i class="fas fa-exclamation-triangle text-6xl text-red-500 mb-6"></i>
-                <h2 class="text-2xl font-bold text-gray-800 mb-3">Dokumen Tidak Ditemukan</h2>
-                <p class="text-gray-600 mb-8">Maaf, dokumen yang Anda cari tidak tersedia, ditarik, atau terjadi kesalahan pada server.</p>
-                <NuxtLink to="/informasi" class="inline-flex items-center px-6 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition">
-                    <i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar
-                </NuxtLink>
-            </div>
-        </div>
+    <div v-else-if="isError" class="flex items-center justify-center min-h-[60vh]">
+      <div class="text-center p-8 bg-white rounded-2xl shadow-xl max-w-md mx-4">
+        <i class="fas fa-exclamation-triangle text-6xl text-red-500 mb-6"></i>
+        <h2 class="text-2xl font-bold text-gray-800 mb-3">Dokumen Tidak Ditemukan</h2>
+        <p class="text-gray-600 mb-8">Maaf, dokumen yang Anda cari tidak tersedia, ditarik, atau terjadi kesalahan pada server.</p>
+        <NuxtLink to="/informasi" class="inline-flex items-center px-6 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition">
+          <i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar
+        </NuxtLink>
+      </div>
+    </div>
 
-        <div v-else-if="dokumen" class="w-full">
-            <div class="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 pt-16 md:pt-24 pb-24 overflow-hidden">
-                <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
-                <div class="container max-w-5xl mx-auto px-4 relative z-10">
-                    
-                    
-                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg leading-tight max-w-4xl">
+    <div v-else-if="dokumen" class="w-full">
+      <div class="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 pt-20 md:pt-24 pb-24 overflow-hidden">
+        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
+        <div class="container max-w-5xl mx-auto px-4 relative z-10">
+          <Breadcrumbs
+            :breadcrumbs="[
+              { title: 'Beranda', url: '/', icon: 'fas fa-home' },
+              { title: 'Informasi Pemkab', url: '/informasi', icon: 'fas fa-folder-open' },
+              { title: dokumen.judul }
+            ]"
+            theme="dark"
+          />
+
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg leading-tight max-w-4xl mt-4">
                         {{ dokumen.judul }}
                     </h1>
                     
@@ -83,7 +92,14 @@
                                         <div v-else-if="isImage(dokumen.file_path)" class="w-full h-full flex items-center justify-center p-4 bg-gray-100 overflow-hidden">
                                             <img :src="getStorageUrl(dokumen.file_path)" :alt="dokumen.judul" class="max-w-full max-h-full object-contain rounded-lg shadow-sm">
                                         </div>
-                                        <iframe v-else :src="getEmbedUrl(dokumen.file_path)" class="w-full h-full border-0"></iframe>
+                                        <ClientOnly v-else>
+                                            <iframe :src="getEmbedUrl(dokumen.file_path)" class="w-full h-full border-0"></iframe>
+                                            <template #fallback>
+                                                <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                                    <i class="fas fa-spinner fa-spin mr-2"></i> Memuat pratinjau dokumen...
+                                                </div>
+                                            </template>
+                                        </ClientOnly>
                                     </template>
                                     <div v-else class="w-full h-full flex items-center justify-center text-gray-400 flex-col">
                                         <i class="fas fa-ban text-4xl mb-3"></i>
@@ -188,7 +204,6 @@
                 </div>
             </div>
         </div>
-    </ClientOnly>
   </div>
 </template>
 
@@ -196,7 +211,12 @@
 import { ref, computed } from 'vue'
 
 const route = useRoute()
+const config = useRuntimeConfig()
 const slug = route.params.slug
+
+const rawBaseUrl = config.public?.baseUrl || 'https://sinjaikab.go.id'
+const baseUrl = rawBaseUrl.endsWith('/') ? rawBaseUrl.slice(0, -1) : rawBaseUrl
+const pageUrl = computed(() => `${baseUrl}/informasi/${encodeURIComponent(String(slug))}`)
 
 const { data: detailData, pending: isLoading } = useAsyncData(
   'informasi-' + slug,
@@ -204,7 +224,7 @@ const { data: detailData, pending: isLoading } = useAsyncData(
 )
 
 const dokumen = computed(() => detailData.value || null)
-const error = computed(() => !dokumen.value && !isLoading.value)
+const isError = computed(() => !dokumen.value && !isLoading.value)
 
 const getDownloadUrl = (dok) => {
   if (!dok) return '#'
@@ -249,13 +269,17 @@ const isImage = (path) => {
 const copyShareLink = (dok) => {
   if (!dok) return;
   const dokSlug = dok.slug || dok.id;
-  const url = `https://sinjaikab.go.id/informasi/${dokSlug}`;
+  const url = `${baseUrl}/informasi/${dokSlug}`;
   
-  navigator.clipboard.writeText(url).then(() => {
-    alert('Tautan berhasil disalin!');
-  }).catch(err => {
+  if (navigator?.clipboard) {
+    navigator.clipboard.writeText(url).then(() => {
+      alert('Tautan berhasil disalin!');
+    }).catch(() => {
+      prompt('Salin tautan berikut secara manual:', url);
+    });
+  } else {
     prompt('Salin tautan berikut secara manual:', url);
-  });
+  }
 }
 
 const formatDate = (dateStr) => {
@@ -264,19 +288,98 @@ const formatDate = (dateStr) => {
   return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })
 }
 
-const pageTitle = computed(() => dokumen.value ? `${dokumen.value.judul} - Informasi Pemkab` : 'Informasi Pemkab');
+const pageTitle = computed(() => dokumen.value ? dokumen.value.judul : 'Detail Dokumen Informasi Pemkab')
 const pageDesc = computed(() => {
-  if (!dokumen.value) return 'Detail dokumen Informasi Publik Kabupaten Sinjai.';
-  if (dokumen.value.deskripsi) return dokumen.value.deskripsi.replace(/(<([^>]+)>)/gi, '').substring(0, 160);
-  return 'Detail dokumen Informasi Publik Kabupaten Sinjai.';
-});
+  if (!dokumen.value) return 'Detail dokumen Informasi Publik Pemerintah Kabupaten Sinjai.'
+  if (dokumen.value.deskripsi) {
+    return dokumen.value.deskripsi.replace(/(<([^>]+)>)/gi, '').replace(/\s+/g, ' ').trim().substring(0, 160)
+  }
+  return `Dokumen ${dokumen.value.judul} kategori ${dokumen.value.kategori || 'Publik'} tahun ${dokumen.value.tahun || ''} Kabupaten Sinjai.`
+})
 
 useSeoMeta({
   title: pageTitle,
   ogTitle: pageTitle,
   description: pageDesc,
   ogDescription: pageDesc,
-  ogImage: 'https://sinjaikab.go.id/meta.png',
+  ogType: 'article',
+  ogUrl: pageUrl,
+  ogImage: `${baseUrl}/meta.png`,
   twitterCard: 'summary_large_image',
+})
+
+const structuredData = computed(() => {
+  if (!dokumen.value) return []
+
+  const doc = dokumen.value
+  const docSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'DigitalDocument',
+    '@id': `${pageUrl.value}#document`,
+    url: pageUrl.value,
+    name: doc.judul,
+    headline: doc.judul,
+    description: pageDesc.value,
+    datePublished: doc.published_at || doc.created_at,
+    dateModified: doc.updated_at || doc.published_at || doc.created_at,
+    inLanguage: 'id-ID',
+    publisher: {
+      '@type': 'GovernmentOrganization',
+      '@id': `${baseUrl}#organization`,
+      name: 'Pemerintah Kabupaten Sinjai',
+      url: baseUrl,
+    },
+    creator: doc.organization?.name
+      ? {
+          '@type': 'GovernmentOrganization',
+          name: doc.organization.name,
+        }
+      : undefined,
+    encodingFormat: 'application/pdf',
+    isAccessibleForFree: true,
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Beranda',
+        item: baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Informasi Pemkab',
+        item: `${baseUrl}/informasi`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: doc.judul,
+        item: pageUrl.value,
+      },
+    ],
+  }
+
+  return [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(docSchema),
+    },
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify(breadcrumbSchema),
+    },
+  ]
+})
+
+useHead({
+  link: [
+    { rel: 'canonical', href: pageUrl }
+  ],
+  script: structuredData,
 })
 </script>

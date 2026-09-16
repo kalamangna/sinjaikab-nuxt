@@ -8,6 +8,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Generator Dynamic XML Sitemap via rute server Nitro ([`server/routes/sitemap.xml.ts`](./server/routes/sitemap.xml.ts)) yang mengambil seluruh data publik dokumen dari API PPID secara dinamis dengan caching Nitro SWR 3600 detik (`routeRules: { "/sitemap.xml": { swr: 3600 } }` pada [`nuxt.config.ts`](./nuxt.config.ts)).
+- Skema Structured Data Schema.org JSON-LD `SearchAction` pada entitas `WebSite` global di [`app.vue`](./app.vue) yang menargetkan pencarian dokumen `/informasi?search={search_term_string}`.
+- Skema Structured Data Schema.org JSON-LD `BreadcrumbList` pada halaman daftar ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) dan detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)).
+- Skema Structured Data Schema.org JSON-LD `DigitalDocument` pada halaman detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) memuat metadata judul, deskripsi, tanggal rilis/pembaruan, penerbit, dan OPD pembuat.
+
+### Changed
+- Mengaktifkan Server-Side Rendering (SSR) penuh pada halaman daftar informasi ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) dan detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) dengan melepas pembungkus `<ClientOnly>` agar konten teks dokumen dapat dirayapi langsung oleh bot mesin pencari dalam respon HTML awal.
+- Standardisasi pola `titleTemplate` (`%s - Pemerintah Kabupaten Sinjai`) dan penentuan Canonical URL dinamis yang presisi per rute aktif tanpa query string filter guna mencegah *duplicate content penalty*.
+- Pembaruan berkas [`public/robots.txt`](./public/robots.txt) dengan menambahkan aturan pengecualian indeks untuk halaman internal/admin (`Disallow: /admin` dan `Disallow: /admin/`).
+- Penyesuaian styling Navbar ([`components/ui/Navbar.vue`](./components/ui/Navbar.vue)): navbar otomatis berlatar belakang putih solid (`bg-white/95`) dan padding kompak (`py-3`) pada sub-halaman non-beranda (`route.path !== '/'`) guna memastikan keterbacaan teks logo dan kontras tombol di atas banner merah tua.
+- Penambahan watcher rute pada Navbar untuk menutup drawer menu navigasi mobile secara otomatis saat berpindah halaman dan menyinkronkan status scroll seketika.
+- Penyesuaian jarak vertikal atas konten hero (`pt-20 md:pt-24`) pada [`pages/informasi/index.vue`](./pages/informasi/index.vue) dan [`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue) agar breadcrumbs dan judul dokumen tidak tertutup di bawah bilah navigasi tetap (*fixed navbar*).
+
+### Removed
+- Menghapus berkas statis `public/sitemap.xml` karena telah digantikan sepenuhnya oleh endpoint server Nitro dinamis `/sitemap.xml`.
+
+### Added
 - Sistem telemetri dan endpoint API statistik widget aksesibilitas `a11y-sinjaikab` (`server/api/a11y/telemetry.post.ts` dan `server/api/a11y/stats.get.ts`) dengan integrasi Supabase PostgreSQL (`server/utils/supabase.ts`) dan skema tabel database (`server/database/a11y_schema.sql`).
 - Menghubungkan kredensial proyek Supabase resmi (`rsnxumcwrpwczatxujyr.supabase.co`) ke konfigurasi server.
 - Dashboard visualisasi telemetri aksesibilitas terproteksi pada rute `/admin/a11y-stats` (`components/A11yStatsDashboard.vue`) dengan kartu KPI, distribusi fitur ramah disabilitas, tabel domain terdaftar, dan feed interaksi *realtime*.
