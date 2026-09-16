@@ -1,20 +1,10 @@
 <template>
   <div>
-    <div class="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 pt-20 md:pt-24 pb-24 overflow-hidden">
+    <div class="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 pt-20 md:pt-24 pb-32 md:pb-36 overflow-hidden">
         <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
-        <div class="max-w-7xl mx-auto w-full px-4 relative z-10 text-center">
-            <!-- Breadcrumbs -->
-            <div class="flex justify-start mb-2">
-                <Breadcrumbs
-                    :breadcrumbs="[
-                        { title: 'Beranda', url: '/', icon: 'fas fa-home' },
-                        { title: 'Informasi Pemkab' }
-                    ]"
-                    theme="dark"
-                />
-            </div>
+        <div class="container mx-auto px-4 md:px-6 relative z-10 text-center">
 
-            <div class="flex justify-center items-center mt-12 md:mt-16 mb-4 flex-col">
+            <div class="flex justify-center items-center mt-6 md:mt-8 mb-4 flex-col">
                 <picture class="mb-4">
                     <source srcset="/sinjai.webp" type="image/webp" />
                     <img
@@ -30,45 +20,42 @@
                     </h1>
                 </div>
             </div>
-            <p class="text-red-100 text-lg md:text-xl max-w-2xl mx-auto font-light mt-4">
-                Transparansi Dokumen Pemerintah Kabupaten yang dapat Anda akses, telusuri, dan unduh dengan mudah.
+            <p class="text-red-100 text-lg md:text-xl max-w-3xl mx-auto font-light mt-4 mb-4 md:mb-6">
+                Akses dan unduh dokumen resmi Pemerintah Kabupaten Sinjai secara transparan.
             </p>
         </div>
         
         <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none transform translate-y-1">
             <svg class="relative block w-full h-[50px] md:h-[80px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118,130.83,121.22,201.2,110.53Z" class="fill-gray-50"></path>
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118,130.83,121.22,201.2,110.53Z" class="fill-slate-50"></path>
             </svg>
         </div>
     </div>
 
-    <div class="bg-gray-50 pb-16">
-        <div class="max-w-7xl mx-auto w-full px-4 -mt-8 relative z-20">
+    <div class="bg-slate-50 pb-28 md:pb-36">
+        <div class="container mx-auto px-4 md:px-6 -mt-12 md:-mt-16 relative z-20">
             <!-- Notifikasi -->
             <div v-if="notification.message" 
                  :class="[
                    'mb-6 px-6 py-4 rounded-2xl shadow-sm flex items-start backdrop-blur-sm relative z-50 border',
-                   notification.type === 'red' ? 'bg-red-50/90 border-red-200 text-red-700' : 'bg-green-50/90 border-green-200 text-green-700'
+                   notification.type === 'red' ? 'bg-red-50/90 border-red-200 text-red-700' : 'bg-emerald-50/90 border-emerald-200 text-emerald-700'
                  ]">
                 <div class="flex-shrink-0 mt-0.5">
-                    <i :class="notification.type === 'red' ? 'fas fa-exclamation-circle text-red-500 text-xl' : 'fas fa-check-circle text-green-500 text-xl'"></i>
+                    <i :class="notification.type === 'red' ? 'fas fa-exclamation-circle text-red-600 text-xl' : 'fas fa-check-circle text-emerald-600 text-xl'"></i>
                 </div>
                 <div class="ml-4 flex-1">
-                    <h3 class="text-sm font-bold" :class="notification.type === 'red' ? 'text-red-800' : 'text-green-800'">
+                    <h3 class="text-sm font-bold" :class="notification.type === 'red' ? 'text-red-800' : 'text-emerald-800'">
                         {{ notification.type === 'red' ? 'Perhatian' : 'Berhasil' }}
                     </h3>
                     <p class="mt-1 text-sm">{{ notification.message }}</p>
                 </div>
-                <button @click="notification.message = ''" class="ml-auto pl-3 text-gray-400 hover:text-gray-500 focus:outline-none">
+                <button @click="notification.message = ''" class="ml-auto pl-3 text-slate-400 hover:text-slate-500 focus:outline-none">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
 
-            <div class="flex flex-col lg:flex-row gap-4 items-stretch lg:items-end bg-white/80 backdrop-blur-md p-6 rounded-[2.5rem] shadow-xl shadow-red-500/5 border border-white mb-6 relative z-50">
+            <div class="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center bg-white p-5 sm:p-6 lg:p-7 rounded-3xl shadow-sm border border-slate-100 hover:border-red-100/80 transition-all duration-300 mb-8 sm:mb-10 relative z-50">
                     <div class="flex-1 relative" style="z-index: 50;">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2 ml-2">
-                            <i class="fas fa-layer-group text-red-500 mr-1"></i> Kategori
-                        </label>
                         <CustomSelect 
                             v-model="filters.kategori" 
                             :options="kategoriOptions" 
@@ -81,9 +68,6 @@
                     </div>
                     
                     <div class="flex-1 relative" style="z-index: 49;">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2 ml-2">
-                            <i class="fas fa-file-alt text-red-500 mr-1"></i> Jenis Dokumen
-                        </label>
                         <CustomSelect 
                             v-model="filters.jenis_dokumen" 
                             :options="jenisDokumenOptions" 
@@ -96,9 +80,6 @@
                     </div>
 
                     <div class="flex-1 relative" style="z-index: 48;">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2 ml-2">
-                            <i class="fas fa-calendar-alt text-red-500 mr-1"></i> Tahun
-                        </label>
                         <CustomSelect 
                             v-model="filters.tahun" 
                             :options="tahunOptions" 
@@ -111,210 +92,334 @@
                     </div>
 
                     <div class="flex-1 relative" style="z-index: 47;">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2 ml-2">
-                            <i class="fas fa-search text-red-500 mr-1"></i> Pencarian
-                        </label>
                         <div class="relative">
                             <input 
                                 type="text" 
                                 v-model="filters.search" 
                                 @keyup.enter="applyFilters"
-                                placeholder="Cari judul atau deskripsi..." 
-                                class="w-full h-[44px] pl-10 pr-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition-all text-sm bg-gray-50 focus:bg-white"
+                                placeholder="Cari dokumen..." 
+                                class="w-full h-[48px] pl-10 pr-4 border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-red-700/10 focus:border-red-700 outline-none transition-all text-sm bg-slate-50/50 focus:bg-white text-slate-800"
                             >
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                                <i class="fas fa-search"></i>
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                <i class="fas fa-search text-xs"></i>
                             </div>
                         </div>
                     </div>
 
-                    <div class="w-full lg:w-32 flex-none pt-2 lg:pt-0 flex gap-2">
-                        <button @click="applyFilters" class="flex-1 lg:flex-none w-full lg:w-14 bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-500/30 rounded-xl h-[44px] transition-all flex items-center justify-center font-bold" title="Terapkan Filter">
-                            <i class="fas fa-search lg:mr-0"></i> <span class="inline lg:hidden ml-2">Cari</span>
+                    <div class="w-full lg:w-auto flex-none flex gap-2">
+                        <button @click="applyFilters" class="flex-1 lg:flex-none w-full lg:w-12 bg-red-700 hover:bg-red-800 text-white shadow-lg shadow-red-900/20 rounded-2xl h-[48px] transition-all flex items-center justify-center font-bold" title="Terapkan Filter">
+                            <i class="fas fa-search lg:mr-0"></i> <span class="inline lg:hidden ml-2 font-bold uppercase tracking-wider text-xs">Cari</span>
                         </button>
-                        <button @click="resetFilters" class="flex-1 lg:flex-none w-full lg:w-14 bg-gray-100 hover:bg-gray-200 text-gray-600 shadow-sm rounded-xl h-[44px] transition-all flex items-center justify-center border border-gray-200" title="Reset Filter">
-                            <i class="fas fa-undo-alt lg:mr-0"></i> <span class="inline lg:hidden ml-2 font-semibold">Reset</span>
+                        <button @click="resetFilters" class="flex-1 lg:flex-none w-full lg:w-12 bg-slate-100 hover:bg-slate-200 text-slate-600 shadow-sm rounded-2xl h-[48px] transition-all flex items-center justify-center border border-slate-200" title="Reset Filter">
+                            <i class="fas fa-undo-alt lg:mr-0"></i> <span class="inline lg:hidden ml-2 font-semibold text-xs">Reset</span>
                         </button>
                     </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 relative z-10">
-                <h2 class="text-xl font-bold text-gray-800">Daftar Dokumen</h2>
-                
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 relative z-10">
+                <div class="flex items-center gap-3">
+                    <h2 class="text-2xl font-black text-slate-900 uppercase tracking-tight">Daftar Dokumen</h2>
+                    <span v-if="!isLoading && totalItems > 0" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-red-50 text-red-700 border border-red-200/60 shadow-sm">
+                        {{ totalItems }} Dokumen
+                    </span>
+                    <span v-else-if="isLoading && totalItems === 0" class="inline-block h-6 w-24 bg-slate-200/70 rounded-full animate-pulse"></span>
+                </div>
+                <div v-if="!isLoading && totalItems > 0" class="text-xs font-medium text-slate-500">
+                    Menampilkan <span class="font-bold text-slate-800">{{ (currentPage - 1) * Number(filters.per_page) + 1 }}-{{ Math.min(currentPage * Number(filters.per_page), totalItems) }}</span> dari <span class="font-bold text-slate-800">{{ totalItems }}</span> dokumen
+                </div>
+                <div v-else-if="isLoading && totalItems === 0" class="h-4 w-44 bg-slate-200/60 rounded-md animate-pulse"></div>
             </div>
 
             <!-- Daftar Dokumen -->
-            <div class="bg-white/80 rounded-2xl shadow-sm border border-gray-100 overflow-hidden relative min-h-[400px]" style="z-index: 10;">
-                
-                <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden" style="opacity: 0.03;">
-                    <div class="w-full h-full" :style="{ backgroundImage: `url(${getAssetUrl('storage/logo/Lambang_Kabupaten_Sinjai.png')})`, backgroundRepeat: 'repeat-y', backgroundPosition: 'center top', backgroundSize: 'contain', minHeight: '800px', filter: 'grayscale(100%)' }"></div>
-                </div>
+            <ClientOnly>
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden relative min-h-[400px] hover:border-red-100/50 transition-all duration-300" style="z-index: 10;">
+                    
+                    <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden" style="opacity: 0.03;">
+                        <div class="w-full h-full" :style="{ backgroundImage: `url(${getAssetUrl('storage/logo/Lambang_Kabupaten_Sinjai.png')})`, backgroundRepeat: 'repeat-y', backgroundPosition: 'center top', backgroundSize: 'contain', minHeight: '800px', filter: 'grayscale(100%)' }"></div>
+                    </div>
 
-                <div v-if="isLoading" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/60 backdrop-blur-[2px]">
-                    <i class="fas fa-circle-notch fa-spin text-4xl text-red-500 mb-4"></i>
-                    <p class="text-gray-700 font-bold">Memuat data...</p>
-                </div>
+                    <!-- Overlay Loading (Saat update halaman / pagination ketika data sudah ada) -->
+                    <div v-if="isLoading && items.length > 0" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/75 backdrop-blur-[2px] rounded-3xl transition-all duration-300">
+                        <i class="fas fa-circle-notch fa-spin text-4xl text-red-700 mb-3"></i>
+                        <p class="text-slate-700 font-bold text-sm tracking-wide">Memperbarui data...</p>
+                    </div>
 
-                <template v-if="items.length > 0">
-                    <div class="hidden md:block overflow-x-hidden relative z-10 w-full">
-                        <table class="w-full bg-transparent table-fixed">
-                            <thead>
-                                <tr class="bg-gray-100/60 border-b border-gray-200 text-left backdrop-blur-sm">
-                                    <th class="py-4 px-3 font-bold text-gray-700 text-sm tracking-wide uppercase w-12 text-center">No</th>
-                                    <th class="py-4 px-4 font-bold text-gray-700 text-sm tracking-wide uppercase w-[40%]">Detail Dokumen</th>
-                                    <th class="py-4 px-4 font-bold text-gray-700 text-sm tracking-wide uppercase w-32">Kategori</th>
-                                    <th class="py-4 px-4 font-bold text-gray-700 text-sm tracking-wide uppercase w-48">Sumber</th>
-                                    <th class="py-4 px-4 font-bold text-gray-700 text-sm tracking-wide uppercase w-28 text-center">Tanggal</th>
-                                    <th class="py-4 px-4 font-bold text-gray-700 text-sm tracking-wide uppercase w-52 text-center">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100/50">
-                                <tr v-for="(dokumen, index) in items" :key="dokumen.id" class="transition-colors group hover:bg-red-50/60">
-                                    <td class="py-4 px-4 text-center align-middle font-medium text-gray-500">
-                                        {{ (currentPage - 1) * Number(filters.per_page) + index + 1 }}
-                                    </td>
-                                    <td class="py-4 px-6 whitespace-normal align-middle">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0">
-                                                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-100 to-orange-50 border-red-100 text-red-600 flex items-center justify-center border shadow-sm">
-                                                    <i class="fas fa-file-pdf text-lg"></i>
+                    <!-- KONDISI 1: DATA DOKUMEN ADA -->
+                    <template v-if="items.length > 0">
+                        <div class="hidden md:block overflow-x-hidden relative z-10 w-full">
+                            <table class="w-full bg-transparent table-fixed">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-left">
+                                        <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-14 text-center">No</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase">Detail Dokumen</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-48">Kategori & Jenis</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-56">Sumber</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-36 text-center">Tanggal</th>
+                                        <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-20 text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <tr v-for="(dokumen, index) in items" :key="dokumen.id" class="transition-colors group hover:bg-red-50/40">
+                                        <td class="py-4 px-4 text-center align-middle font-semibold text-slate-400 text-sm">
+                                            {{ (currentPage - 1) * Number(filters.per_page) + index + 1 }}
+                                        </td>
+                                        <td class="py-4 px-6 whitespace-normal align-middle">
+                                            <div class="flex items-center">
+                                                <div class="flex-shrink-0">
+                                                    <div class="w-11 h-11 rounded-2xl bg-red-50 border border-red-100/60 text-red-700 flex items-center justify-center shadow-sm group-hover:bg-red-700 group-hover:text-white transition-colors duration-300">
+                                                        <i class="fas fa-file-pdf text-lg"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="ml-4">
+                                                    <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="block text-base font-bold text-slate-900 hover:text-red-700 transition-all duration-300 leading-tight line-clamp-1 group-hover:line-clamp-none">
+                                                        {{ dokumen.judul }}
+                                                    </NuxtLink>
+                                                    <p v-if="dokumen.deskripsi" class="text-sm text-slate-500 mt-1 transition-all duration-300 line-clamp-1 group-hover:line-clamp-none">
+                                                        {{ dokumen.deskripsi }}
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div class="ml-4">
-                                                <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="block text-base font-bold text-gray-800 hover:text-red-700 transition-all duration-300 leading-tight line-clamp-1 group-hover:line-clamp-none">
-                                                    {{ dokumen.judul }}
-                                                </NuxtLink>
-                                                <p v-if="dokumen.deskripsi" class="text-sm text-gray-500 mt-1 transition-all duration-300 line-clamp-1 group-hover:line-clamp-none">
-                                                    {{ dokumen.deskripsi }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="py-4 px-6 whitespace-normal align-middle">
-                                        <span class="inline-block px-3 py-1 bg-white/80 text-gray-700 text-xs font-semibold rounded-lg border border-gray-200 mb-1 shadow-sm">
-                                            {{ dokumen.kategori }}
-                                        </span>
-                                        <br>
-                                        <span class="inline-block px-3 py-1 bg-red-50/80 text-red-700 text-xs font-semibold rounded-lg border border-red-100 mt-1 shadow-sm">
-                                            {{ dokumen.jenis_dokumen }}
-                                        </span>
-                                    </td>
-                                    <td class="py-4 px-4 whitespace-normal align-middle">
-                                        <div v-if="dokumen.user" class="mb-1.5 text-xs text-gray-600 font-medium break-words">
-                                            <i class="fas fa-user-circle mr-1 text-gray-400"></i>
-                                            <template v-if="dokumen.user.role === 'superadmin' || (dokumen.user.admin_kabupaten && dokumen.user.admin_kabupaten == 1)">
-                                                Admin Kabupaten ({{ dokumen.user.name }})
-                                            </template>
-                                            <template v-else>
-                                                {{ dokumen.user.name }}
-                                            </template>
-                                        </div>
-                                        <span v-if="dokumen.organization" class="inline-block px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 break-words max-w-full">
-                                            <i class="fas fa-building mr-1"></i> {{ dokumen.organization.name }}
-                                        </span>
-                                        <span v-else class="text-xs text-gray-400 italic">Pemerintah Kabupaten</span>
-                                    </td>
-                                    <td class="py-4 px-6 text-center align-middle">
-                                        <span class="inline-block bg-white/80 px-3 py-1.5 rounded-lg text-sm font-bold text-gray-600 border border-gray-200 shadow-sm whitespace-nowrap">
-                                            {{ formatDate(dokumen.published_at || dokumen.created_at) }}
-                                        </span>
-                                    </td>
-                                    <td class="py-4 px-6 text-center align-middle">
-                                        <div class="flex flex-nowrap items-center justify-center gap-2">
-                                            <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="flex-shrink-0 inline-flex items-center justify-center w-9 h-9 bg-red-50 border border-red-200 text-red-600 hover:bg-red-600 hover:text-white rounded-lg text-sm transition-all duration-300" title="Lihat Detail">
+                                        </td>
+                                        <td class="py-4 px-6 whitespace-normal align-middle">
+                                            <span class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200/60 mb-1">
+                                                {{ dokumen.kategori }}
+                                            </span>
+                                            <br>
+                                            <span class="inline-block px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded-lg border border-red-100 mt-1">
+                                                {{ dokumen.jenis_dokumen }}
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6 whitespace-normal align-middle">
+                                            <span v-if="dokumen.organization" class="inline-flex items-center text-xs font-semibold text-slate-700 leading-snug">
+                                                <i class="fas fa-building mr-2 text-emerald-600 shrink-0"></i> {{ dokumen.organization.name }}
+                                            </span>
+                                            <span v-else class="text-xs text-slate-400 italic">Pemerintah Kabupaten</span>
+                                        </td>
+                                        <td class="py-4 px-6 text-center align-middle">
+                                            <span class="inline-block bg-slate-50 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 border border-slate-200 whitespace-nowrap">
+                                                {{ formatDate(dokumen.published_at || dokumen.created_at) }}
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-4 text-center align-middle">
+                                            <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="inline-flex items-center justify-center w-9 h-9 bg-red-50 hover:bg-red-700 text-red-700 hover:text-white border border-red-200/80 rounded-xl text-sm transition-all duration-300 shadow-sm" title="Lihat Detail">
                                                 <i class="fas fa-eye"></i>
                                             </NuxtLink>
-                                            <a v-if="dokumen.file_path" :href="getDownloadUrl(dokumen)" target="_blank" class="flex-shrink-0 inline-flex items-center justify-center w-9 h-9 bg-green-50 border border-green-200 text-green-600 hover:bg-green-600 hover:text-white rounded-lg text-sm transition-all duration-300" title="Unduh">
-                                                <i :class="dokumen.file_path.startsWith('http') ? 'fas fa-external-link-alt' : 'fas fa-cloud-download-alt'"></i>
-                                            </a>
-                                            
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-      
-                    <div class="block md:hidden relative z-10 p-3 sm:p-4 space-y-4 bg-gray-50/50">
-                          <div v-for="dokumen in items" :key="'mob-'+dokumen.id" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 relative flex flex-col group transition-all duration-300">
-                              <div class="flex items-start">
-                                  <div class="w-10 h-10 flex-shrink-0 rounded-xl bg-gradient-to-tr from-red-100 to-orange-50 text-red-600 border-red-100 flex items-center justify-center border shadow-sm mt-0.5">
-                                      <i class="fas fa-file-pdf text-lg"></i>
-                                  </div>
-                                  <div class="ml-3 flex-grow min-w-0">
-                                      <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="block text-sm sm:text-base font-bold text-gray-800 hover:text-red-700 transition-all duration-300 leading-snug line-clamp-1 group-hover:line-clamp-none">
-                                          {{ dokumen.judul }}
-                                      </NuxtLink>
-                                      <p v-if="dokumen.deskripsi" class="text-xs text-gray-500 mt-1.5 transition-all duration-300 line-clamp-1 group-hover:line-clamp-none leading-relaxed">
-                                        {{ dokumen.deskripsi }}
-                                    </p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+          
+                        <div class="block md:hidden relative z-10 p-4 sm:p-6 space-y-4 bg-slate-50/50">
+                            <div v-for="dokumen in items" :key="'mob-'+dokumen.id" class="bg-white rounded-2xl shadow-sm border border-slate-100 hover:border-red-100 p-5 sm:p-6 relative flex flex-col group transition-all duration-300">
+                                <div class="flex items-start">
+                                    <div class="w-11 h-11 flex-shrink-0 rounded-2xl bg-red-50 text-red-700 border border-red-100/60 flex items-center justify-center shadow-sm mt-0.5 group-hover:bg-red-700 group-hover:text-white transition-colors duration-300">
+                                        <i class="fas fa-file-pdf text-lg"></i>
+                                    </div>
+                                    <div class="ml-3 flex-grow min-w-0">
+                                        <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="block text-sm sm:text-base font-bold text-slate-900 hover:text-red-700 transition-all duration-300 leading-snug line-clamp-1 group-hover:line-clamp-none">
+                                            {{ dokumen.judul }}
+                                        </NuxtLink>
+                                        <p v-if="dokumen.deskripsi" class="text-xs text-slate-500 mt-1.5 transition-all duration-300 line-clamp-1 group-hover:line-clamp-none leading-relaxed">
+                                            {{ dokumen.deskripsi }}
+                                        </p>
+                                    </div>
+                                </div>
+          
+                                <div class="mt-3.5 pt-3 border-t border-slate-100 flex flex-col gap-2">
+                                    <div v-if="dokumen.organization" class="text-xs text-slate-600 font-medium flex items-center">
+                                        <i class="fas fa-building mr-1.5 text-emerald-600 shrink-0"></i> {{ dokumen.organization.name }}
+                                    </div>
+                                    <div class="flex items-center justify-between gap-2 text-xs">
+                                        <span class="px-2.5 py-0.5 bg-slate-100 text-slate-700 font-semibold rounded-md text-[11px]">
+                                            {{ dokumen.kategori }}
+                                        </span>
+                                        <span class="text-slate-400 font-medium text-[11px] flex items-center">
+                                            <i class="fas fa-calendar mr-1"></i> {{ formatDate(dokumen.published_at || dokumen.created_at) }}
+                                        </span>
+                                    </div>
+                                </div>
+          
+                                <div class="mt-3 pt-3 border-t border-slate-100 flex justify-end">
+                                    <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="inline-flex items-center justify-center w-9 h-9 bg-red-50 hover:bg-red-700 text-red-700 hover:text-white border border-red-200/80 rounded-xl text-sm transition-all duration-300 shadow-sm" title="Lihat Detail">
+                                        <i class="fas fa-eye"></i>
+                                    </NuxtLink>
                                 </div>
                             </div>
-      
-                            <div class="mt-4 pt-3 border-t border-gray-100 flex flex-wrap gap-1.5">
-                                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-[10px] sm:text-xs font-semibold rounded-md border border-gray-200">
-                                    {{ dokumen.kategori }}
-                                </span>
-                                <span class="px-2 py-1 bg-red-50 text-red-700 text-[10px] sm:text-xs font-semibold rounded-md border border-red-100">
-                                    {{ dokumen.jenis_dokumen }}
-                                </span>
-                                <span v-if="dokumen.user" class="px-2 py-1 bg-purple-50 text-purple-700 text-[10px] sm:text-xs font-semibold rounded-md border border-purple-200">
-                                    <i class="fas fa-user-circle mr-1"></i> 
-                                    <template v-if="dokumen.user.role === 'superadmin' || (dokumen.user.admin_kabupaten && dokumen.user.admin_kabupaten == 1)">
-                                        Admin Kabupaten ({{ dokumen.user.name }})
-                                    </template>
-                                    <template v-else>
-                                        {{ dokumen.user.name }}
-                                    </template>
-                                </span>
-                                <span v-if="dokumen.organization" class="px-2 py-1 bg-emerald-50 text-emerald-700 text-[10px] sm:text-xs font-semibold rounded-md border border-emerald-200">
-                                    <i class="fas fa-building mr-1"></i> {{ dokumen.organization.name }}
-                                </span>
-                                <span class="px-2 py-1 bg-gray-50 text-gray-600 text-[10px] sm:text-xs font-semibold rounded-md border border-gray-200">
-                                    <i class="fas fa-calendar mr-1 text-gray-400"></i> {{ formatDate(dokumen.published_at || dokumen.created_at) }}
-                                </span>
+                        </div>
+                    </template>
+
+                    <!-- KONDISI 2: SKELETON TABLE LOADING (Saat pemuatan awal dokumen) -->
+                    <div v-else-if="isLoading" class="w-full">
+                        <!-- Skeleton Desktop Table -->
+                        <div class="hidden md:block overflow-x-hidden relative z-10 w-full">
+                            <table class="w-full bg-transparent table-fixed">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-left">
+                                        <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-14 text-center">No</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase">Detail Dokumen</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-48">Kategori & Jenis</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-56">Sumber</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-36 text-center">Tanggal</th>
+                                        <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-20 text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <tr v-for="n in 5" :key="'skel-row-' + n" class="animate-pulse">
+                                        <td class="py-5 px-4 text-center align-middle">
+                                            <div class="h-4 w-6 bg-slate-200/80 rounded mx-auto"></div>
+                                        </td>
+                                        <td class="py-5 px-6 align-middle">
+                                            <div class="flex items-center">
+                                                <div class="w-11 h-11 rounded-2xl bg-slate-200/70 flex-shrink-0"></div>
+                                                <div class="ml-4 flex-1 space-y-2">
+                                                    <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
+                                                    <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-5 px-6 align-middle">
+                                            <div class="h-5 w-24 bg-slate-200/70 rounded-lg mb-1.5"></div>
+                                            <div class="h-5 w-20 bg-red-100/60 rounded-lg"></div>
+                                        </td>
+                                        <td class="py-5 px-6 align-middle">
+                                            <div class="h-4 w-36 bg-slate-200/70 rounded-lg"></div>
+                                        </td>
+                                        <td class="py-5 px-6 text-center align-middle">
+                                            <div class="h-6 w-24 bg-slate-200/70 rounded-xl mx-auto"></div>
+                                        </td>
+                                        <td class="py-5 px-4 text-center align-middle">
+                                            <div class="w-9 h-9 bg-slate-200/70 rounded-xl mx-auto"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Skeleton Mobile Cards -->
+                        <div class="block md:hidden relative z-10 p-4 sm:p-6 space-y-4 bg-slate-50/50">
+                            <div v-for="n in 3" :key="'skel-mob-' + n" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-6 flex flex-col space-y-3.5 animate-pulse">
+                                <div class="flex items-start">
+                                    <div class="w-11 h-11 flex-shrink-0 rounded-2xl bg-slate-200/70"></div>
+                                    <div class="ml-3 flex-grow space-y-2">
+                                        <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
+                                        <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
+                                    </div>
+                                </div>
+                                <div class="pt-3 border-t border-slate-100 space-y-2">
+                                    <div class="h-3 bg-slate-200/60 rounded w-1/3"></div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="h-5 w-20 bg-slate-200/70 rounded-md"></div>
+                                        <div class="h-3 w-24 bg-slate-200/60 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="pt-3 border-t border-slate-100 flex justify-end">
+                                    <div class="w-9 h-9 bg-slate-200/70 rounded-xl"></div>
+                                </div>
                             </div>
-      
-                            <div class="mt-3 pt-3 border-t border-gray-100 flex justify-end space-x-2">
-                                <a v-if="dokumen.file_path" :href="getDownloadUrl(dokumen)" target="_blank" class="inline-flex flex-1 sm:flex-none items-center justify-center h-9 px-3 bg-green-50 border border-green-200 text-green-600 hover:bg-green-600 hover:text-white rounded-lg text-xs font-bold transition-colors">
-                                    <i :class="dokumen.file_path.startsWith('http') ? 'fas fa-external-link-alt' : 'fas fa-cloud-download-alt'"></i> <span class="hidden sm:inline sm:ml-1.5">Unduh</span>
-                                </a>
-                                <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="inline-flex flex-1 sm:flex-none items-center justify-center h-9 px-3 bg-red-50 border border-red-200 text-red-600 hover:bg-red-600 hover:text-white rounded-lg text-xs font-bold transition-colors">
-                                    <i class="fas fa-eye sm:mr-1.5"></i> <span class="hidden sm:inline">Detail</span>
-                                </NuxtLink>
+                        </div>
+                    </div>
+
+                    <!-- KONDISI 3: BELUM ADA DATA -->
+                    <div v-else class="py-20 text-center relative z-10">
+                        <div class="flex flex-col items-center justify-center">
+                            <div class="w-20 h-20 bg-slate-50 rounded-2xl flex items-center justify-center mb-4 border border-slate-100">
+                                <i class="fas fa-folder-open text-3xl text-slate-300"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-2">Belum Ada Dokumen</h3>
+                            <p class="text-slate-500 font-medium">Silakan sesuaikan filter pencarian Anda.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div v-if="!isLoading && items.length > 0 && lastPage > 1" class="relative z-10 px-6 py-6 border-t border-slate-100 bg-white/80 backdrop-blur-sm flex justify-center">
+                        <nav class="inline-flex rounded-2xl shadow-sm border border-slate-100 bg-white p-1">
+                            <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1" class="px-4 py-2 text-sm font-bold text-slate-500 rounded-xl hover:bg-red-50 hover:text-red-700 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-slate-400 transition-colors">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <template v-for="page in visiblePages" :key="page">
+                                <span v-if="page === '...'" class="px-4 py-2 text-sm font-bold text-slate-400">...</span>
+                                <button v-else @click="changePage(page)" :class="['px-4 py-2 text-sm font-bold rounded-xl transition-colors', page === currentPage ? 'bg-red-700 text-white shadow-md shadow-red-900/20' : 'text-slate-600 hover:bg-red-50 hover:text-red-700']">
+                                    {{ page }}
+                                </button>
+                            </template>
+                            <button @click="changePage(currentPage + 1)" :disabled="currentPage === lastPage" class="px-4 py-2 text-sm font-bold text-slate-500 rounded-xl hover:bg-red-50 hover:text-red-700 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-slate-400 transition-colors">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Fallback SSR ClientOnly -->
+                <template #fallback>
+                    <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden relative min-h-[400px]">
+                        <div class="hidden md:block overflow-x-hidden relative z-10 w-full">
+                            <table class="w-full bg-transparent table-fixed">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-left">
+                                        <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-14 text-center">No</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase">Detail Dokumen</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-48">Kategori & Jenis</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-56">Sumber</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-36 text-center">Tanggal</th>
+                                        <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-20 text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <tr v-for="n in 5" :key="'fallback-row-' + n" class="animate-pulse">
+                                        <td class="py-5 px-4 text-center align-middle">
+                                            <div class="h-4 w-6 bg-slate-200/80 rounded mx-auto"></div>
+                                        </td>
+                                        <td class="py-5 px-6 align-middle">
+                                            <div class="flex items-center">
+                                                <div class="w-11 h-11 rounded-2xl bg-slate-200/70 flex-shrink-0"></div>
+                                                <div class="ml-4 flex-1 space-y-2">
+                                                    <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
+                                                    <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-5 px-6 align-middle">
+                                            <div class="h-5 w-24 bg-slate-200/70 rounded-lg mb-1.5"></div>
+                                            <div class="h-5 w-20 bg-red-100/60 rounded-lg"></div>
+                                        </td>
+                                        <td class="py-5 px-6 align-middle">
+                                            <div class="h-4 w-36 bg-slate-200/70 rounded-lg"></div>
+                                        </td>
+                                        <td class="py-5 px-6 text-center align-middle">
+                                            <div class="h-6 w-24 bg-slate-200/70 rounded-xl mx-auto"></div>
+                                        </td>
+                                        <td class="py-5 px-4 text-center align-middle">
+                                            <div class="w-9 h-9 bg-slate-200/70 rounded-xl mx-auto"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="block md:hidden relative z-10 p-4 sm:p-6 space-y-4 bg-slate-50/50">
+                            <div v-for="n in 3" :key="'fallback-mob-' + n" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-6 flex flex-col space-y-3.5 animate-pulse">
+                                <div class="flex items-start">
+                                    <div class="w-11 h-11 flex-shrink-0 rounded-2xl bg-slate-200/70"></div>
+                                    <div class="ml-3 flex-grow space-y-2">
+                                        <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
+                                        <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
+                                    </div>
+                                </div>
+                                <div class="pt-3 border-t border-slate-100 space-y-2">
+                                    <div class="h-3 bg-slate-200/60 rounded w-1/3"></div>
+                                    <div class="flex justify-between items-center">
+                                        <div class="h-5 w-20 bg-slate-200/70 rounded-md"></div>
+                                        <div class="h-3 w-24 bg-slate-200/60 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="pt-3 border-t border-slate-100 flex justify-end">
+                                    <div class="w-9 h-9 bg-slate-200/70 rounded-xl"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </template>
-
-                <div v-else class="py-20 text-center relative z-10">
-                    <div class="flex flex-col items-center justify-center">
-                        <div class="w-24 h-24 bg-white/80 shadow-sm rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-folder-open text-4xl text-gray-300"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-700 mb-2">Belum Ada Dokumen</h3>
-                        <p class="text-gray-500 font-medium">Silakan sesuaikan filter pencarian Anda.</p>
-                    </div>
-                </div>
-                
-                <!-- Pagination -->
-                <div v-if="lastPage > 1" class="relative z-10 px-6 py-4 border-t border-gray-100 bg-white/50 backdrop-blur-sm flex justify-center mt-4">
-                    <nav class="inline-flex rounded-xl shadow-sm border border-gray-100 bg-white p-1">
-                        <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1" class="px-4 py-2 text-sm font-bold text-gray-500 rounded-lg hover:bg-red-50 hover:text-red-600 disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-gray-500 transition-colors">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <template v-for="page in visiblePages" :key="page">
-                            <span v-if="page === '...'" class="px-4 py-2 text-sm font-bold text-gray-400">...</span>
-                            <button v-else @click="changePage(page)" :class="['px-4 py-2 text-sm font-bold rounded-lg transition-colors', page === currentPage ? 'bg-red-600 text-white shadow-md shadow-red-200' : 'text-gray-600 hover:bg-red-50 hover:text-red-600']">
-                                {{ page }}
-                            </button>
-                        </template>
-                        <button @click="changePage(currentPage + 1)" :disabled="currentPage === lastPage" class="px-4 py-2 text-sm font-bold text-gray-500 rounded-lg hover:bg-red-50 hover:text-red-600 disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-gray-500 transition-colors">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </nav>
-                </div>
-            </div>
+            </ClientOnly>
         </div>
     </div>
   </div>
@@ -353,7 +458,7 @@ const pageTitle = computed(() => {
   } else if (kat) {
     return `Informasi Kategori ${kat}`
   }
-  return 'Informasi Pemkab'
+  return 'Informasi Publik'
 })
 
 useSeoMeta({
@@ -386,7 +491,7 @@ useHead({
           {
             '@type': 'ListItem',
             'position': 2,
-            'name': 'Informasi Pemkab',
+            'name': 'Informasi Publik',
             'item': pageCanonical
           }
         ]
@@ -405,8 +510,11 @@ const filters = ref({
 })
 
 const getDownloadUrl = (dokumen) => {
-  if (!dokumen) return '#'
-  return `https://ppidkab.sinjaikab.go.id/informasi/${dokumen.slug || dokumen.id}/download`
+  if (!dokumen || !dokumen.file_path) return '#'
+  if (dokumen.file_path.startsWith('http://') || dokumen.file_path.startsWith('https://')) {
+    return dokumen.file_path
+  }
+  return `https://ppidkab.sinjaikab.go.id/storage/${dokumen.file_path}`
 }
 
 const getAssetUrl = (path) => `https://ppidkab.sinjaikab.go.id/${path}`
@@ -417,10 +525,26 @@ const formatDate = (dateStr) => {
   return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })
 }
 
+const getPpidApiUrl = (path = '') => {
+  const base = import.meta.dev ? '/api/ppid' : 'https://ppidkab.sinjaikab.go.id/api/v1'
+  return path ? `${base}/${path}` : base
+}
+
+const cleanFilters = computed(() => {
+  const p = {}
+  if (filters.value.kategori) p.kategori = filters.value.kategori
+  if (filters.value.jenis_dokumen) p.jenis_dokumen = filters.value.jenis_dokumen
+  if (filters.value.tahun) p.tahun = filters.value.tahun
+  if (filters.value.search) p.search = filters.value.search
+  if (filters.value.per_page) p.per_page = filters.value.per_page
+  if (filters.value.page) p.page = filters.value.page
+  return p
+})
+
 const { data, pending: isLoading, refresh } = useAsyncData(
   'informasi-pemkab',
-  () => $fetch('https://ppidkab.sinjaikab.go.id/api/v1/informasi-pemkab', { params: filters.value }),
-  { watch: [filters], server: false }
+  () => $fetch(getPpidApiUrl('informasi-pemkab'), { params: cleanFilters.value }),
+  { watch: [cleanFilters], server: false }
 )
 
 onMounted(() => {
@@ -466,6 +590,7 @@ const tahunOptions = computed(() => {
 })
 
 const items = computed(() => data.value?.data?.data || [])
+const totalItems = computed(() => data.value?.data?.total || 0)
 const currentPage = computed(() => data.value?.data?.current_page || 1)
 const lastPage = computed(() => data.value?.data?.last_page || 1)
 

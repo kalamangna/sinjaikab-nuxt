@@ -5,19 +5,19 @@
         @click="toggle" 
         @keydown.escape="open = false"
         :disabled="disabled"
-        class="relative w-full border-2 border-gray-100 rounded-2xl shadow-sm pl-5 pr-12 py-4 text-left transition-all duration-300 group"
-        :class="disabled ? 'bg-gray-50/80 cursor-not-allowed opacity-75' : 'bg-white cursor-pointer focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10'">
+        class="relative w-full border-2 border-slate-100 rounded-2xl shadow-sm pl-5 pr-12 py-3.5 text-left transition-all duration-300 group"
+        :class="disabled ? 'bg-slate-50/80 cursor-not-allowed opacity-75' : 'bg-white cursor-pointer hover:border-slate-200 focus:outline-none focus:border-red-700 focus:ring-4 focus:ring-red-700/10'">
         
         <span class="flex items-center">
             <span class="block truncate transition-colors duration-300" 
-                  :class="selectedLabel ? 'text-gray-900 font-bold' : 'text-gray-400 font-medium'">
+                  :class="selectedLabel ? 'text-slate-900 font-bold' : 'text-slate-400 font-medium'">
                   {{ selectedLabel || placeholder }}
             </span>
         </span>
         
         <span class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-            <div class="p-1 rounded-lg bg-gray-50 group-hover:bg-blue-50 transition-colors duration-300">
-                <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-transform duration-300" 
+            <div class="p-1 rounded-xl bg-slate-50 group-hover:bg-red-50 transition-colors duration-300">
+                <svg class="h-5 w-5 text-slate-400 group-hover:text-red-700 transition-transform duration-300" 
                      :class="open ? 'rotate-180' : ''" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
@@ -35,41 +35,41 @@
         leave-to-class="opacity-0 translate-y-1 scale-95"
     >
       <div v-if="open" 
-          class="absolute mt-1 w-full rounded-2xl bg-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] z-[9999] border border-gray-100 overflow-hidden ring-1 ring-black/5">
+          class="absolute mt-1.5 w-full rounded-2xl bg-white shadow-2xl z-[9999] border border-slate-100 overflow-hidden ring-1 ring-black/5">
 
-          <div v-if="displaySearch" class="p-3 bg-gray-50/50 border-b border-gray-100">
+          <div v-if="displaySearch" class="p-3 bg-slate-50/50 border-b border-slate-100">
               <div class="relative">
                   <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                      <i class="fas fa-search text-blue-500 text-xs"></i>
+                      <i class="fas fa-search text-red-700 text-xs"></i>
                   </div>
                   <input type="text" 
                       v-model="search" 
                       @click.stop 
                       @keydown.enter.prevent
                       placeholder="Cari opsi..." 
-                      class="w-full pl-10 pr-4 py-2.5 text-sm border-2 border-gray-100 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-0 transition-all bg-white">
+                      class="w-full pl-10 pr-4 py-2.5 text-sm border-2 border-slate-100 rounded-xl focus:outline-none focus:border-red-700 focus:ring-0 transition-all bg-white text-slate-800">
               </div>
           </div>
 
           <ul class="max-h-72 py-2 text-base overflow-auto focus:outline-none sm:text-sm custom-scrollbar" tabindex="-1">
               <li v-for="item in filteredData" :key="item.value"
                   @click="select(item)" 
-                  class="mx-2 my-0.5 rounded-xl text-gray-700 cursor-pointer select-none relative py-3 pl-4 pr-10 transition-all duration-200 group/item"
-                  :class="modelValue == item.value ? 'bg-blue-50 text-blue-700 font-bold' : 'hover:bg-blue-600 hover:text-white'">
+                  class="mx-2 my-1 rounded-xl text-slate-700 cursor-pointer select-none relative py-3 pl-4 pr-10 transition-all duration-200 group/item"
+                  :class="modelValue == item.value ? 'bg-red-50 text-red-700 font-bold' : 'hover:bg-red-700 hover:text-white'">
                   
                   <span class="block truncate">{{ item.label }}</span>
 
                   <span v-if="modelValue == item.value" 
-                        class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600 group-hover/item:text-white">
+                        class="absolute inset-y-0 right-0 flex items-center pr-4 text-red-700 group-hover/item:text-white">
                       <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                           <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                       </svg>
                   </span>
               </li>
               
-              <li v-if="filteredData.length === 0" class="px-4 py-8 text-sm text-gray-400 text-center italic flex flex-col items-center">
-                  <div class="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mb-3">
-                      <i class="fas fa-search-minus text-gray-300 text-xl"></i>
+              <li v-if="filteredData.length === 0" class="px-4 py-8 text-sm text-slate-400 text-center italic flex flex-col items-center">
+                  <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mb-3">
+                      <i class="fas fa-search-minus text-slate-300 text-xl"></i>
                   </div>
                   Data tidak ditemukan.
               </li>

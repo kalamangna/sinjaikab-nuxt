@@ -8,10 +8,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Generator Dynamic XML Sitemap via rute server Nitro ([`server/routes/sitemap.xml.ts`](./server/routes/sitemap.xml.ts)) yang mengambil seluruh data publik dokumen dari API PPID secara dinamis dengan caching Nitro SWR 3600 detik (`routeRules: { "/sitemap.xml": { swr: 3600 } }` pada [`nuxt.config.ts`](./nuxt.config.ts)).
-- Skema Structured Data Schema.org JSON-LD `SearchAction` pada entitas `WebSite` global di [`app.vue`](./app.vue) yang menargetkan pencarian dokumen `/informasi?search={search_term_string}`.
-- Skema Structured Data Schema.org JSON-LD `BreadcrumbList` pada halaman daftar ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) dan detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)).
-- Skema Structured Data Schema.org JSON-LD `DigitalDocument` pada halaman detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) memuat metadata judul, deskripsi, tanggal rilis/pembaruan, penerbit, dan OPD pembuat.
+- Endpoint proxy internal Nitro ([`server/api/ppid/[...slug].ts`](./server/api/ppid/[...slug].ts)) untuk meneruskan panggilan API PPID pada lingkungan pengembangan lokal guna mem-bypass batasan CORS peramban.
+- Sistem **Skeleton Loading** terstruktur pada tabel daftar dokumen ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) dan halaman detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) dengan animasi berdenyut (`animate-pulse`) yang mempertahankan tata letak permanen dan mengeliminasi *Cumulative Layout Shift* (CLS) serta kedipan layar kosong.
+- Indikator total dokumen dan teks ringkasan paginasi (*"Menampilkan 1-10 dari..."*) pada halaman daftar informasi publik.
+- Micro-interaction interaktif pada tombol salin tautan ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) dengan label konfirmasi visual *"Tautan Disalin!"* berikon centang hijau.
+
+### Changed
+- Standardisasi nama halaman dan entitas SEO dari `Informasi Pemkab` menjadi **`Informasi Publik`** pada judul Hero, meta title, dan skema data terstruktur JSON-LD Schema.org di [`pages/informasi/index.vue`](./pages/informasi/index.vue) dan [`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue).
+- Penataan ulang tata letak halaman detail dokumen: kartu Deskripsi Dokumen diposisikan di atas kartu Pratinjau Dokumen, serta pemusatan seluruh metadata (sumber, kategori, jenis, sifat akses, tanggal) secara terstruktur pada Metadata Card di bilah sisi (*sidebar*).
+- Penyesuaian jarak Hero halaman detail dokumen (`pt-32 md:pt-36 lg:pt-40` dan `pb-36 md:pb-44 lg:pb-48`) guna memberi ruang yang proporsional dan tidak rapat terhadap *fixed navbar* serta kartu dokumen.
+- Penataan formulir filter dokumen pada [`pages/informasi/index.vue`](./pages/informasi/index.vue): menghilangkan label statis, menyeragamkan tinggi kontrol menjadi `h-[48px]`, dan menyelaraskan tombol Cari dan Reset.
+- Penyederhanaan kolom aksi pada tabel dokumen menjadi tombol pratinjau tunggal (ikon mata).
+- Penyelarasan palet warna dan radius sudut [`components/CustomSelect.vue`](./components/CustomSelect.vue) ke tema desain merah Sinjai (`red-700`, `slate-50`, `rounded-2xl`).
+- Format subjudul Hero halaman informasi publik menjadi satu baris lurus yang harmonis.
+
+### Fixed
+- Perbaikan URL unduhan dokumen pada [`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue) agar mengarah langsung ke berkas fisik asli storage PPID (`https://ppidkab.sinjaikab.go.id/storage/...` atau Google Drive) guna mengatasi galat HTTP 404 dari URL redirect domain lama.
+- Penanganan status error dan tidak ditemukannya dokumen pada halaman detail yang kini terbingkai rapi di dalam kontainer utama dengan tombol navigasi kembali ke daftar dokumen.
+
+### Removed
+- Menghapus komponen breadcrumbs dari banner Hero [`pages/informasi/index.vue`](./pages/informasi/index.vue) dan [`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue) demi estetika hero yang bersih, simetris, dan lapang.
 
 ### Fixed
 - Mengembalikan pengambilan data daftar informasi ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) dan detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) ke sisi klien (`server: false` dengan pelindung `<ClientOnly>`) guna mencegah galat timeout dan daftar dokumen kosong akibat pemblokiran IP server datacenter luar negeri oleh firewall server API PPID.
