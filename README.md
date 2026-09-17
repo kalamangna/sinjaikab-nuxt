@@ -8,6 +8,7 @@ Website resmi Pemerintah Kabupaten Sinjai berbasis Nuxt 3 dan Tailwind CSS untuk
 ## Fitur Utama
 
 - **Portal Berita & Layanan Digital**: Akses langsung ke Humas Sinjai, PPID, JDIH, INAPROC/LPSE, Satu Data, Portal ASN, DPRD, dan Bapenda.
+- **Peta Potensi & Peluang Investasi**: Akses berkas kajian resmi, proyek siap ditawarkan (IPRO), dan pemetaan komoditas daerah Sinjai (DPMPTSP).
 - **Visi & Misi dan Program Prioritas**: Publikasi arah kebijakan dan 5 pilar program prioritas daerah.
 - **Aksesibilitas & SEO**: Standar WCAG 2.1 AA (Skip to Content, Kontras Tinggi AAA, Semantik Penuh, a11y-sinjaikab), Schema.org JSON-LD, Open Graph, dan HTTP Security Headers.
 

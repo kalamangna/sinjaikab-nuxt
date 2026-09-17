@@ -40,7 +40,7 @@
           <h2 class="text-2xl font-black text-slate-900 mb-3">Dokumen Tidak Ditemukan</h2>
           <p class="text-slate-600 mb-8 leading-relaxed text-sm sm:text-base">Maaf, dokumen yang Anda cari tidak tersedia, telah ditarik, atau terjadi kendala saat memuat data dari server.</p>
           <NuxtLink to="/informasi" class="inline-flex items-center px-6 py-3.5 bg-red-700 hover:bg-red-800 text-white font-bold rounded-2xl shadow-lg shadow-red-900/20 transition uppercase tracking-wider text-xs">
-            <i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar Dokumen
+            <i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar
           </NuxtLink>
         </div>
 

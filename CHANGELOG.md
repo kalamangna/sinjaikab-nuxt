@@ -8,12 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Komponen banner terintegrasi Peta Potensi & Peluang Investasi Sinjai ([`components/sections/InvestmentBanner.vue`](./components/sections/InvestmentBanner.vue)) pada beranda portal utama ([`pages/index.vue`](./pages/index.vue)) yang menghubungkan ke portal resmi DPMPTSP (`https://potensi-investasi.sinjaikab.go.id/`).
+- Definisi ikon FontAwesome `arrow-up-right-from-square` dan `map-location-dot` pada [`components/AppIcon.vue`](./components/AppIcon.vue).
 - Endpoint proxy internal Nitro ([`server/api/ppid/[...slug].ts`](./server/api/ppid/[...slug].ts)) untuk meneruskan panggilan API PPID pada lingkungan pengembangan lokal guna mem-bypass batasan CORS peramban.
 - Sistem **Skeleton Loading** terstruktur pada tabel daftar dokumen ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) dan halaman detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) dengan animasi berdenyut (`animate-pulse`) yang mempertahankan tata letak permanen dan mengeliminasi *Cumulative Layout Shift* (CLS) serta kedipan layar kosong.
 - Indikator total dokumen dan teks ringkasan paginasi (*"Menampilkan 1-10 dari..."*) pada halaman daftar informasi publik.
 - Micro-interaction interaktif pada tombol salin tautan ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) dengan label konfirmasi visual *"Tautan Disalin!"* berikon centang hijau.
 
 ### Changed
+- Penyesuaian teks tombol kembali pada halaman detail informasi publik ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) menjadi lebih ringkas (*"Kembali ke Daftar"*).
 - Pemindahan tombol aksi unduh dokumen dan bagikan ke bagian bawah kartu pratinjau dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) tanpa teks tambahan, dengan bilah sisi (*sidebar*) kanan (kartu metadata dan tombol kembali) disetel tetap melayang (*sticky* `lg:sticky lg:top-28`).
 - Pembersihan ikon-ikon dekoratif berlebihan pada tabel daftar dokumen ([`pages/informasi/index.vue`](./pages/informasi/index.vue)), kartu dokumen mobile, serta item rincian metadata halaman detail ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) dengan tetap mempertahankan ikon identitas pada setiap header bagian.
 - Pengoptimalan menyeluruh responsivitas tata letak di seluruh ukuran layar (*mobile*, tablet, desktop): penyesuaian tinggi pratinjau dokumen responsif bertingkat (`h-[480px] sm:h-[620px] md:h-[720px]`), penambahan horizontal scroll halus (`overflow-x-auto min-w-[760px]`) pada tabel desktop agar tidak tertekan di layar tablet, pengoptimalan padding kartu, penyesuaian paginasi mobile, serta penambahan badge jenis dokumen dan tombol aksi sentuh yang nyaman pada kartu mobile.
