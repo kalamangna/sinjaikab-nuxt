@@ -1,28 +1,16 @@
 <template>
   <div>
-    <div class="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 pt-20 md:pt-24 pb-32 md:pb-36 overflow-hidden">
+    <div class="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 pt-28 sm:pt-32 md:pt-36 pb-32 md:pb-36 overflow-hidden">
         <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
         <div class="container mx-auto px-4 md:px-6 relative z-10 text-center">
-
-            <div class="flex justify-center items-center mt-6 md:mt-8 mb-4 flex-col">
-                <picture class="mb-4">
-                    <source srcset="/sinjai.webp" type="image/webp" />
-                    <img
-                        src="/sinjai.png"
-                        alt="Lambang Daerah Kabupaten Sinjai"
-                        class="h-20 md:h-24 w-auto object-contain drop-shadow-xl"
-                        decoding="async"
-                    />
-                </picture>
-                <div class="w-full relative">
-                    <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg">
-                        {{ pageTitle }}
-                    </h1>
-                </div>
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg mb-4">
+                    {{ pageTitle }}
+                </h1>
+                <p class="text-red-100 text-base sm:text-lg md:text-xl max-w-3xl mx-auto font-light leading-relaxed">
+                    Akses dan unduh dokumen resmi Pemerintah Kabupaten Sinjai secara transparan.
+                </p>
             </div>
-            <p class="text-red-100 text-lg md:text-xl max-w-3xl mx-auto font-light mt-4 mb-4 md:mb-6">
-                Akses dan unduh dokumen resmi Pemerintah Kabupaten Sinjai secara transparan.
-            </p>
         </div>
         
         <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none transform translate-y-1">
@@ -133,11 +121,6 @@
             <!-- Daftar Dokumen -->
             <ClientOnly>
                 <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden relative min-h-[400px] hover:border-red-100/50 transition-all duration-300" style="z-index: 10;">
-                    
-                    <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden" style="opacity: 0.03;">
-                        <div class="w-full h-full" :style="{ backgroundImage: `url(${getAssetUrl('storage/logo/Lambang_Kabupaten_Sinjai.png')})`, backgroundRepeat: 'repeat-y', backgroundPosition: 'center top', backgroundSize: 'contain', minHeight: '800px', filter: 'grayscale(100%)' }"></div>
-                    </div>
-
                     <!-- Overlay Loading (Saat update halaman / pagination ketika data sudah ada) -->
                     <div v-if="isLoading && items.length > 0" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/75 backdrop-blur-[2px] rounded-3xl transition-all duration-300">
                         <i class="fas fa-circle-notch fa-spin text-4xl text-red-700 mb-3"></i>
@@ -151,7 +134,7 @@
                                 <thead>
                                     <tr class="bg-slate-50 border-b border-slate-200 text-left">
                                         <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-14 text-center">No</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase">Detail Dokumen</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase">Judul Dokumen</th>
                                         <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-48">Kategori & Jenis</th>
                                         <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-56">Sumber</th>
                                         <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-36 text-center">Tanggal</th>
@@ -164,12 +147,9 @@
                                             {{ (currentPage - 1) * Number(filters.per_page) + index + 1 }}
                                         </td>
                                         <td class="py-4 px-6 whitespace-normal align-middle">
-                                            <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="block text-base font-bold text-slate-900 hover:text-red-700 transition-all duration-300 leading-snug line-clamp-1 group-hover:line-clamp-none">
+                                            <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="block text-base font-bold text-slate-900 hover:text-red-700 transition-colors duration-200 leading-snug">
                                                 {{ dokumen.judul }}
                                             </NuxtLink>
-                                            <p v-if="dokumen.deskripsi" class="text-sm text-slate-500 mt-1 transition-all duration-300 line-clamp-1 group-hover:line-clamp-none">
-                                                {{ dokumen.deskripsi }}
-                                            </p>
                                         </td>
                                         <td class="py-4 px-6 whitespace-normal align-middle">
                                             <span class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200/60 mb-1">
@@ -204,12 +184,9 @@
                         <div class="block md:hidden relative z-10 p-4 sm:p-6 space-y-4 bg-slate-50/50">
                             <div v-for="dokumen in items" :key="'mob-'+dokumen.id" class="bg-white rounded-2xl shadow-sm border border-slate-100 hover:border-red-100 p-4 sm:p-6 relative flex flex-col group transition-all duration-300">
                                 <div>
-                                    <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="block text-sm sm:text-base font-bold text-slate-900 hover:text-red-700 transition-all duration-300 leading-snug line-clamp-2 group-hover:line-clamp-none">
+                                    <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="block text-sm sm:text-base font-bold text-slate-900 hover:text-red-700 transition-colors duration-200 leading-snug">
                                         {{ dokumen.judul }}
                                     </NuxtLink>
-                                    <p v-if="dokumen.deskripsi" class="text-xs text-slate-500 mt-1.5 transition-all duration-300 line-clamp-2 group-hover:line-clamp-none leading-relaxed">
-                                        {{ dokumen.deskripsi }}
-                                    </p>
                                 </div>
           
                                 <div class="mt-3.5 pt-3 border-t border-slate-100 flex flex-col gap-2">
@@ -249,7 +226,7 @@
                                 <thead>
                                     <tr class="bg-slate-50 border-b border-slate-200 text-left">
                                         <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-14 text-center">No</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase">Detail Dokumen</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase">Judul Dokumen</th>
                                         <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-48">Kategori & Jenis</th>
                                         <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-56">Sumber</th>
                                         <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-36 text-center">Tanggal</th>
@@ -262,10 +239,7 @@
                                             <div class="h-4 w-6 bg-slate-200/80 rounded mx-auto"></div>
                                         </td>
                                         <td class="py-5 px-6 align-middle">
-                                            <div class="space-y-2">
-                                                <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
-                                                <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
-                                            </div>
+                                            <div class="h-4 bg-slate-200/80 rounded-lg w-4/5"></div>
                                         </td>
                                         <td class="py-5 px-6 align-middle">
                                             <div class="h-5 w-24 bg-slate-200/70 rounded-lg mb-1.5"></div>
@@ -288,10 +262,7 @@
                         <!-- Skeleton Mobile Cards -->
                         <div class="block md:hidden relative z-10 p-4 sm:p-6 space-y-4 bg-slate-50/50">
                             <div v-for="n in 3" :key="'skel-mob-' + n" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-6 flex flex-col space-y-3.5 animate-pulse">
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
-                                    <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
-                                </div>
+                                <div class="h-4 bg-slate-200/80 rounded-lg w-4/5"></div>
                                 <div class="pt-3 border-t border-slate-100 space-y-2">
                                     <div class="h-3 bg-slate-200/60 rounded w-1/3"></div>
                                     <div class="flex justify-between items-center">
@@ -497,7 +468,6 @@ const getDownloadUrl = (dokumen) => {
   return `https://ppidkab.sinjaikab.go.id/storage/${dokumen.file_path}`
 }
 
-const getAssetUrl = (path) => `https://ppidkab.sinjaikab.go.id/${path}`
 
 const formatDate = (dateStr) => {
   if (!dateStr) return ''

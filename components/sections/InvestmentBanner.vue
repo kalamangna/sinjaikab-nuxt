@@ -1,8 +1,8 @@
 <template>
-  <section class="py-8 md:py-12 bg-slate-50">
+  <section class="py-6 md:py-10 bg-slate-50">
     <div class="container mx-auto px-4 md:px-6">
       <div
-        class="bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 p-6 sm:p-8 md:p-10 relative overflow-hidden"
+        class="bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 p-6 sm:p-8 relative overflow-hidden"
       >
         <!-- Background decorative blur -->
         <div
@@ -10,39 +10,28 @@
         ></div>
 
         <div
-          class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-8 relative z-10"
+          class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10"
         >
-          <div class="flex items-start gap-4 sm:gap-5">
+          <div class="flex items-center gap-4 sm:gap-5">
             <!-- Icon Box -->
             <div
-              class="hidden sm:flex p-4 bg-red-700 rounded-2xl text-white shrink-0 items-center justify-center shadow-md shadow-red-900/10"
+              class="p-3.5 sm:p-4 bg-red-700 rounded-2xl text-white shrink-0 flex items-center justify-center shadow-md shadow-red-900/10"
             >
-              <AppIcon name="map-location-dot" class="text-2xl" />
+              <AppIcon name="map-location-dot" class="text-xl sm:text-2xl" />
             </div>
 
             <!-- Content Details -->
             <div>
-              <div
-                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-red-700 text-xs font-bold tracking-wider uppercase mb-3"
-              >
-                <AppIcon name="building-columns" class="text-xs" />
-                DPMPTSP Kabupaten Sinjai
-              </div>
-
               <h2
-                class="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight mb-2"
+                class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tight"
               >
                 Peta Potensi &amp; <span class="text-red-700">Peluang Investasi</span>
               </h2>
-
-              <p class="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
-                Akses dokumen resmi kajian potensi investasi daerah, proposal proyek siap ditawarkan (IPRO), zonasi industri, dan pemetaan komoditas unggulan Kabupaten Sinjai.
-              </p>
             </div>
           </div>
 
           <!-- CTA Action -->
-          <div class="w-full lg:w-auto shrink-0 pt-2 lg:pt-0">
+          <div class="w-full md:w-auto shrink-0">
             <a
               href="https://potensi-investasi.sinjaikab.go.id/"
               target="_blank"

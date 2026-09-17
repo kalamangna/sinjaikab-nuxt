@@ -54,18 +54,16 @@
               class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-red-700 hover:bg-red-800 text-white rounded-2xl font-bold transition-all duration-300 shadow-lg shadow-red-900/20 text-center uppercase tracking-wide cursor-pointer flex items-center justify-center gap-2"
             >
               <AppIcon name="th-large" class="text-base" />
-              Layanan Publik
+              Layanan Digital
             </NuxtLink>
 
-            <a
-              href="https://humas.sinjaikab.go.id/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 rounded-2xl font-bold transition-all duration-300 text-center uppercase tracking-wide flex items-center justify-center gap-2"
+            <NuxtLink
+              to="/informasi"
+              class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 rounded-2xl font-bold transition-all duration-300 text-center uppercase tracking-wide flex items-center justify-center gap-2 shadow-sm"
             >
-              <AppIcon name="newspaper" class="text-base" />
-              Portal Berita
-            </a>
+              <AppIcon name="circle-info" class="text-base" />
+              Informasi Publik
+            </NuxtLink>
           </div>
         </div>
 

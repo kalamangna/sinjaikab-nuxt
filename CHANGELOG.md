@@ -16,6 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Micro-interaction interaktif pada tombol salin tautan ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) dengan label konfirmasi visual *"Tautan Disalin!"* berikon centang hijau.
 
 ### Changed
+- Penyelarasan tombol CTA Hero ([`components/sections/Hero.vue`](./components/sections/Hero.vue)): Tombol 1 diseragamkan menjadi **"Layanan Digital"** (menuju `#layanan`) dan Tombol 2 menjadi **"Informasi Publik"** (menuju `/informasi`) dengan ikon monokrom yang selaras dengan warna teks.
+- Penyederhanaan Navbar ([`components/ui/Navbar.vue`](./components/ui/Navbar.vue)): Menghapus menu tengah, tombol hamburger, dan drawer navigasi mobile; tombol aksi kanan disetel konsisten sebagai **"Portal Berita"** (`https://humas.sinjaikab.go.id/`) di desktop dan mobile.
+- Penyempurnaan tabel informasi publik ([`pages/informasi/index.vue`](./pages/informasi/index.vue)): Mengubah judul kolom menjadi **"Judul Dokumen"** dan menghapus teks deskripsi pada baris tabel serta kartu mobile untuk mengeliminasi lonjakan tinggi baris (*layout shift*) saat di-hover.
+- Penyesuaian jarak vertikal atas banner Hero informasi publik ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) menjadi `pt-28 sm:pt-32 md:pt-36` agar proporsional dan tidak mepet terhadap *fixed navbar*.
+- Penyesuaian tata letak dan padding kartu banner potensi investasi ([`components/sections/InvestmentBanner.vue`](./components/sections/InvestmentBanner.vue)).
 - Penyesuaian teks tombol kembali pada halaman detail informasi publik ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) menjadi lebih ringkas (*"Kembali ke Daftar"*).
 - Pemindahan tombol aksi unduh dokumen dan bagikan ke bagian bawah kartu pratinjau dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) tanpa teks tambahan, dengan bilah sisi (*sidebar*) kanan (kartu metadata dan tombol kembali) disetel tetap melayang (*sticky* `lg:sticky lg:top-28`).
 - Pembersihan ikon-ikon dekoratif berlebihan pada tabel daftar dokumen ([`pages/informasi/index.vue`](./pages/informasi/index.vue)), kartu dokumen mobile, serta item rincian metadata halaman detail ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) dengan tetap mempertahankan ikon identitas pada setiap header bagian.
@@ -34,6 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Penanganan status error dan tidak ditemukannya dokumen pada halaman detail yang kini terbingkai rapi di dalam kontainer utama dengan tombol navigasi kembali ke daftar dokumen.
 
 ### Removed
+- Menghapus tag `<picture>` logo besar di atas judul Hero banner pada [`pages/informasi/index.vue`](./pages/informasi/index.vue) untuk mengeliminasi logo ganda dan tampilan buram di layar retina.
+- Menghapus logo *watermark* berulang pada latar belakang tabel dokumen ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) sehingga tampilan tabel menjadi putih bersih dan menghemat request aset eksternal 143 KB.
 - Menghapus komponen breadcrumbs dari banner Hero [`pages/informasi/index.vue`](./pages/informasi/index.vue) dan [`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue) demi estetika hero yang bersih, simetris, dan lapang.
 
 ### Fixed
