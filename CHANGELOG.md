@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Penataan kondisi paginasi dokumen ([`pages/informasi/index.vue`](./pages/informasi/index.vue)): kontainer paginasi beserta tombol navigasi kini otomatis disembunyikan sepenuhnya dari DOM jika jumlah data hanya mencakup 1 halaman ($\le 10$ dokumen) menggunakan *multi-guard condition* (`showPagination && visiblePages.length > 1`).
+- Penyempurnaan styling dan aksesibilitas komponen paginasi ([`pages/informasi/index.vue`](./pages/informasi/index.vue)): tombol nomor dan panah kini berukuran kubus seragam presisi (`w-9 h-9 sm:w-10 sm:h-10 rounded-xl`), perbaikan perataan elipsis `...`, penyempurnaan efek bayangan aktif (`shadow-md shadow-red-700/25`), serta penambahan atribut aksesibilitas lengkap (`aria-label`, `title`, `aria-current="page"`).
+- Penyelarasan desain token halaman error ([`error.vue`](./error.vue)) dengan design system Sinjai: standardisasi warna ke palet `slate-*` (`bg-slate-50`, `text-slate-900`, `text-slate-600`), tipografi angka `font-black`, sudut tombol `rounded-xl` dengan bayangan `shadow-md shadow-red-700/20`, dan focus ring `focus:ring-4 focus:ring-red-700/20`.
 - Tombol *"Kembali ke Daftar"* pada [`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue) kini cerdas memprioritaskan `router.back()` untuk mempertahankan state filter pencarian dan halaman paginasi sebelumnya.
 - Pembersihan parameter query URL pada `updateRoute` ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) agar query string yang kosong tidak mengotori riwayat navigasi peramban.
 

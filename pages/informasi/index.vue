@@ -295,18 +295,49 @@
                     
                     <!-- Pagination (Hanya tampil jika ada lebih dari 1 halaman) -->
                     <div v-if="showPagination && visiblePages.length > 1" class="relative z-10 px-3 sm:px-6 py-4 sm:py-6 border-t border-slate-100 bg-white/80 backdrop-blur-sm flex justify-center">
-                        <nav class="inline-flex max-w-full overflow-x-auto rounded-2xl shadow-sm border border-slate-100 bg-white p-1">
-                            <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-500 rounded-xl hover:bg-red-50 hover:text-red-700 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-slate-400 transition-colors">
-                                <i class="fas fa-chevron-left"></i>
+                        <nav class="inline-flex items-center gap-1 sm:gap-1.5 max-w-full overflow-x-auto rounded-2xl shadow-sm border border-slate-200/80 bg-white p-1.5" aria-label="Navigasi Halaman">
+                            <button 
+                                @click="changePage(currentPage - 1)" 
+                                :disabled="currentPage === 1" 
+                                class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl text-xs sm:text-sm font-bold text-slate-500 hover:bg-red-50 hover:text-red-700 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-slate-400 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer"
+                                title="Halaman Sebelumnya"
+                                aria-label="Halaman Sebelumnya"
+                            >
+                                <i class="fas fa-chevron-left text-xs"></i>
                             </button>
+                            
                             <template v-for="page in visiblePages" :key="page">
-                                <span v-if="page === '...'" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-400">...</span>
-                                <button v-else @click="changePage(page)" :class="['px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition-colors', page === currentPage ? 'bg-red-700 text-white shadow-md shadow-red-900/20' : 'text-slate-600 hover:bg-red-50 hover:text-red-700']">
+                                <span 
+                                    v-if="page === '...'" 
+                                    class="w-7 sm:w-8 h-9 sm:h-10 flex items-center justify-center text-xs sm:text-sm font-bold text-slate-400 select-none tracking-wider"
+                                >
+                                    ...
+                                </span>
+                                <button 
+                                    v-else 
+                                    @click="changePage(page)" 
+                                    :class="[
+                                        'w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-xs sm:text-sm font-bold rounded-xl transition-all duration-200 cursor-pointer', 
+                                        page === currentPage 
+                                            ? 'bg-red-700 text-white shadow-md shadow-red-700/25' 
+                                            : 'text-slate-600 hover:bg-red-50 hover:text-red-700'
+                                    ]"
+                                    :title="'Halaman ' + page"
+                                    :aria-label="'Halaman ' + page"
+                                    :aria-current="page === currentPage ? 'page' : undefined"
+                                >
                                     {{ page }}
                                 </button>
                             </template>
-                            <button @click="changePage(currentPage + 1)" :disabled="currentPage === lastPage" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-500 rounded-xl hover:bg-red-50 hover:text-red-700 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-slate-400 transition-colors">
-                                <i class="fas fa-chevron-right"></i>
+                            
+                            <button 
+                                @click="changePage(currentPage + 1)" 
+                                :disabled="currentPage === lastPage" 
+                                class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl text-xs sm:text-sm font-bold text-slate-500 hover:bg-red-50 hover:text-red-700 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-slate-400 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer"
+                                title="Halaman Selanjutnya"
+                                aria-label="Halaman Selanjutnya"
+                            >
+                                <i class="fas fa-chevron-right text-xs"></i>
                             </button>
                         </nav>
                     </div>
