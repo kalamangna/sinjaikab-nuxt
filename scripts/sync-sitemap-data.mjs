@@ -42,6 +42,13 @@ const fetchDocuments = () => {
 };
 
 const main = async () => {
+  // Skip sync saat di Vercel build environment — firewall PPID memblokir IP datacenter Vercel.
+  // Sync hanya dijalankan dari lokal. Runtime sitemap menggunakan live fetch + whitelist IP.
+  if (process.env.VERCEL) {
+    console.log('[Sync Sitemap Data] Running on Vercel — skipping sync (runtime live fetch handles this).');
+    return;
+  }
+
   console.log('[Sync Sitemap Data] Checking for new PPID documents...');
   const items = await fetchDocuments();
   if (items && items.length > 0) {
