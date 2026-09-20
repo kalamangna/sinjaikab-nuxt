@@ -2,7 +2,6 @@
   <div class="w-full min-h-screen bg-slate-50">
     <!-- Hero Section (Tetap dirender agar layout stabil dan bebas layout-shift) -->
     <div class="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 pt-32 md:pt-36 lg:pt-40 pb-36 md:pb-44 lg:pb-48 overflow-hidden">
-      <div class="hero-texture absolute inset-0 opacity-10 mix-blend-overlay"></div>
       <div class="container mx-auto px-4 md:px-6 xl:px-8 max-w-7xl relative z-10">
         <!-- Jika Dokumen Selesai Dimuat -->
         <h1 v-if="dokumen" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg leading-tight max-w-4xl break-words">
@@ -543,9 +542,3 @@ useHead({
   script: structuredData,
 })
 </script>
-
-<style scoped>
-.hero-texture {
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
-}
-</style>
