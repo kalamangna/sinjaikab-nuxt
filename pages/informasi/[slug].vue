@@ -93,18 +93,15 @@
                     <div class="w-20 h-20 rounded-3xl bg-red-50 border border-red-100 flex items-center justify-center text-red-700 mb-4 shadow-sm">
                       <i class="fas fa-file-pdf text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-black text-slate-900 mb-2 max-w-md line-clamp-2">{{ dokumen.judul }}</h3>
-                    <p class="text-slate-500 text-sm max-w-md mb-6 leading-relaxed">
-                      Dokumen resmi tersimpan di server Google Drive. Klik tombol di bawah untuk memuat pratinjau interaktif langsung di halaman ini.
-                    </p>
+                    <h3 class="text-lg sm:text-xl font-black text-slate-900 mb-5 max-w-md line-clamp-2">{{ dokumen.judul }}</h3>
                     <div class="flex items-center justify-center">
                       <button 
                         @click="showGoogleDrivePreview = true" 
                         type="button" 
-                        class="px-8 py-3.5 bg-red-700 hover:bg-red-800 text-white font-bold rounded-2xl shadow-md shadow-red-700/25 uppercase tracking-wider text-xs transition-all duration-300 flex items-center gap-2.5 cursor-pointer active:scale-95"
+                        class="px-6 py-3 bg-red-700 hover:bg-red-800 text-white font-bold rounded-2xl shadow-md shadow-red-700/25 uppercase tracking-wider text-xs transition-all duration-300 flex items-center gap-2 cursor-pointer active:scale-95"
                       >
                         <i class="fas fa-eye text-xs"></i>
-                        <span>Tampilkan Pratinjau Dokumen</span>
+                        <span>Lihat Pratinjau</span>
                       </button>
                     </div>
                   </div>
@@ -191,10 +188,10 @@
                   </li>
                   <li class="pt-5 border-t border-slate-100 flex flex-col">
                     <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Sifat Akses</span>
-                    <span v-if="dokumen.visibility === 'public'" class="text-sm font-bold text-emerald-600">
+                    <span v-if="dokumen.visibility === 'public'" class="text-sm font-bold text-emerald-700">
                       Publik
                     </span>
-                    <span v-else class="text-sm font-bold text-amber-600">
+                    <span v-else class="text-sm font-bold text-amber-700">
                       Terbatas
                     </span>
                   </li>
@@ -245,7 +242,7 @@
                 <div class="text-center">
                   <i class="fas fa-circle-notch fa-spin text-4xl text-red-700 mb-4"></i>
                   <p class="text-slate-600 font-bold text-sm tracking-wide">Memuat data dokumen...</p>
-                  <p class="text-slate-400 text-xs mt-1">Menyiapkan pratinjau berkas informasi publik</p>
+                  <p class="text-slate-500 text-xs mt-1">Menyiapkan pratinjau berkas informasi publik</p>
                 </div>
               </div>
               <!-- Skeleton Action Bar di Bawah Pratinjau -->
