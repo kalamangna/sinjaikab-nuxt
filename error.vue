@@ -20,6 +20,12 @@ const handleBack = () => {
 }
 
 const handleHome = () => clearError({ redirect: '/' })
+
+const homeButtonClass = computed(() =>
+  isFromPpid.value
+    ? 'inline-flex items-center px-6 py-3 text-sm font-bold rounded-xl transition-all cursor-pointer focus:outline-none focus:ring-4 border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-red-700 hover:border-red-200 shadow-sm focus:ring-slate-200'
+    : 'inline-flex items-center px-6 py-3 text-sm font-bold rounded-xl transition-all cursor-pointer focus:outline-none focus:ring-4 shadow-md shadow-red-700/20 text-white bg-red-700 hover:bg-red-800 focus:ring-red-700/20'
+)
 </script>
 
 <template>
@@ -68,12 +74,7 @@ const handleHome = () => clearError({ redirect: '/' })
         <!-- Ke Beranda -->
         <button
           @click="handleHome"
-          :class="[
-            'inline-flex items-center px-6 py-3 text-sm font-bold rounded-xl transition-all cursor-pointer focus:outline-none focus:ring-4',
-            isFromPpid
-              ? 'border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-red-700 hover:border-red-200 shadow-sm focus:ring-slate-200'
-              : 'shadow-md shadow-red-700/20 text-white bg-red-700 hover:bg-red-800 focus:ring-red-700/20'
-          ]"
+          :class="homeButtonClass"
         >
           <i class="fas fa-home mr-2 text-xs"></i>
           Kembali ke Beranda
