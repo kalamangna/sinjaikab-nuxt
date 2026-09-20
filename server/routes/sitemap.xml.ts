@@ -42,9 +42,18 @@ export default defineCachedEventHandler(
     // 1. Prioritaskan Live Fetch langsung dari server API PPID
     try {
       const perPage = 100;
+      const fetchHeaders = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 SinjaikabPortal/1.0',
+        'Referer': 'https://sinjaikab.go.id/',
+        'Accept': 'application/json, text/plain, */*'
+      };
+
       const firstPageResponse: any = await $fetch(
         `https://ppidkab.sinjaikab.go.id/api/v1/informasi-pemkab?per_page=${perPage}&page=1`,
-        { timeout: 7000 }
+        { 
+          timeout: 8000,
+          headers: fetchHeaders
+        }
       );
 
       const liveItems = firstPageResponse?.data?.data || [];
@@ -58,7 +67,10 @@ export default defineCachedEventHandler(
             remainingPages.map((page) =>
               $fetch(
                 `https://ppidkab.sinjaikab.go.id/api/v1/informasi-pemkab?per_page=${perPage}&page=${page}`,
-                { timeout: 5000 }
+                { 
+                  timeout: 6000,
+                  headers: fetchHeaders
+                }
               )
             )
           );

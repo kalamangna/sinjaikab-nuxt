@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Penambahan *browser-like headers* (`User-Agent`, `Referer`, `Accept`) pada pemanggilan `$fetch` di [`server/routes/sitemap.xml.ts`](./server/routes/sitemap.xml.ts) agar request live sitemap dari Vercel dapat melewati WAF/ModSecurity server PPID Sinjai setelah IP Vercel di-whitelist, sehingga sitemap menjadi realtime tanpa bergantung pada dataset cadangan.
 - Sistem *Hybrid Fallback Sitemap* ([`server/routes/sitemap.xml.ts`](./server/routes/sitemap.xml.ts), [`server/data/fallback-documents.json`](./server/data/fallback-documents.json), dan [`scripts/sync-sitemap-data.mjs`](./scripts/sync-sitemap-data.mjs)): mengintegrasikan penarikan data live API prioritas dengan mekanisme fallback dataset cadangan otomatis agar seluruh 30+ halaman detail dokumen PPID Sinjai selalu 100% terdaftar pada `https://sinjaikab.go.id/sitemap.xml` untuk pengindeksan Google, terlepas dari pemblokiran firewall serverless Vercel oleh server PPID.
 - Optimalisasi proxy API PPID Nitro internal ([`server/api/ppid/[...slug].ts`](./server/api/ppid/[...slug].ts)) menggunakan `defineCachedEventHandler` dengan in-memory cache (`maxAge: 600`, `swr: true`), memangkas waktu respon dari ~3.000ms menjadi ~3.7ms.
 - Indikator pemuatan rute global `<NuxtLoadingIndicator color="#b91c1c" :height="3" :throttle="0" />` pada [`app.vue`](./app.vue) untuk umpan balik transisi rute instan.
