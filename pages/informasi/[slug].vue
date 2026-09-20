@@ -68,16 +68,8 @@
                   <i class="fas fa-eye text-red-700 mr-2.5"></i> Pratinjau Dokumen
                 </h2>
                 <div class="flex items-center gap-2.5">
-                  <a v-if="isGoogleDriveFile(dokumen.file_path)" 
-                     :href="dokumen.file_path" 
-                     target="_blank" 
-                     rel="noopener noreferrer" 
-                     class="inline-flex items-center text-xs font-bold text-red-700 hover:text-red-800 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-xl border border-red-200/60 transition shadow-sm" 
-                     title="Buka dokumen di tab baru jika pratinjau dibatasi kebijakan keamanan browser">
-                    <i class="fas fa-external-link-alt mr-1.5 text-[10px]"></i> Buka di Tab Baru
-                  </a>
                   <span class="text-xs bg-slate-100 text-slate-600 font-bold px-3 py-1 rounded-full">
-                    <i class="fas fa-eye mr-1 text-slate-400"></i> {{ dokumen.views_count || 0 }} Kali Dilihat
+                    <i class="fas fa-eye mr-1 text-slate-500"></i> {{ dokumen.views_count || 0 }} Kali Dilihat
                   </span>
                 </div>
               </div>
@@ -105,24 +97,15 @@
                     <p class="text-slate-500 text-sm max-w-md mb-6 leading-relaxed">
                       Dokumen resmi tersimpan di server Google Drive. Klik tombol di bawah untuk memuat pratinjau interaktif langsung di halaman ini.
                     </p>
-                    <div class="flex flex-wrap items-center justify-center gap-3">
+                    <div class="flex items-center justify-center">
                       <button 
                         @click="showGoogleDrivePreview = true" 
                         type="button" 
-                        class="px-6 py-3.5 bg-red-700 hover:bg-red-800 text-white font-bold rounded-2xl shadow-md shadow-red-700/25 uppercase tracking-wider text-xs transition-all duration-300 flex items-center gap-2 cursor-pointer active:scale-95"
+                        class="px-8 py-3.5 bg-red-700 hover:bg-red-800 text-white font-bold rounded-2xl shadow-md shadow-red-700/25 uppercase tracking-wider text-xs transition-all duration-300 flex items-center gap-2.5 cursor-pointer active:scale-95"
                       >
                         <i class="fas fa-eye text-xs"></i>
-                        <span>Tampilkan Pratinjau</span>
+                        <span>Tampilkan Pratinjau Dokumen</span>
                       </button>
-                      <a 
-                        :href="dokumen.file_path" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        class="px-5 py-3.5 bg-white hover:bg-slate-50 text-slate-700 hover:text-red-700 font-bold rounded-2xl border border-slate-200 uppercase tracking-wider text-xs transition-all duration-300 flex items-center gap-2 shadow-sm"
-                      >
-                        <i class="fas fa-external-link-alt text-xs"></i>
-                        <span>Buka di Tab Baru</span>
-                      </a>
                     </div>
                   </div>
 
