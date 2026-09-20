@@ -96,6 +96,36 @@
                   <div v-else-if="isImage(dokumen.file_path)" class="w-full h-full flex items-center justify-center p-4 bg-slate-100 overflow-hidden">
                     <img :src="getStorageUrl(dokumen.file_path)" :alt="dokumen.judul" loading="lazy" decoding="async" class="max-w-full max-h-full object-contain rounded-2xl shadow-sm">
                   </div>
+                  <!-- Google Drive File: On-Demand Preview untuk mencegah kebocoran third-party cookies dan browser CSP framing error -->
+                  <div v-else-if="isGoogleDriveFile(dokumen.file_path) && !showGoogleDrivePreview" class="w-full h-full flex flex-col items-center justify-center bg-slate-100/90 p-6 sm:p-8 text-center relative overflow-hidden">
+                    <div class="w-20 h-20 rounded-3xl bg-red-50 border border-red-100 flex items-center justify-center text-red-700 mb-4 shadow-sm">
+                      <i class="fas fa-file-pdf text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-slate-900 mb-2 max-w-md line-clamp-2">{{ dokumen.judul }}</h3>
+                    <p class="text-slate-500 text-sm max-w-md mb-6 leading-relaxed">
+                      Dokumen resmi tersimpan di server Google Drive. Klik tombol di bawah untuk memuat pratinjau interaktif langsung di halaman ini.
+                    </p>
+                    <div class="flex flex-wrap items-center justify-center gap-3">
+                      <button 
+                        @click="showGoogleDrivePreview = true" 
+                        type="button" 
+                        class="px-6 py-3.5 bg-red-700 hover:bg-red-800 text-white font-bold rounded-2xl shadow-md shadow-red-700/25 uppercase tracking-wider text-xs transition-all duration-300 flex items-center gap-2 cursor-pointer active:scale-95"
+                      >
+                        <i class="fas fa-eye text-xs"></i>
+                        <span>Tampilkan Pratinjau</span>
+                      </button>
+                      <a 
+                        :href="dokumen.file_path" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="px-5 py-3.5 bg-white hover:bg-slate-50 text-slate-700 hover:text-red-700 font-bold rounded-2xl border border-slate-200 uppercase tracking-wider text-xs transition-all duration-300 flex items-center gap-2 shadow-sm"
+                      >
+                        <i class="fas fa-external-link-alt text-xs"></i>
+                        <span>Buka di Tab Baru</span>
+                      </a>
+                    </div>
+                  </div>
+
                   <ClientOnly v-else>
                     <iframe 
                       :src="getEmbedUrl(dokumen.file_path)" 
@@ -358,6 +388,7 @@ onMounted(() => {
 })
 
 const dokumen = computed(() => detailData.value || null)
+const showGoogleDrivePreview = ref(false)
 const isError = computed(() => hasMounted.value && !isLoading.value && (!dokumen.value || !!fetchError.value))
 
 const getDownloadUrl = (dok) => {
