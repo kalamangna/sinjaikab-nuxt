@@ -8,12 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Komponen banner terintegrasi Peta Potensi & Peluang Investasi Sinjai ([`components/sections/InvestmentBanner.vue`](./components/sections/InvestmentBanner.vue)) pada beranda portal utama ([`pages/index.vue`](./pages/index.vue)) yang menghubungkan ke portal resmi DPMPTSP (`https://potensi-investasi.sinjaikab.go.id/`).
-- Definisi ikon FontAwesome `arrow-up-right-from-square` dan `map-location-dot` pada [`components/AppIcon.vue`](./components/AppIcon.vue).
-- Endpoint proxy internal Nitro ([`server/api/ppid/[...slug].ts`](./server/api/ppid/[...slug].ts)) untuk meneruskan panggilan API PPID pada lingkungan pengembangan lokal guna mem-bypass batasan CORS peramban.
-- Sistem **Skeleton Loading** terstruktur pada tabel daftar dokumen ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) dan halaman detail dokumen ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) dengan animasi berdenyut (`animate-pulse`) yang mempertahankan tata letak permanen dan mengeliminasi *Cumulative Layout Shift* (CLS) serta kedipan layar kosong.
-- Indikator total dokumen dan teks ringkasan paginasi (*"Menampilkan 1-10 dari..."*) pada halaman daftar informasi publik.
-- Micro-interaction interaktif pada tombol salin tautan ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) dengan label konfirmasi visual *"Tautan Disalin!"* berikon centang hijau.
+- Optimalisasi proxy API PPID Nitro internal ([`server/api/ppid/[...slug].ts`](./server/api/ppid/[...slug].ts)) menggunakan `defineCachedEventHandler` dengan in-memory cache (`maxAge: 600`, `swr: true`), memangkas waktu respon dari ~3.000ms menjadi ~3.7ms.
+- Indikator pemuatan rute global `<NuxtLoadingIndicator color="#b91c1c" :height="3" :throttle="0" />` pada [`app.vue`](./app.vue) untuk umpan balik transisi rute instan.
+- Tombol aksi eksternal *"Buka di Tab Baru"* dan atribut `allow="fullscreen"` pada header pratinjau Google Drive ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)) untuk kenyamanan pembacaan berkas.
+- Persistensi peta opsi kategori dan jenis dokumen menggunakan `useState('ppid-kategori-jenis')` pada [`pages/informasi/index.vue`](./pages/informasi/index.vue) agar pilihan filter tidak hilang saat pencarian menghasilkan 0 dokumen.
+
+### Changed
+- Penataan kondisi paginasi dokumen ([`pages/informasi/index.vue`](./pages/informasi/index.vue)): kontainer paginasi beserta tombol navigasi kini otomatis disembunyikan sepenuhnya dari DOM jika jumlah data hanya mencakup 1 halaman ($\le 10$ dokumen) menggunakan *multi-guard condition* (`showPagination && visiblePages.length > 1`).
+- Tombol *"Kembali ke Daftar"* pada [`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue) kini cerdas memprioritaskan `router.back()` untuk mempertahankan state filter pencarian dan halaman paginasi sebelumnya.
+- Pembersihan parameter query URL pada `updateRoute` ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) agar query string yang kosong tidak mengotori riwayat navigasi peramban.
+
+### Fixed
+- Mengeliminasi *hydration mismatch* pada halaman daftar dan detail dokumen dengan standardisasi `await useAsyncData` di kedua halaman.
+- Penyelarasan zona waktu `timeZone: 'Asia/Makassar'` (WITA) pada seluruh fungsi pemformat tanggal `toLocaleDateString` untuk mencegah inkonsistensi hidrasi tanggal antara server (UTC) dan peramban klien.
+- Normalisasi karakter baris baru (`\r\n` ke `\n`) pada teks deskripsi dokumen untuk mengeliminasi diskrepansi text node DOM saat SSR hidrasi.
+- Perbaikan sinkronisasi state antara tabel dan dropdown filter saat kembali ke halaman daftar dokumen melalui implementasi dynamic cache key `useAsyncData` berbasis hash filter aktif (`informasi-pemkab-` + query) serta verifikasi hash `_filtersHash` di `onMounted`.
+- Perbaikan *label glitch* pada [`components/CustomSelect.vue`](./components/CustomSelect.vue) dengan menambahkan fallback `hasActiveValue` pada `displayLabel` agar teks filter tidak keliru kembali ke placeholder saat opsi sedang diproses.
 
 ### Changed
 - Penyelarasan tombol CTA Hero ([`components/sections/Hero.vue`](./components/sections/Hero.vue)): Tombol 1 diseragamkan menjadi **"Layanan Digital"** (menuju `#layanan`) dan Tombol 2 menjadi **"Informasi Publik"** (menuju `/informasi`) dengan ikon monokrom yang selaras dengan warna teks.

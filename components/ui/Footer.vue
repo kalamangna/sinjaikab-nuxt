@@ -1,6 +1,6 @@
 <template>
   <footer class="bg-slate-900 text-white pt-12 md:pt-16 pb-8">
-    <div class="container mx-auto px-4 md:px-6">
+    <div class="container mx-auto px-4 md:px-6 xl:px-8 max-w-7xl">
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 mb-12 md:mb-16">
         <!-- Brand -->
         <div class="lg:col-span-2">

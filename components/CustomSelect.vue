@@ -5,20 +5,20 @@
         @click="toggle" 
         @keydown.escape="open = false"
         :disabled="disabled"
-        class="relative w-full border-2 border-slate-100 rounded-2xl shadow-sm pl-5 pr-12 py-3.5 text-left transition-all duration-300 group"
-        :class="disabled ? 'bg-slate-50/80 cursor-not-allowed opacity-75' : 'bg-white cursor-pointer hover:border-slate-200 focus:outline-none focus:border-red-700 focus:ring-4 focus:ring-red-700/10'">
+        class="relative w-full h-[52px] flex items-center border-2 border-slate-100 rounded-2xl shadow-sm pl-5 pr-12 text-left transition-all duration-300 group outline-none focus:outline-none focus-visible:outline-none"
+        :class="disabled ? 'bg-slate-50/80 cursor-not-allowed opacity-75' : 'bg-white cursor-pointer hover:border-slate-200 focus:border-red-700 focus:ring-4 focus:ring-red-700/10'">
         
         <span class="flex items-center">
             <span class="block truncate transition-colors duration-300" 
-                  :class="selectedLabel ? 'text-slate-900 font-bold' : 'text-slate-400 font-medium'">
-                  {{ selectedLabel || placeholder }}
+                  :class="hasActiveValue ? 'text-red-700 font-bold' : 'text-slate-700 font-semibold'">
+                  {{ displayLabel }}
             </span>
         </span>
         
         <span class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
             <div class="p-1 rounded-xl bg-slate-50 group-hover:bg-red-50 transition-colors duration-300">
-                <svg class="h-5 w-5 text-slate-400 group-hover:text-red-700 transition-transform duration-300" 
-                     :class="open ? 'rotate-180' : ''" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <svg class="h-5 w-5 text-slate-500 group-hover:text-red-700 transition-transform duration-300" 
+                     :class="open ? 'rotate-180 text-red-700' : ''" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
             </div>
@@ -35,7 +35,7 @@
         leave-to-class="opacity-0 translate-y-1 scale-95"
     >
       <div v-if="open" 
-          class="absolute mt-1.5 w-full rounded-2xl bg-white shadow-2xl z-[9999] border border-slate-100 overflow-hidden ring-1 ring-black/5">
+          class="absolute mt-1.5 w-full rounded-2xl bg-white shadow-2xl z-[9999] border border-slate-100 overflow-hidden outline-none focus:outline-none focus-visible:outline-none">
 
           <div v-if="displaySearch" class="p-3 bg-slate-50/50 border-b border-slate-100">
               <div class="relative">
@@ -47,14 +47,14 @@
                       @click.stop 
                       @keydown.enter.prevent
                       placeholder="Cari opsi..." 
-                      class="w-full pl-10 pr-4 py-2.5 text-sm border-2 border-slate-100 rounded-xl focus:outline-none focus:border-red-700 focus:ring-0 transition-all bg-white text-slate-800">
+                      class="w-full pl-10 pr-4 py-2.5 text-sm border-2 border-slate-100 rounded-xl outline-none focus:outline-none focus-visible:outline-none focus:border-red-700 focus:ring-0 transition-all bg-white text-slate-800">
               </div>
           </div>
 
-          <ul class="max-h-72 py-2 text-base overflow-auto focus:outline-none sm:text-sm custom-scrollbar" tabindex="-1">
+          <ul class="max-h-72 py-2 text-base overflow-auto outline-none focus:outline-none focus-visible:outline-none sm:text-sm [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-200 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-300" tabindex="-1">
               <li v-for="item in filteredData" :key="item.value"
                   @click="select(item)" 
-                  class="mx-2 my-1 rounded-xl text-slate-700 cursor-pointer select-none relative py-3 pl-4 pr-10 transition-all duration-200 group/item"
+                  class="mx-2 my-1 rounded-xl text-slate-700 cursor-pointer select-none relative py-3 pl-4 pr-10 transition-all duration-200 group/item outline-none focus:outline-none"
                   :class="modelValue == item.value ? 'bg-red-50 text-red-700 font-bold' : 'hover:bg-red-700 hover:text-white'">
                   
                   <span class="block truncate">{{ item.label }}</span>
@@ -80,7 +80,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 const props = defineProps({
     modelValue: {
@@ -93,19 +93,7 @@ const props = defineProps({
     },
     placeholder: {
         type: String,
-        default: 'Pilih opsi...'
-    },
-    shouldShowSearch: {
-        type: Boolean,
-        default: false
-    },
-    searchable: {
-        type: Boolean,
-        default: null
-    },
-    disabled: {
-        type: Boolean,
-        default: false
+        default: 'Pilih opsi'
     },
     labelKey: {
         type: String,
@@ -114,6 +102,18 @@ const props = defineProps({
     valueKey: {
         type: String,
         default: 'value'
+    },
+    disabled: {
+        type: Boolean,
+        default: false
+    },
+    searchable: {
+        type: Boolean,
+        default: null
+    },
+    shouldShowSearch: {
+        type: Boolean,
+        default: false
     }
 });
 
@@ -149,9 +149,23 @@ const normalizedOptions = computed(() => {
     });
 });
 
+const hasActiveValue = computed(() => {
+    return props.modelValue !== '' && props.modelValue !== null && props.modelValue !== undefined;
+});
+
 const selectedLabel = computed(() => {
     const selected = normalizedOptions.value.find(item => String(item.value) === String(props.modelValue));
     return selected ? selected.label : null;
+});
+
+const displayLabel = computed(() => {
+    if (selectedLabel.value !== null) {
+        return selectedLabel.value;
+    }
+    if (hasActiveValue.value) {
+        return String(props.modelValue);
+    }
+    return props.placeholder;
 });
 
 const filteredData = computed(() => {
@@ -183,20 +197,3 @@ onUnmounted(() => {
     document.removeEventListener('click', handleClickOutside);
 });
 </script>
-
-<style scoped>
-.custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #e2e8f0;
-    border-radius: 10px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #cbd5e1;
-}
-</style>
-

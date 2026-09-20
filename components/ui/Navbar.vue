@@ -8,7 +8,7 @@
     ]"
   >
     <div
-      class="container mx-auto px-4 md:px-6 flex items-center justify-between transition-all duration-300"
+      class="container mx-auto px-4 md:px-6 xl:px-8 max-w-7xl flex items-center justify-between transition-all duration-300"
       :class="isScrolled || isSubPage ? 'py-3' : 'py-4 md:py-5'"
     >
       <!-- Logo -->

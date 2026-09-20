@@ -187,7 +187,10 @@ useHead({
 </script>
 
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <div>
+    <NuxtLoadingIndicator color="#b91c1c" :height="3" :throttle="0" />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
 </template>

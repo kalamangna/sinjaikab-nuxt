@@ -2,7 +2,7 @@
   <div>
     <div class="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 pt-28 sm:pt-32 md:pt-36 pb-32 md:pb-36 overflow-hidden">
         <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
-        <div class="container mx-auto px-4 md:px-6 relative z-10 text-center">
+        <div class="container mx-auto px-4 md:px-6 xl:px-8 max-w-7xl relative z-10 text-center">
             <div class="max-w-4xl mx-auto">
                 <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg mb-4">
                     {{ pageTitle }}
@@ -21,7 +21,7 @@
     </div>
 
     <div class="bg-slate-50 pb-28 md:pb-36">
-        <div class="container mx-auto px-4 md:px-6 -mt-12 md:-mt-16 relative z-20">
+        <div class="container mx-auto px-4 md:px-6 xl:px-8 max-w-7xl -mt-12 md:-mt-16 relative z-20">
             <!-- Notifikasi -->
             <div v-if="notification.message" 
                  :class="[
@@ -61,7 +61,7 @@
                             :options="jenisDokumenOptions" 
                             labelKey="label" 
                             valueKey="value" 
-                            placeholder="Semua Jenis Dokumen"
+                            :placeholder="jenisDokumenPlaceholder"
                             @change="applyFilters"
                             class="w-full transition-opacity"
                         />
@@ -84,27 +84,33 @@
                             <input 
                                 type="text" 
                                 v-model="filters.search" 
-                                @keyup.enter="applyFilters"
                                 placeholder="Cari dokumen..." 
-                                class="w-full h-[48px] pl-10 pr-4 border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-red-700/10 focus:border-red-700 outline-none transition-all text-sm bg-slate-50/50 focus:bg-white text-slate-800"
+                                class="w-full h-[52px] pl-10 pr-10 border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-red-700/10 focus:border-red-700 outline-none transition-all text-sm bg-slate-50/50 focus:bg-white text-slate-800 placeholder:text-slate-500 placeholder:font-medium"
                             >
-                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
                                 <i class="fas fa-search text-xs"></i>
                             </div>
+                            <button 
+                                v-if="filters.search" 
+                                @click="filters.search = ''" 
+                                type="button" 
+                                class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none transition-colors"
+                                title="Hapus teks pencarian"
+                            >
+                                <i class="fas fa-times-circle text-sm"></i>
+                            </button>
                         </div>
                     </div>
 
-                    <div class="w-full lg:w-auto flex-none flex gap-2">
-                        <button @click="applyFilters" class="flex-1 lg:flex-none w-full lg:w-12 bg-red-700 hover:bg-red-800 text-white shadow-lg shadow-red-900/20 rounded-2xl h-[48px] transition-all flex items-center justify-center font-bold" title="Terapkan Filter">
-                            <i class="fas fa-search lg:mr-0"></i> <span class="inline lg:hidden ml-2 font-bold uppercase tracking-wider text-xs">Cari</span>
-                        </button>
-                        <button @click="resetFilters" class="flex-1 lg:flex-none w-full lg:w-12 bg-slate-100 hover:bg-slate-200 text-slate-600 shadow-sm rounded-2xl h-[48px] transition-all flex items-center justify-center border border-slate-200" title="Reset Filter">
-                            <i class="fas fa-undo-alt lg:mr-0"></i> <span class="inline lg:hidden ml-2 font-semibold text-xs">Reset</span>
+                    <div class="w-full lg:w-auto flex-none">
+                        <button @click="resetFilters" class="w-full lg:w-auto px-5 lg:px-6 bg-slate-100 hover:bg-slate-200 text-slate-700 shadow-sm rounded-2xl h-[52px] transition-all flex items-center justify-center gap-2 font-bold uppercase tracking-wider text-xs border-2 border-slate-200 hover:border-slate-300" title="Reset Semua Filter">
+                            <i class="fas fa-undo-alt text-xs"></i>
+                            <span>Reset</span>
                         </button>
                     </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 relative z-10">
+            <div id="daftar-dokumen" class="scroll-mt-24 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 relative z-10">
                 <div class="flex items-center gap-3">
                     <h2 class="text-2xl font-black text-slate-900 uppercase tracking-tight">Daftar Dokumen</h2>
                     <span v-if="!isLoading && totalItems > 0" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-red-50 text-red-700 border border-red-200/60 shadow-sm">
@@ -119,8 +125,7 @@
             </div>
 
             <!-- Daftar Dokumen -->
-            <ClientOnly>
-                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden relative min-h-[400px] hover:border-red-100/50 transition-all duration-300" style="z-index: 10;">
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden relative min-h-[400px] hover:border-red-100/50 transition-all duration-300" style="z-index: 10;">
                     <!-- Overlay Loading (Saat update halaman / pagination ketika data sudah ada) -->
                     <div v-if="isLoading && items.length > 0" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/75 backdrop-blur-[2px] rounded-3xl transition-all duration-300">
                         <i class="fas fa-circle-notch fa-spin text-4xl text-red-700 mb-3"></i>
@@ -130,15 +135,15 @@
                     <!-- KONDISI 1: DATA DOKUMEN ADA -->
                     <template v-if="items.length > 0">
                         <div class="hidden md:block overflow-x-auto relative z-10 w-full">
-                            <table class="w-full bg-transparent table-fixed min-w-[760px]">
+                            <table class="w-full bg-transparent table-fixed min-w-[860px] lg:min-w-full">
                                 <thead>
                                     <tr class="bg-slate-50 border-b border-slate-200 text-left">
                                         <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-14 text-center">No</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase">Judul Dokumen</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-48">Kategori & Jenis</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-56">Sumber</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-36 text-center">Tanggal</th>
-                                        <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-20 text-center">Aksi</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase min-w-[280px] lg:min-w-[340px]">Judul Dokumen</th>
+                                        <th class="py-4 px-3 lg:px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-36 lg:w-44">Kategori & Jenis</th>
+                                        <th class="py-4 px-3 lg:px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-40 lg:w-52">Sumber</th>
+                                        <th class="py-4 px-3 lg:px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-32 lg:w-36 text-center">Tanggal</th>
+                                        <th class="py-4 px-3 lg:px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-16 lg:w-20 text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-100">
@@ -151,7 +156,7 @@
                                                 {{ dokumen.judul }}
                                             </NuxtLink>
                                         </td>
-                                        <td class="py-4 px-6 whitespace-normal align-middle">
+                                        <td class="py-4 px-3 lg:px-6 whitespace-normal align-middle">
                                             <span class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200/60 mb-1">
                                                 {{ dokumen.kategori }}
                                             </span>
@@ -160,18 +165,18 @@
                                                 {{ dokumen.jenis_dokumen }}
                                             </span>
                                         </td>
-                                        <td class="py-4 px-6 whitespace-normal align-middle">
+                                        <td class="py-4 px-3 lg:px-6 whitespace-normal align-middle">
                                             <span v-if="dokumen.organization" class="block text-xs font-semibold text-slate-700 leading-snug">
                                                 {{ dokumen.organization.name }}
                                             </span>
                                             <span v-else class="text-xs text-slate-400 italic">Pemerintah Kabupaten</span>
                                         </td>
-                                        <td class="py-4 px-6 text-center align-middle">
-                                            <span class="inline-block bg-slate-50 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 border border-slate-200 whitespace-nowrap">
+                                        <td class="py-4 px-3 lg:px-6 text-center align-middle">
+                                            <span class="inline-block bg-slate-50 px-2.5 lg:px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 border border-slate-200 whitespace-nowrap">
                                                 {{ formatDate(dokumen.published_at || dokumen.created_at) }}
                                             </span>
                                         </td>
-                                        <td class="py-4 px-4 text-center align-middle">
+                                        <td class="py-4 px-3 lg:px-4 text-center align-middle">
                                             <NuxtLink :to="`/informasi/${dokumen.slug || dokumen.id}`" class="inline-flex items-center justify-center w-9 h-9 bg-red-50 hover:bg-red-700 text-red-700 hover:text-white border border-red-200/80 rounded-xl text-sm transition-all duration-300 shadow-sm" title="Lihat Detail">
                                                 <i class="fas fa-eye"></i>
                                             </NuxtLink>
@@ -222,15 +227,15 @@
                     <div v-else-if="isLoading" class="w-full">
                         <!-- Skeleton Desktop Table -->
                         <div class="hidden md:block overflow-x-auto relative z-10 w-full">
-                            <table class="w-full bg-transparent table-fixed min-w-[760px]">
+                            <table class="w-full bg-transparent table-fixed min-w-[860px] lg:min-w-full">
                                 <thead>
                                     <tr class="bg-slate-50 border-b border-slate-200 text-left">
                                         <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-14 text-center">No</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase">Judul Dokumen</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-48">Kategori & Jenis</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-56">Sumber</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-36 text-center">Tanggal</th>
-                                        <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-20 text-center">Aksi</th>
+                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase min-w-[280px] lg:min-w-[340px]">Judul Dokumen</th>
+                                        <th class="py-4 px-3 lg:px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-36 lg:w-44">Kategori & Jenis</th>
+                                        <th class="py-4 px-3 lg:px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-40 lg:w-52">Sumber</th>
+                                        <th class="py-4 px-3 lg:px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-32 lg:w-36 text-center">Tanggal</th>
+                                        <th class="py-4 px-3 lg:px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-16 lg:w-20 text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-100">
@@ -288,8 +293,8 @@
                         </div>
                     </div>
                     
-                    <!-- Pagination -->
-                    <div v-if="!isLoading && items.length > 0 && lastPage > 1" class="relative z-10 px-3 sm:px-6 py-4 sm:py-6 border-t border-slate-100 bg-white/80 backdrop-blur-sm flex justify-center">
+                    <!-- Pagination (Hanya tampil jika ada lebih dari 1 halaman) -->
+                    <div v-if="showPagination && visiblePages.length > 1" class="relative z-10 px-3 sm:px-6 py-4 sm:py-6 border-t border-slate-100 bg-white/80 backdrop-blur-sm flex justify-center">
                         <nav class="inline-flex max-w-full overflow-x-auto rounded-2xl shadow-sm border border-slate-100 bg-white p-1">
                             <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-500 rounded-xl hover:bg-red-50 hover:text-red-700 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-slate-400 transition-colors">
                                 <i class="fas fa-chevron-left"></i>
@@ -306,78 +311,13 @@
                         </nav>
                     </div>
                 </div>
-
-                <!-- Fallback SSR ClientOnly -->
-                <template #fallback>
-                    <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden relative min-h-[400px]">
-                        <div class="hidden md:block overflow-x-auto relative z-10 w-full">
-                            <table class="w-full bg-transparent table-fixed min-w-[760px]">
-                                <thead>
-                                    <tr class="bg-slate-50 border-b border-slate-200 text-left">
-                                        <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-14 text-center">No</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase">Detail Dokumen</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-48">Kategori & Jenis</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-56">Sumber</th>
-                                        <th class="py-4 px-6 font-bold text-slate-700 text-xs tracking-wider uppercase w-36 text-center">Tanggal</th>
-                                        <th class="py-4 px-4 font-bold text-slate-700 text-xs tracking-wider uppercase w-20 text-center">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-100">
-                                    <tr v-for="n in 5" :key="'fallback-row-' + n" class="animate-pulse">
-                                        <td class="py-5 px-4 text-center align-middle">
-                                            <div class="h-4 w-6 bg-slate-200/80 rounded mx-auto"></div>
-                                        </td>
-                                        <td class="py-5 px-6 align-middle">
-                                            <div class="space-y-2">
-                                                <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
-                                                <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
-                                            </div>
-                                        </td>
-                                        <td class="py-5 px-6 align-middle">
-                                            <div class="h-5 w-24 bg-slate-200/70 rounded-lg mb-1.5"></div>
-                                            <div class="h-5 w-20 bg-red-100/60 rounded-lg"></div>
-                                        </td>
-                                        <td class="py-5 px-6 align-middle">
-                                            <div class="h-4 w-36 bg-slate-200/70 rounded-lg"></div>
-                                        </td>
-                                        <td class="py-5 px-6 text-center align-middle">
-                                            <div class="h-6 w-24 bg-slate-200/70 rounded-xl mx-auto"></div>
-                                        </td>
-                                        <td class="py-5 px-4 text-center align-middle">
-                                            <div class="w-9 h-9 bg-slate-200/70 rounded-xl mx-auto"></div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="block md:hidden relative z-10 p-4 sm:p-6 space-y-4 bg-slate-50/50">
-                            <div v-for="n in 3" :key="'fallback-mob-' + n" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-6 flex flex-col space-y-3.5 animate-pulse">
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-slate-200/80 rounded-lg w-3/4"></div>
-                                    <div class="h-3 bg-slate-200/50 rounded w-1/2"></div>
-                                </div>
-                                <div class="pt-3 border-t border-slate-100 space-y-2">
-                                    <div class="h-3 bg-slate-200/60 rounded w-1/3"></div>
-                                    <div class="flex justify-between items-center">
-                                        <div class="h-5 w-20 bg-slate-200/70 rounded-md"></div>
-                                        <div class="h-3 w-24 bg-slate-200/60 rounded"></div>
-                                    </div>
-                                </div>
-                                <div class="pt-3 border-t border-slate-100 flex justify-end">
-                                    <div class="w-9 h-9 bg-slate-200/70 rounded-xl"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </ClientOnly>
         </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, nextTick } from 'vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -431,19 +371,44 @@ useHead({
       type: 'application/ld+json',
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        'itemListElement': [
+        '@graph': [
           {
-            '@type': 'ListItem',
-            'position': 1,
-            'name': 'Beranda',
-            'item': baseUrl
+            '@type': 'CollectionPage',
+            '@id': `${pageCanonical}#webpage`,
+            url: pageCanonical,
+            name: 'Informasi Publik - Pemerintah Kabupaten Sinjai',
+            description: 'Transparansi Dokumen Pemerintah Kabupaten Sinjai yang dapat Anda akses, telusuri, dan unduh dengan mudah.',
+            isPartOf: {
+              '@type': 'WebSite',
+              '@id': `${baseUrl}#website`,
+              url: baseUrl,
+              name: 'Pemerintah Kabupaten Sinjai'
+            },
+            publisher: {
+              '@type': 'GovernmentOrganization',
+              '@id': `${baseUrl}#organization`,
+              name: 'Pemerintah Kabupaten Sinjai',
+              url: baseUrl
+            },
+            inLanguage: 'id-ID'
           },
           {
-            '@type': 'ListItem',
-            'position': 2,
-            'name': 'Informasi Publik',
-            'item': pageCanonical
+            '@type': 'BreadcrumbList',
+            '@id': `${pageCanonical}#breadcrumb`,
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Beranda',
+                item: baseUrl
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Informasi Publik',
+                item: pageCanonical
+              }
+            ]
           }
         ]
       })
@@ -472,11 +437,11 @@ const getDownloadUrl = (dokumen) => {
 const formatDate = (dateStr) => {
   if (!dateStr) return ''
   const date = new Date(dateStr)
-  return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })
+  return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Asia/Makassar' })
 }
 
 const getPpidApiUrl = (path = '') => {
-  const base = import.meta.dev ? '/api/ppid' : 'https://ppidkab.sinjaikab.go.id/api/v1'
+  const base = import.meta.client ? '/api/ppid' : 'https://ppidkab.sinjaikab.go.id/api/v1'
   return path ? `${base}/${path}` : base
 }
 
@@ -486,46 +451,114 @@ const cleanFilters = computed(() => {
   if (filters.value.jenis_dokumen) p.jenis_dokumen = filters.value.jenis_dokumen
   if (filters.value.tahun) p.tahun = filters.value.tahun
   if (filters.value.search) p.search = filters.value.search
-  if (filters.value.per_page) p.per_page = filters.value.per_page
-  if (filters.value.page) p.page = filters.value.page
+  if (filters.value.per_page && String(filters.value.per_page) !== '10') p.per_page = filters.value.per_page
+  if (filters.value.page && Number(filters.value.page) > 1) p.page = filters.value.page
   return p
 })
 
-const { data, pending: isLoading, refresh } = useAsyncData(
-  'informasi-pemkab',
-  () => $fetch(getPpidApiUrl('informasi-pemkab'), { params: cleanFilters.value }),
-  { watch: [cleanFilters], server: false }
+const filterHash = computed(() => new URLSearchParams(cleanFilters.value).toString() || 'all')
+const persistentKategoriJenis = useState('ppid-kategori-jenis', () => ({}))
+
+const { data, pending: isLoading, refresh } = await useAsyncData(
+  'informasi-pemkab-' + filterHash.value,
+  () => $fetch(getPpidApiUrl('informasi-pemkab'), { 
+    params: cleanFilters.value,
+    timeout: 10000
+  }),
+  { 
+    watch: [cleanFilters], 
+    server: true,
+    transform: (res) => {
+      if (!res) return res
+      if (res.kategori_jenis && Object.keys(res.kategori_jenis).length > 0) {
+        persistentKategoriJenis.value = res.kategori_jenis
+      }
+      return {
+        _filtersHash: JSON.stringify(cleanFilters.value),
+        kategori_jenis: res.kategori_jenis || persistentKategoriJenis.value || {},
+        data: {
+          current_page: res.data?.current_page || 1,
+          last_page: res.data?.last_page || 1,
+          total: res.data?.total || 0,
+          data: (res.data?.data || []).map((item) => ({
+            id: item.id,
+            judul: item.judul,
+            slug: item.slug,
+            kategori: item.kategori,
+            jenis_dokumen: item.jenis_dokumen,
+            file_path: item.file_path,
+            published_at: item.published_at,
+            created_at: item.created_at,
+            organization: item.organization ? {
+              name: item.organization.name,
+            } : null
+          }))
+        }
+      }
+    }
+  }
 )
 
+if (data.value?.kategori_jenis && Object.keys(data.value.kategori_jenis).length > 0) {
+  persistentKategoriJenis.value = data.value.kategori_jenis
+}
+
 onMounted(() => {
-  if (!data.value) {
+  const currentFilterStr = JSON.stringify(cleanFilters.value)
+  const cachedFilterStr = data.value?._filtersHash
+
+  // Jika data belum ada atau data di cache tidak sama persis dengan query saat ini, lakukan refresh
+  if (!data.value || cachedFilterStr !== currentFilterStr) {
     refresh()
   }
 })
 
-const kategori_jenis = computed(() => data.value?.kategori_jenis || {})
-
-const availableYears = computed(() => {
-  const years = []
-  const current = new Date().getFullYear()
-  for (let y = current; y >= 2000; y--) years.push(y)
-  return years
+const kategori_jenis = computed(() => {
+  if (data.value?.kategori_jenis && Object.keys(data.value.kategori_jenis).length > 0) {
+    return data.value.kategori_jenis
+  }
+  return persistentKategoriJenis.value || {}
 })
+
+const currentYear = new Date().getFullYear()
+const availableYears = Array.from({ length: currentYear - 2000 + 1 }, (_, i) => currentYear - i)
+
+const tahunOptions = [
+  { label: 'Semua Tahun', value: '' },
+  ...availableYears.map(y => ({ label: y.toString(), value: y.toString() }))
+]
 
 const kategoriOptions = computed(() => {
     const opts = [{ label: 'Semua Kategori', value: '' }]
-    Object.keys(kategori_jenis.value).forEach(k => opts.push({ label: k, value: k }))
+    if (kategori_jenis.value) {
+      Object.keys(kategori_jenis.value).forEach(k => opts.push({ label: k, value: k }))
+    }
     return opts
 })
 
+const jenisDokumenPlaceholder = computed(() => {
+    if (filters.value.kategori) {
+        return `Semua Jenis (${filters.value.kategori})`
+    }
+    return 'Semua Jenis Dokumen'
+})
+
 const jenisDokumenOptions = computed(() => {
-    const opts = [{ label: 'Semua Jenis Dokumen', value: '' }]
-    if (filters.value.kategori && kategori_jenis.value[filters.value.kategori]) {
-        kategori_jenis.value[filters.value.kategori].forEach(j => opts.push({ label: j, value: j }))
-    } else if (kategori_jenis.value) {
-        let allTypesSet = new Set()
-        for (let cat in kategori_jenis.value) {
-            kategori_jenis.value[cat].forEach(t => allTypesSet.add(t))
+    const defaultLabel = filters.value.kategori ? `Semua Jenis (${filters.value.kategori})` : 'Semua Jenis Dokumen'
+    const opts = [{ label: defaultLabel, value: '' }]
+    const kj = kategori_jenis.value
+    if (!kj) return opts
+
+    if (filters.value.kategori && kj[filters.value.kategori]) {
+        kj[filters.value.kategori].forEach(j => opts.push({ label: j, value: j }))
+    } else {
+        const allTypesSet = new Set()
+        for (const cat in kj) {
+            if (Array.isArray(kj[cat])) {
+                for (let i = 0; i < kj[cat].length; i++) {
+                    allTypesSet.add(kj[cat][i])
+                }
+            }
         }
         const allTypes = Array.from(allTypesSet).sort()
         allTypes.forEach(j => opts.push({ label: j, value: j }))
@@ -533,20 +566,29 @@ const jenisDokumenOptions = computed(() => {
     return opts
 })
 
-const tahunOptions = computed(() => {
-    const opts = [{ label: 'Semua Tahun', value: '' }]
-    availableYears.value.forEach(y => opts.push({ label: y.toString(), value: y.toString() }))
-    return opts
+const items = computed(() => data.value?.data?.data || [])
+const totalItems = computed(() => Number(data.value?.data?.total) || 0)
+const perPageNumber = computed(() => Number(filters.value.per_page) || 10)
+const currentPage = computed(() => Number(data.value?.data?.current_page) || 1)
+const lastPage = computed(() => {
+  const total = totalItems.value
+  const perPage = perPageNumber.value
+  if (total <= perPage) return 1
+  return Number(data.value?.data?.last_page) || Math.max(1, Math.ceil(total / perPage))
 })
 
-const items = computed(() => data.value?.data?.data || [])
-const totalItems = computed(() => data.value?.data?.total || 0)
-const currentPage = computed(() => data.value?.data?.current_page || 1)
-const lastPage = computed(() => data.value?.data?.last_page || 1)
+const showPagination = computed(() => {
+  if (isLoading.value) return false
+  if (!items.value || items.value.length === 0) return false
+  if (totalItems.value <= perPageNumber.value) return false
+  if (lastPage.value <= 1) return false
+  return true
+})
 
 const visiblePages = computed(() => {
   const current = currentPage.value
   const last = lastPage.value
+  if (last <= 1) return []
   if (last <= 7) {
     return Array.from({ length: last }, (_, i) => i + 1)
   }
@@ -564,9 +606,21 @@ const resetJenis = () => {
   applyFilters()
 }
 
+const scrollToTable = () => {
+  if (import.meta.client) {
+    nextTick(() => {
+      const el = document.getElementById('daftar-dokumen')
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    })
+  }
+}
+
 const applyFilters = () => {
   filters.value.page = 1
   updateRoute()
+  scrollToTable()
 }
 
 const resetFilters = () => {
@@ -579,18 +633,41 @@ const resetFilters = () => {
     page: 1
   }
   updateRoute()
+  scrollToTable()
 }
 
 const changePage = (p) => {
   if (p >= 1 && p <= lastPage.value) {
     filters.value.page = p
     updateRoute()
+    scrollToTable()
   }
 }
 
 const updateRoute = () => {
-  router.push({ query: { ...filters.value } })
+  const query = {}
+  if (filters.value.kategori) query.kategori = filters.value.kategori
+  if (filters.value.jenis_dokumen) query.jenis_dokumen = filters.value.jenis_dokumen
+  if (filters.value.tahun) query.tahun = filters.value.tahun
+  if (filters.value.search) query.search = filters.value.search
+  if (filters.value.per_page && String(filters.value.per_page) !== '10') query.per_page = filters.value.per_page
+  if (filters.value.page && Number(filters.value.page) > 1) query.page = filters.value.page
+
+  router.push({ query })
 }
+
+let searchDebounceTimeout = null
+watch(
+  () => filters.value.search,
+  (newVal, oldVal) => {
+    if (newVal !== oldVal) {
+      if (searchDebounceTimeout) clearTimeout(searchDebounceTimeout)
+      searchDebounceTimeout = setTimeout(() => {
+        applyFilters()
+      }, 400)
+    }
+  }
+)
 
 watch(
   () => route.query,
@@ -601,7 +678,7 @@ watch(
       tahun: newQuery.tahun || '',
       search: newQuery.search || '',
       per_page: newQuery.per_page || '10',
-      page: newQuery.page || 1
+      page: Number(newQuery.page) || 1
     }
   },
   { deep: true }

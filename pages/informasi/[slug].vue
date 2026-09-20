@@ -3,7 +3,7 @@
     <!-- Hero Section (Tetap dirender agar layout stabil dan bebas layout-shift) -->
     <div class="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 pt-32 md:pt-36 lg:pt-40 pb-36 md:pb-44 lg:pb-48 overflow-hidden">
       <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
-      <div class="container mx-auto px-4 md:px-6 relative z-10">
+      <div class="container mx-auto px-4 md:px-6 xl:px-8 max-w-7xl relative z-10">
         <!-- Jika Dokumen Selesai Dimuat -->
         <h1 v-if="dokumen" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg leading-tight max-w-4xl break-words">
           {{ dokumen.judul }}
@@ -30,7 +30,7 @@
 
     <!-- Main Content Area -->
     <div class="bg-slate-50 pb-28 md:pb-36">
-      <div class="container mx-auto px-4 md:px-6 -mt-10 md:-mt-12 relative z-20">
+      <div class="container mx-auto px-4 md:px-6 xl:px-8 max-w-7xl -mt-10 md:-mt-12 relative z-20">
         
         <!-- KONDISI 1: ERROR / NOT FOUND -->
         <div v-if="isError" class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8 md:p-14 text-center max-w-xl mx-auto">
@@ -38,10 +38,9 @@
             <i class="fas fa-exclamation-triangle"></i>
           </div>
           <h2 class="text-2xl font-black text-slate-900 mb-3">Dokumen Tidak Ditemukan</h2>
-          <p class="text-slate-600 mb-8 leading-relaxed text-sm sm:text-base">Maaf, dokumen yang Anda cari tidak tersedia, telah ditarik, atau terjadi kendala saat memuat data dari server.</p>
-          <NuxtLink to="/informasi" class="inline-flex items-center px-6 py-3.5 bg-red-700 hover:bg-red-800 text-white font-bold rounded-2xl shadow-lg shadow-red-900/20 transition uppercase tracking-wider text-xs">
+          <button @click="goBack" type="button" class="inline-flex items-center px-6 py-3.5 bg-red-700 hover:bg-red-800 text-white font-bold rounded-2xl shadow-lg shadow-red-900/20 transition uppercase tracking-wider text-xs">
             <i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar
-          </NuxtLink>
+          </button>
         </div>
 
         <!-- KONDISI 2: DATA DOKUMEN SIAP -->
@@ -68,11 +67,21 @@
                 <h2 class="text-xl font-black text-slate-900 flex items-center">
                   <i class="fas fa-eye text-red-700 mr-2.5"></i> Pratinjau Dokumen
                 </h2>
-                <span class="text-xs bg-slate-100 text-slate-600 font-bold px-3 py-1 rounded-full">
-                  <i class="fas fa-eye mr-1 text-slate-400"></i> {{ dokumen.views_count || 0 }} Kali Dilihat
-                </span>
+                <div class="flex items-center gap-2.5">
+                  <a v-if="isGoogleDriveFile(dokumen.file_path)" 
+                     :href="dokumen.file_path" 
+                     target="_blank" 
+                     rel="noopener noreferrer" 
+                     class="inline-flex items-center text-xs font-bold text-red-700 hover:text-red-800 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-xl border border-red-200/60 transition shadow-sm" 
+                     title="Buka dokumen di tab baru jika pratinjau dibatasi kebijakan keamanan browser">
+                    <i class="fas fa-external-link-alt mr-1.5 text-[10px]"></i> Buka di Tab Baru
+                  </a>
+                  <span class="text-xs bg-slate-100 text-slate-600 font-bold px-3 py-1 rounded-full">
+                    <i class="fas fa-eye mr-1 text-slate-400"></i> {{ dokumen.views_count || 0 }} Kali Dilihat
+                  </span>
+                </div>
               </div>
-              <div class="p-0 h-[480px] sm:h-[620px] md:h-[720px] w-full bg-slate-100">
+              <div class="p-0 h-[480px] sm:h-[620px] md:h-[720px] xl:h-[820px] w-full bg-slate-100">
                 <template v-if="dokumen.file_path">
                   <div v-if="isGoogleDriveFolder(dokumen.file_path) || isExternalWebpage(dokumen.file_path)" class="w-full h-full flex flex-col items-center justify-center bg-slate-100 p-6 sm:p-8 text-center">
                     <div class="w-16 h-16 rounded-2xl bg-slate-200/70 flex items-center justify-center text-slate-400 mb-3">
@@ -85,10 +94,16 @@
                     </a>
                   </div>
                   <div v-else-if="isImage(dokumen.file_path)" class="w-full h-full flex items-center justify-center p-4 bg-slate-100 overflow-hidden">
-                    <img :src="getStorageUrl(dokumen.file_path)" :alt="dokumen.judul" class="max-w-full max-h-full object-contain rounded-2xl shadow-sm">
+                    <img :src="getStorageUrl(dokumen.file_path)" :alt="dokumen.judul" loading="lazy" decoding="async" class="max-w-full max-h-full object-contain rounded-2xl shadow-sm">
                   </div>
                   <ClientOnly v-else>
-                    <iframe :src="getEmbedUrl(dokumen.file_path)" class="w-full h-full border-0"></iframe>
+                    <iframe 
+                      :src="getEmbedUrl(dokumen.file_path)" 
+                      title="Pratinjau Dokumen" 
+                      loading="lazy" 
+                      allow="fullscreen"
+                      class="w-full h-full border-0"
+                    ></iframe>
                     <template #fallback>
                       <div class="w-full h-full flex items-center justify-center text-slate-400 flex-col">
                         <i class="fas fa-circle-notch fa-spin text-3xl text-red-700 mb-3"></i>
@@ -180,9 +195,9 @@
               </div>
             </div>
 
-            <NuxtLink to="/informasi" class="w-full flex items-center justify-center px-6 py-3.5 bg-white border border-slate-200 text-slate-600 hover:text-red-700 hover:border-red-200 font-bold rounded-2xl hover:bg-red-50/50 transition-all duration-300 shadow-sm uppercase tracking-wider text-xs">
+            <button @click="goBack" type="button" class="w-full flex items-center justify-center px-6 py-3.5 bg-white border border-slate-200 text-slate-600 hover:text-red-700 hover:border-red-200 font-bold rounded-2xl hover:bg-red-50/50 transition-all duration-300 shadow-sm uppercase tracking-wider text-xs">
               <i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar
-            </NuxtLink>
+            </button>
           </div>
         </div>
 
@@ -260,9 +275,9 @@
             </div>
 
             <!-- Tombol Kembali Skeleton -->
-            <NuxtLink to="/informasi" class="w-full flex items-center justify-center px-6 py-3.5 bg-white border border-slate-200 text-slate-600 hover:text-slate-900 font-bold rounded-2xl hover:bg-slate-50 transition-all duration-300 shadow-sm uppercase tracking-wider text-xs">
+            <button @click="goBack" type="button" class="w-full flex items-center justify-center px-6 py-3.5 bg-white border border-slate-200 text-slate-600 hover:text-slate-900 font-bold rounded-2xl hover:bg-slate-50 transition-all duration-300 shadow-sm uppercase tracking-wider text-xs">
               <i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar
-            </NuxtLink>
+            </button>
           </div>
         </div>
 
@@ -272,38 +287,72 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 
 const route = useRoute()
+const router = useRouter()
 const config = useRuntimeConfig()
 const slug = route.params.slug
+
+const goBack = () => {
+  if (import.meta.client && window.history.length > 1) {
+    router.back()
+  } else {
+    router.push('/informasi')
+  }
+}
 
 const rawBaseUrl = config.public?.baseUrl || 'https://sinjaikab.go.id'
 const baseUrl = rawBaseUrl.endsWith('/') ? rawBaseUrl.slice(0, -1) : rawBaseUrl
 const pageUrl = computed(() => `${baseUrl}/informasi/${encodeURIComponent(String(slug))}`)
 
-const hasMounted = ref(false)
-
 const getPpidApiUrl = (path = '') => {
-  const base = import.meta.dev ? '/api/ppid' : 'https://ppidkab.sinjaikab.go.id/api/v1'
+  const base = import.meta.client ? '/api/ppid' : 'https://ppidkab.sinjaikab.go.id/api/v1'
   return path ? `${base}/${path}` : base
 }
 
-const { data: detailData, pending: isLoading, refresh } = useAsyncData(
+const { data: detailData, pending: isLoading, error: fetchError, refresh } = await useAsyncData(
   'informasi-' + slug,
-  () => $fetch(getPpidApiUrl(`informasi-pemkab/${slug}`)),
-  { server: false }
+  () => $fetch(getPpidApiUrl(`informasi-pemkab/${slug}`), { timeout: 10000 }),
+  {
+    server: true,
+    transform: (doc) => {
+      if (!doc) return null
+      return {
+        id: doc.id,
+        judul: doc.judul,
+        slug: doc.slug,
+        kategori: doc.kategori,
+        jenis_dokumen: doc.jenis_dokumen,
+        tahun: doc.tahun,
+        deskripsi: doc.deskripsi ? doc.deskripsi.replace(/\r\n/g, '\n') : '',
+        file_path: doc.file_path,
+        status: doc.status,
+        views_count: doc.views_count,
+        downloads_count: doc.downloads_count,
+        visibility: doc.visibility,
+        published_at: doc.published_at,
+        created_at: doc.created_at,
+        updated_at: doc.updated_at,
+        organization: doc.organization ? {
+          name: doc.organization.name,
+          slug: doc.organization.slug,
+        } : null
+      }
+    }
+  }
 )
 
-onMounted(() => {
-  hasMounted.value = true
-  if (!detailData.value) {
-    refresh()
+if (import.meta.server && (!detailData.value || fetchError.value)) {
+  const event = useRequestEvent()
+  if (event) {
+    const status = fetchError.value?.statusCode || fetchError.value?.response?.status || 404
+    setResponseStatus(event, status)
   }
-})
+}
 
 const dokumen = computed(() => detailData.value || null)
-const isError = computed(() => hasMounted.value && !dokumen.value && !isLoading.value)
+const isError = computed(() => (!dokumen.value || !!fetchError.value) && !isLoading.value)
 
 const getDownloadUrl = (dok) => {
   if (!dok || !dok.file_path) return '#'
@@ -330,6 +379,11 @@ const getEmbedUrl = (path) => {
       return path;
   }
   return getStorageUrl(path) + '#toolbar=0';
+}
+
+const isGoogleDriveFile = (path) => {
+  if (!path) return false;
+  return path.includes('drive.google.com/file/d/');
 }
 
 const isGoogleDriveFolder = (path) => {
@@ -378,7 +432,7 @@ const copyShareLink = (dok) => {
 const formatDate = (dateStr) => {
   if (!dateStr) return ''
   const date = new Date(dateStr)
-  return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })
+  return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Makassar' })
 }
 
 const pageTitle = computed(() => dokumen.value ? dokumen.value.judul : 'Detail Dokumen Informasi Publik')

@@ -1,6 +1,6 @@
 <template>
   <section class="py-6 md:py-10 bg-slate-50">
-    <div class="container mx-auto px-4 md:px-6">
+    <div class="container mx-auto px-4 md:px-6 xl:px-8 max-w-7xl">
       <div
         class="bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 p-6 sm:p-8 relative overflow-hidden"
       >

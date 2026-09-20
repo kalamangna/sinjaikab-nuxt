@@ -1,6 +1,6 @@
 <template>
   <section id="layanan" class="py-16 md:py-24 bg-white">
-    <div class="container mx-auto px-4 md:px-6">
+    <div class="container mx-auto px-4 md:px-6 xl:px-8 max-w-7xl">
       <div class="text-center mb-12 md:mb-16">
         <h2 class="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter mb-4">
           Layanan <span class="text-red-700">Digital</span>
@@ -8,7 +8,7 @@
         <div class="w-20 h-1.5 bg-red-700 mx-auto rounded-full"></div>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         <ServiceCard 
           v-for="service in services" 
           :key="service.name"

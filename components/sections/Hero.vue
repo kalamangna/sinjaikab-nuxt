@@ -10,7 +10,7 @@
       class="absolute -top-24 -left-24 w-96 h-96 bg-red-600/5 rounded-full blur-3xl pointer-events-none"
     ></div>
 
-    <div class="container mx-auto px-4 md:px-6 relative z-10">
+    <div class="container mx-auto px-4 md:px-6 xl:px-8 max-w-7xl relative z-10">
       <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
         <!-- Text Content -->
         <div class="flex-1 text-center lg:text-left">
