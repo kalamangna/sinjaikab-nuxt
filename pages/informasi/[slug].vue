@@ -447,13 +447,29 @@ const formatDate = (dateStr) => {
   return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Makassar' })
 }
 
-const pageTitle = computed(() => dokumen.value ? dokumen.value.judul : 'Detail Dokumen Informasi Publik')
+const pageTitle = computed(() => dokumen.value?.judul?.trim() || 'Detail Dokumen Informasi Publik')
 const pageDesc = computed(() => {
   if (!dokumen.value) return 'Detail dokumen Informasi Publik Pemerintah Kabupaten Sinjai.'
-  if (dokumen.value.deskripsi) {
-    return dokumen.value.deskripsi.replace(/(<([^>]+)>)/gi, '').replace(/\s+/g, ' ').trim().substring(0, 160)
+  const doc = dokumen.value
+
+  if (doc.deskripsi) {
+    const cleanText = doc.deskripsi.replace(/(<([^>]+)>)/gi, '').replace(/\s+/g, ' ').trim()
+    if (cleanText.length > 160) {
+      const truncated = cleanText.substring(0, 157).trim()
+      const lastSpace = truncated.lastIndexOf(' ')
+      return (lastSpace > 120 ? truncated.substring(0, lastSpace) : truncated) + '...'
+    }
+    if (cleanText.length >= 40) {
+      return cleanText
+    }
+    const opd = doc.organization?.name ? ` oleh ${doc.organization.name}` : ''
+    return `${cleanText}. Dokumen resmi Informasi Publik Pemerintah Kabupaten Sinjai${opd}.`
   }
-  return `Dokumen ${dokumen.value.judul} kategori ${dokumen.value.kategori || 'Publik'} tahun ${dokumen.value.tahun || ''} Kabupaten Sinjai.`
+
+  const kat = doc.kategori ? ` kategori ${doc.kategori}` : ' Informasi Publik'
+  const tahun = doc.tahun ? ` tahun ${doc.tahun}` : ''
+  const opd = doc.organization?.name ? ` dari ${doc.organization.name}` : ''
+  return `Akses dan unduh dokumen resmi "${doc.judul}"${kat}${tahun}${opd} Pemerintah Kabupaten Sinjai.`
 })
 
 useSeoMeta({
@@ -465,6 +481,9 @@ useSeoMeta({
   ogUrl: pageUrl,
   ogImage: `${baseUrl}/meta.png`,
   twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDesc,
+  twitterImage: `${baseUrl}/meta.png`,
 })
 
 const structuredData = computed(() => {

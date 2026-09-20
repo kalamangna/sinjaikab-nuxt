@@ -372,22 +372,41 @@ const baseUrl = rawBaseUrl.endsWith('/') ? rawBaseUrl.slice(0, -1) : rawBaseUrl
 const pageCanonical = `${baseUrl}/informasi`
 
 const pageTitle = computed(() => {
+  const search = route.query.search
   const jd = route.query.jenis_dokumen
   const kat = route.query.kategori
 
+  if (search) {
+    return `Pencarian "${search}" - Informasi Publik`
+  }
   if (jd) {
     return `Dokumen ${jd}`
-  } else if (kat) {
+  }
+  if (kat) {
     return `Informasi Kategori ${kat}`
   }
   return 'Informasi Publik'
 })
 
+const pageDescription = computed(() => {
+  const search = route.query.search
+  const jd = route.query.jenis_dokumen
+  const kat = route.query.kategori
+
+  if (search) {
+    return `Hasil pencarian dokumen "${search}" pada layanan keterbukaan Informasi Publik (PPID) Pemerintah Kabupaten Sinjai.`
+  }
+  if (jd || kat) {
+    return `Daftar dokumen ${jd || kat} Pemerintah Kabupaten Sinjai. Telusuri, akses, dan unduh dokumen transparansi publik daerah secara resmi dan mudah.`
+  }
+  return 'Layanan keterbukaan Informasi Publik (PPID) Pemerintah Kabupaten Sinjai. Akses, telusuri, dan unduh dokumen transparansi daerah secara resmi dan mudah.'
+})
+
 useSeoMeta({
   title: pageTitle,
   ogTitle: pageTitle,
-  description: 'Transparansi Dokumen Pemerintah Kabupaten Sinjai yang dapat Anda akses, telusuri, dan unduh dengan mudah.',
-  ogDescription: 'Transparansi Dokumen Pemerintah Kabupaten Sinjai yang dapat Anda akses, telusuri, dan unduh dengan mudah.',
+  description: pageDescription,
+  ogDescription: pageDescription,
   ogUrl: pageCanonical,
   ogImage: `${baseUrl}/meta.png`,
   twitterCard: 'summary_large_image',
@@ -400,15 +419,15 @@ useHead({
   script: [
     {
       type: 'application/ld+json',
-      innerHTML: JSON.stringify({
+      innerHTML: computed(() => JSON.stringify({
         '@context': 'https://schema.org',
         '@graph': [
           {
             '@type': 'CollectionPage',
             '@id': `${pageCanonical}#webpage`,
             url: pageCanonical,
-            name: 'Informasi Publik - Pemerintah Kabupaten Sinjai',
-            description: 'Transparansi Dokumen Pemerintah Kabupaten Sinjai yang dapat Anda akses, telusuri, dan unduh dengan mudah.',
+            name: `${pageTitle.value} - Pemerintah Kabupaten Sinjai`,
+            description: pageDescription.value,
             isPartOf: {
               '@type': 'WebSite',
               '@id': `${baseUrl}#website`,
@@ -442,7 +461,7 @@ useHead({
             ]
           }
         ]
-      })
+      }))
     }
   ]
 })

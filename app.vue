@@ -7,12 +7,12 @@ const isAdminA11y = computed(() => route.path === "/admin/a11y-stats");
 const pageTitle = computed(() =>
   isAdminA11y.value
     ? "Statistik Aksesibilitas - Pemerintah Kabupaten Sinjai"
-    : "Pemerintah Kabupaten Sinjai"
+    : "Pemerintah Kabupaten Sinjai - Bumi Panrita Kitta #samasamaki"
 );
 const pageDescription = computed(() =>
   isAdminA11y.value
     ? "Dashboard statistik dan telemetri pemakaian widget aksesibilitas web Pemerintah Kabupaten Sinjai."
-    : "Website Resmi Pemerintah Kabupaten Sinjai."
+    : "Website resmi Pemerintah Kabupaten Sinjai #samasamaki. Pusat informasi program daerah, keterbukaan dokumen publik, dan layanan masyarakat Bumi Panrita Kitta."
 );
 const robotsMeta = computed(() =>
   isAdminA11y.value
@@ -30,8 +30,12 @@ const canonicalUrl = computed(() => {
 
 useHead({
   titleTemplate: (titleChunk?: string) => {
-    if (!titleChunk || titleChunk === "Pemerintah Kabupaten Sinjai") {
-      return "Pemerintah Kabupaten Sinjai";
+    if (
+      !titleChunk ||
+      titleChunk === "Pemerintah Kabupaten Sinjai" ||
+      titleChunk === pageTitle.value
+    ) {
+      return pageTitle.value;
     }
     if (titleChunk.includes("Pemerintah Kabupaten Sinjai")) {
       return titleChunk;
