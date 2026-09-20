@@ -357,6 +357,16 @@ const dokumen = computed(() => detailData.value || null)
 const showGoogleDrivePreview = ref(false)
 const isError = computed(() => hasMounted.value && !isLoading.value && (!dokumen.value || !!fetchError.value))
 
+// Throw HTTP 404 agar Google tidak mengindeks halaman kosong dengan status 200 OK
+watchEffect(() => {
+  if (hasMounted.value && !isLoading.value && fetchError.value) {
+    const status = (fetchError.value as any)?.status || (fetchError.value as any)?.statusCode
+    if (status === 404 || status === 422) {
+      throw createError({ statusCode: 404, statusMessage: 'Dokumen tidak ditemukan', fatal: true })
+    }
+  }
+})
+
 const getDownloadUrl = (dok) => {
   if (!dok || !dok.file_path) return '#'
   if (dok.file_path.startsWith('http://') || dok.file_path.startsWith('https://')) {
