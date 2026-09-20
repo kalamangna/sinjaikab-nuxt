@@ -148,7 +148,7 @@
                                 </thead>
                                 <tbody class="divide-y divide-slate-100">
                                     <tr v-for="(dokumen, index) in items" :key="dokumen.id" class="transition-colors group hover:bg-red-50/40">
-                                        <td class="py-4 px-4 text-center align-middle font-semibold text-slate-400 text-sm">
+                                        <td class="py-4 px-4 text-center align-middle font-bold text-slate-500 text-sm">
                                             {{ (currentPage - 1) * Number(filters.per_page) + index + 1 }}
                                         </td>
                                         <td class="py-4 px-6 whitespace-normal align-middle">
@@ -169,7 +169,7 @@
                                             <span v-if="dokumen.organization" class="block text-xs font-semibold text-slate-700 leading-snug">
                                                 {{ dokumen.organization.name }}
                                             </span>
-                                            <span v-else class="text-xs text-slate-400 italic">Pemerintah Kabupaten</span>
+                                            <span v-else class="text-xs text-slate-500 italic">Pemerintah Kabupaten</span>
                                         </td>
                                         <td class="py-4 px-3 lg:px-6 text-center align-middle">
                                             <span class="inline-block bg-slate-50 px-2.5 lg:px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 border border-slate-200 whitespace-nowrap">
@@ -207,7 +207,7 @@
                                                 {{ dokumen.jenis_dokumen }}
                                             </span>
                                         </div>
-                                        <span class="text-slate-400 font-medium text-[11px]">
+                                        <span class="text-slate-500 font-semibold text-[11px]">
                                             {{ formatDate(dokumen.published_at || dokumen.created_at) }}
                                         </span>
                                     </div>

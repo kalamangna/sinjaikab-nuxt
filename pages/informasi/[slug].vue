@@ -160,13 +160,13 @@
               <div class="p-5 sm:p-8">
                 <ul class="space-y-5">
                   <li class="flex flex-col">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Sumber</span>
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Sumber</span>
                     <span class="text-sm font-bold text-slate-800">
                       {{ dokumen.organization ? dokumen.organization.name : 'Pemerintah Kabupaten' }}
                     </span>
                   </li>
                   <li class="pt-5 border-t border-slate-100 flex flex-col">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Kategori & Jenis</span>
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Kategori & Jenis</span>
                     <div class="flex flex-wrap items-center gap-2">
                       <span v-if="dokumen.kategori" class="px-2.5 py-1 bg-slate-100 text-slate-700 font-semibold rounded-lg text-xs border border-slate-200/60">
                         {{ dokumen.kategori }}
@@ -177,7 +177,7 @@
                     </div>
                   </li>
                   <li class="pt-5 border-t border-slate-100 flex flex-col">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Sifat Akses</span>
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Sifat Akses</span>
                     <span v-if="dokumen.visibility === 'public'" class="text-sm font-bold text-emerald-600">
                       Publik
                     </span>
@@ -186,7 +186,7 @@
                     </span>
                   </li>
                   <li class="pt-5 border-t border-slate-100 flex flex-col">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Tanggal Publikasi</span>
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Tanggal Publikasi</span>
                     <span class="text-sm font-bold text-slate-700">
                       {{ formatDate(dokumen.published_at || dokumen.created_at) }}
                     </span>
