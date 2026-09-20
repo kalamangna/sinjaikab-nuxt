@@ -359,7 +359,7 @@ const isError = computed(() => hasMounted.value && !isLoading.value && (!dokumen
 // Throw HTTP 404 agar Google tidak mengindeks halaman kosong dengan status 200 OK
 watchEffect(() => {
   if (hasMounted.value && !isLoading.value && fetchError.value) {
-    const status = (fetchError.value as any)?.status || (fetchError.value as any)?.statusCode
+    const status = fetchError.value?.status || fetchError.value?.statusCode
     if (status === 404 || status === 422) {
       throw createError({ statusCode: 404, statusMessage: 'Dokumen tidak ditemukan', fatal: true })
     }
