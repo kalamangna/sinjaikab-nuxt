@@ -504,6 +504,10 @@ if (data.value?.kategori_jenis && Object.keys(data.value.kategori_jenis).length 
 }
 
 onMounted(() => {
+  if (import.meta.client) {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }
+
   const currentFilterStr = JSON.stringify(cleanFilters.value)
   const cachedFilterStr = data.value?._filtersHash
 

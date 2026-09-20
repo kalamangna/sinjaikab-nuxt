@@ -295,8 +295,13 @@ const config = useRuntimeConfig()
 const slug = route.params.slug
 
 const goBack = () => {
-  if (import.meta.client && window.history.length > 1) {
-    router.back()
+  if (import.meta.client) {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (window.history.length > 1) {
+      router.back()
+    } else {
+      router.push('/informasi')
+    }
   } else {
     router.push('/informasi')
   }
