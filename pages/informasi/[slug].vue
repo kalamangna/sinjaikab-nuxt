@@ -2,7 +2,7 @@
   <div class="w-full min-h-screen bg-slate-50">
     <!-- Hero Section (Tetap dirender agar layout stabil dan bebas layout-shift) -->
     <div class="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 pt-32 md:pt-36 lg:pt-40 pb-36 md:pb-44 lg:pb-48 overflow-hidden">
-      <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
+      <div class="absolute inset-0 opacity-10 mix-blend-overlay" style="background-image: url(&quot;data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E&quot;);"></div>
       <div class="container mx-auto px-4 md:px-6 xl:px-8 max-w-7xl relative z-10">
         <!-- Jika Dokumen Selesai Dimuat -->
         <h1 v-if="dokumen" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight drop-shadow-lg leading-tight max-w-4xl break-words">
@@ -213,22 +213,8 @@
 
         <!-- KONDISI 3: SKELETON LOADING STATE (Saat isLoading / data belum siap) -->
         <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 xl:gap-12 items-start">
-          <!-- Kolom Kiri: Deskripsi Skeleton & Pratinjau Skeleton -->
+          <!-- Kolom Kiri: Pratinjau Skeleton -->
           <div class="lg:col-span-2 space-y-8 md:space-y-10">
-            <!-- Deskripsi Dokumen Skeleton -->
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
-              <div class="border-b border-slate-100 bg-slate-50/50 px-4 sm:px-8 py-4 sm:py-5 flex items-center">
-                <i class="fas fa-info-circle text-red-700 mr-2.5"></i>
-                <span class="font-black text-slate-900 text-xl">Deskripsi Dokumen</span>
-              </div>
-              <div class="p-5 sm:p-8 md:p-10 space-y-3.5 animate-pulse">
-                <div class="h-4 bg-slate-200/80 rounded-lg w-full"></div>
-                <div class="h-4 bg-slate-200/70 rounded-lg w-11/12"></div>
-                <div class="h-4 bg-slate-200/60 rounded-lg w-4/5"></div>
-                <div class="h-4 bg-slate-200/50 rounded-lg w-2/3"></div>
-              </div>
-            </div>
-
             <!-- Pratinjau Dokumen Skeleton -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
               <div class="border-b border-slate-100 bg-slate-50/50 px-4 sm:px-8 py-4 sm:py-5 flex justify-between items-center flex-wrap gap-3">
