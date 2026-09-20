@@ -441,7 +441,7 @@ const formatDate = (dateStr) => {
 }
 
 const getPpidApiUrl = (path = '') => {
-  const base = import.meta.client ? '/api/ppid' : 'https://ppidkab.sinjaikab.go.id/api/v1'
+  const base = import.meta.dev ? '/api/ppid' : 'https://ppidkab.sinjaikab.go.id/api/v1'
   return path ? `${base}/${path}` : base
 }
 
@@ -459,7 +459,7 @@ const cleanFilters = computed(() => {
 const filterHash = computed(() => new URLSearchParams(cleanFilters.value).toString() || 'all')
 const persistentKategoriJenis = useState('ppid-kategori-jenis', () => ({}))
 
-const { data, pending: isLoading, refresh } = await useAsyncData(
+const { data, pending: isLoading, refresh } = useAsyncData(
   'informasi-pemkab-' + filterHash.value,
   () => $fetch(getPpidApiUrl('informasi-pemkab'), { 
     params: cleanFilters.value,
@@ -467,7 +467,7 @@ const { data, pending: isLoading, refresh } = await useAsyncData(
   }),
   { 
     watch: [cleanFilters], 
-    server: true,
+    server: false,
     transform: (res) => {
       if (!res) return res
       if (res.kategori_jenis && Object.keys(res.kategori_jenis).length > 0) {

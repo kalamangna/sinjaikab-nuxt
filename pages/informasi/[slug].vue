@@ -307,15 +307,17 @@ const baseUrl = rawBaseUrl.endsWith('/') ? rawBaseUrl.slice(0, -1) : rawBaseUrl
 const pageUrl = computed(() => `${baseUrl}/informasi/${encodeURIComponent(String(slug))}`)
 
 const getPpidApiUrl = (path = '') => {
-  const base = import.meta.client ? '/api/ppid' : 'https://ppidkab.sinjaikab.go.id/api/v1'
+  const base = import.meta.dev ? '/api/ppid' : 'https://ppidkab.sinjaikab.go.id/api/v1'
   return path ? `${base}/${path}` : base
 }
 
-const { data: detailData, pending: isLoading, error: fetchError, refresh } = await useAsyncData(
+const hasMounted = ref(false)
+
+const { data: detailData, pending: isLoading, error: fetchError, refresh } = useAsyncData(
   'informasi-' + slug,
   () => $fetch(getPpidApiUrl(`informasi-pemkab/${slug}`), { timeout: 10000 }),
   {
-    server: true,
+    server: false,
     transform: (doc) => {
       if (!doc) return null
       return {
@@ -343,16 +345,15 @@ const { data: detailData, pending: isLoading, error: fetchError, refresh } = awa
   }
 )
 
-if (import.meta.server && (!detailData.value || fetchError.value)) {
-  const event = useRequestEvent()
-  if (event) {
-    const status = fetchError.value?.statusCode || fetchError.value?.response?.status || 404
-    setResponseStatus(event, status)
+onMounted(() => {
+  hasMounted.value = true
+  if (!detailData.value) {
+    refresh()
   }
-}
+})
 
 const dokumen = computed(() => detailData.value || null)
-const isError = computed(() => (!dokumen.value || !!fetchError.value) && !isLoading.value)
+const isError = computed(() => hasMounted.value && !isLoading.value && (!dokumen.value || !!fetchError.value))
 
 const getDownloadUrl = (dok) => {
   if (!dok || !dok.file_path) return '#'

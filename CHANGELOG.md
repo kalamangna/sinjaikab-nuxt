@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pembersihan parameter query URL pada `updateRoute` ([`pages/informasi/index.vue`](./pages/informasi/index.vue)) agar query string yang kosong tidak mengotori riwayat navigasi peramban.
 
 ### Fixed
+- Perbaikan pengambilan data produksi ([`pages/informasi/index.vue`](./pages/informasi/index.vue) dan [`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)): mengembalikan pemanggilan API langsung ke `https://ppidkab.sinjaikab.go.id/api/v1` pada produksi (`import.meta.dev ? '/api/ppid' : ...`) dan menyetel `server: false` guna mengatasi kendala data kosong akibat pemblokiran IP serverless datacenter luar negeri (Vercel) oleh firewall server PPID Sinjai, dengan tetap memanfaatkan proxy lokal saat lingkungan pengembangan (*dev*).
 - Mengeliminasi *hydration mismatch* pada halaman daftar dan detail dokumen dengan standardisasi `await useAsyncData` di kedua halaman.
 - Penyelarasan zona waktu `timeZone: 'Asia/Makassar'` (WITA) pada seluruh fungsi pemformat tanggal `toLocaleDateString` untuk mencegah inkonsistensi hidrasi tanggal antara server (UTC) dan peramban klien.
 - Normalisasi karakter baris baru (`\r\n` ke `\n`) pada teks deskripsi dokumen untuk mengeliminasi diskrepansi text node DOM saat SSR hidrasi.
