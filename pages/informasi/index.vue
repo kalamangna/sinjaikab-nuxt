@@ -402,14 +402,25 @@ const pageDescription = computed(() => {
   return 'Layanan Informasi Publik Pemerintah Kabupaten Sinjai.'
 })
 
+const pageOgUrl = computed(() => `${baseUrl}${route.fullPath}`)
+const fullTitle = computed(() => {
+  if (!pageTitle.value || pageTitle.value === 'Pemerintah Kabupaten Sinjai') {
+    return 'Pemerintah Kabupaten Sinjai'
+  }
+  return `${pageTitle.value} - Pemerintah Kabupaten Sinjai`
+})
+
 useSeoMeta({
   title: pageTitle,
-  ogTitle: pageTitle,
+  ogTitle: fullTitle,
   description: pageDescription,
   ogDescription: pageDescription,
-  ogUrl: pageCanonical,
+  ogUrl: pageOgUrl,
   ogImage: `${baseUrl}/meta.png`,
   twitterCard: 'summary_large_image',
+  twitterTitle: fullTitle,
+  twitterDescription: pageDescription,
+  twitterImage: `${baseUrl}/meta.png`,
 })
 
 useHead({
