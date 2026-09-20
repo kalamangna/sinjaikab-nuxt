@@ -377,13 +377,13 @@ const pageTitle = computed(() => {
   const kat = route.query.kategori
 
   if (search) {
-    return `Pencarian "${search}" - Informasi Publik`
+    return `Pencarian "${search}"`
   }
   if (jd) {
     return `Dokumen ${jd}`
   }
   if (kat) {
-    return `Informasi Kategori ${kat}`
+    return `Informasi ${kat}`
   }
   return 'Informasi Publik'
 })
@@ -394,12 +394,12 @@ const pageDescription = computed(() => {
   const kat = route.query.kategori
 
   if (search) {
-    return `Hasil pencarian dokumen "${search}" pada layanan keterbukaan Informasi Publik (PPID) Pemerintah Kabupaten Sinjai.`
+    return `Hasil pencarian dokumen "${search}" Pemerintah Kabupaten Sinjai.`
   }
   if (jd || kat) {
-    return `Daftar dokumen ${jd || kat} Pemerintah Kabupaten Sinjai. Telusuri, akses, dan unduh dokumen transparansi publik daerah secara resmi dan mudah.`
+    return `Daftar dokumen ${jd || kat} Pemerintah Kabupaten Sinjai.`
   }
-  return 'Layanan keterbukaan Informasi Publik (PPID) Pemerintah Kabupaten Sinjai. Akses, telusuri, dan unduh dokumen transparansi daerah secara resmi dan mudah.'
+  return 'Layanan Informasi Publik Pemerintah Kabupaten Sinjai.'
 })
 
 useSeoMeta({

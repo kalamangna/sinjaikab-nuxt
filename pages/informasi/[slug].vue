@@ -447,9 +447,9 @@ const formatDate = (dateStr) => {
   return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Makassar' })
 }
 
-const pageTitle = computed(() => dokumen.value?.judul?.trim() || 'Detail Dokumen Informasi Publik')
+const pageTitle = computed(() => dokumen.value?.judul?.trim() || 'Detail Dokumen')
 const pageDesc = computed(() => {
-  if (!dokumen.value) return 'Detail dokumen Informasi Publik Pemerintah Kabupaten Sinjai.'
+  if (!dokumen.value) return 'Dokumen Informasi Publik Pemerintah Kabupaten Sinjai.'
   const doc = dokumen.value
 
   if (doc.deskripsi) {
@@ -459,17 +459,10 @@ const pageDesc = computed(() => {
       const lastSpace = truncated.lastIndexOf(' ')
       return (lastSpace > 120 ? truncated.substring(0, lastSpace) : truncated) + '...'
     }
-    if (cleanText.length >= 40) {
-      return cleanText
-    }
-    const opd = doc.organization?.name ? ` oleh ${doc.organization.name}` : ''
-    return `${cleanText}. Dokumen resmi Informasi Publik Pemerintah Kabupaten Sinjai${opd}.`
+    return cleanText
   }
 
-  const kat = doc.kategori ? ` kategori ${doc.kategori}` : ' Informasi Publik'
-  const tahun = doc.tahun ? ` tahun ${doc.tahun}` : ''
-  const opd = doc.organization?.name ? ` dari ${doc.organization.name}` : ''
-  return `Akses dan unduh dokumen resmi "${doc.judul}"${kat}${tahun}${opd} Pemerintah Kabupaten Sinjai.`
+  return `Dokumen ${doc.judul} - Pemerintah Kabupaten Sinjai.`
 })
 
 useSeoMeta({
