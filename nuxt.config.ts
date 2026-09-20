@@ -25,7 +25,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ["@fortawesome/fontawesome-free/css/all.min.css"],
+  css: ["~/assets/css/fontawesome.css"],
   modules: ["@nuxtjs/tailwindcss", "@vercel/analytics"],
 
   routeRules: {
