@@ -64,7 +64,7 @@ const services = [
     <SectionsHero />
     <LazySectionsVisionMission />
     <LazySectionsPriorityPrograms />
-    <LazySectionsInvestmentBanner />
+    <LazySectionsFeaturedBanners />
     <LazySectionsServices :services="services" />
     <AppPlugins />
   </div>

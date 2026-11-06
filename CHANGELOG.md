@@ -8,7 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Penambahan tautan resmi dan kartu banner khusus SP4N LAPOR Pemerintah Kabupaten Sinjai pada seksi banner unggulan halaman utama ([`components/sections/FeaturedBanners.vue`](./components/sections/FeaturedBanners.vue)).
+- Penambahan ikon megafon (*bullhorn*) berbasis SVG FontAwesome pada komponen ikon ([`components/AppIcon.vue`](./components/AppIcon.vue)).
 - Penambahan *browser-like headers* (`User-Agent`, `Referer`, `Accept`) pada pemanggilan `$fetch` di [`server/routes/sitemap.xml.ts`](./server/routes/sitemap.xml.ts) agar request live sitemap dari Vercel dapat melewati WAF/ModSecurity server PPID Sinjai setelah IP Vercel di-whitelist, sehingga sitemap menjadi realtime tanpa bergantung pada dataset cadangan.
+
+### Changed
+- Perombakan seksi banner potensi investasi menjadi banner unggulan berjajar 2 kolom (*grid* responsif) untuk menampilkan Peta Potensi Investasi dan Layanan Pengaduan SP4N LAPOR secara proporsional ([`components/sections/FeaturedBanners.vue`](./components/sections/FeaturedBanners.vue) dan [`pages/index.vue`](./pages/index.vue)).
+- Pembaruan berkala snapshot dataset cadangan dokumen PPID Sinjai ([`server/data/fallback-documents.json`](./server/data/fallback-documents.json)) untuk keandalan sitemap publik.
 
 ### Fixed
 - Eliminasi pesan error `[Sync Sitemap Data] Network error (will retain existing snapshot): socket hang up` saat Vercel build dengan menambahkan deteksi variabel lingkungan `VERCEL` pada [`scripts/sync-sitemap-data.mjs`](./scripts/sync-sitemap-data.mjs): script kini otomatis di-skip saat berjalan di Vercel (runtime live fetch menangani pembaruan data), dan hanya dieksekusi dari lingkungan lokal.
