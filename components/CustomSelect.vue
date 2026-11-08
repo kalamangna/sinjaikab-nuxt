@@ -1,16 +1,17 @@
 <template>
-  <div class="relative custom-select-root" :class="{ 'custom-select-open z-50': open, 'z-10': !open }" ref="rootEl">
+  <div class="relative w-full min-w-0 custom-select-root" :class="{ 'custom-select-open z-50': open, 'z-10': !open }" ref="rootEl">
     <!-- Trigger Button -->
     <button type="button" 
         @click="toggle" 
         @keydown.escape="open = false"
         :disabled="disabled"
-        class="relative w-full h-[52px] flex items-center border-2 border-slate-100 rounded-2xl shadow-sm pl-5 pr-12 text-left transition-all duration-300 group outline-none focus:outline-none focus-visible:outline-none"
+        class="relative w-full min-w-0 h-[52px] flex items-center border-2 border-slate-100 rounded-2xl shadow-sm pl-5 pr-12 text-left transition-all duration-300 group outline-none focus:outline-none focus-visible:outline-none"
         :class="disabled ? 'bg-slate-50/80 cursor-not-allowed opacity-75' : 'bg-white cursor-pointer hover:border-slate-200 focus:border-red-700 focus:ring-4 focus:ring-red-700/10'">
         
-        <span class="flex items-center">
-            <span class="block truncate transition-colors duration-300" 
-                  :class="hasActiveValue ? 'text-red-700 font-bold' : 'text-slate-700 font-semibold'">
+        <span class="flex items-center w-full min-w-0">
+            <span class="block truncate w-full transition-colors duration-300" 
+                  :class="hasActiveValue ? 'text-red-700 font-bold' : 'text-slate-700 font-semibold'"
+                  :title="displayLabel">
                   {{ displayLabel }}
             </span>
         </span>

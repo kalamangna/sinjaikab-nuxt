@@ -43,7 +43,7 @@
             </div>
 
             <div class="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center bg-white p-4 sm:p-6 lg:p-7 rounded-3xl shadow-sm border border-slate-100 hover:border-red-100/80 transition-all duration-300 mb-8 sm:mb-10 relative z-50">
-                    <div class="flex-1 relative" style="z-index: 50;">
+                    <div class="flex-1 min-w-0 relative" style="z-index: 50;">
                         <CustomSelect 
                             v-model="filters.kategori" 
                             :options="kategoriOptions" 
@@ -55,7 +55,7 @@
                         />
                     </div>
                     
-                    <div class="flex-1 relative" style="z-index: 49;">
+                    <div class="flex-1 min-w-0 relative" style="z-index: 49;">
                         <CustomSelect 
                             v-model="filters.jenis_dokumen" 
                             :options="jenisDokumenOptions" 
@@ -67,7 +67,7 @@
                         />
                     </div>
 
-                    <div class="flex-1 relative" style="z-index: 48;">
+                    <div class="flex-1 min-w-0 relative" style="z-index: 48;">
                         <CustomSelect 
                             v-model="filters.tahun" 
                             :options="tahunOptions" 
@@ -79,7 +79,7 @@
                         />
                     </div>
 
-                    <div class="flex-1 relative" style="z-index: 47;">
+                    <div class="flex-1 min-w-0 relative" style="z-index: 47;">
                         <div class="relative">
                             <input 
                                 type="text" 
@@ -602,15 +602,11 @@ const kategoriOptions = computed(() => {
 })
 
 const jenisDokumenPlaceholder = computed(() => {
-    if (filters.value.kategori) {
-        return `Semua Jenis (${filters.value.kategori})`
-    }
     return 'Semua Jenis Dokumen'
 })
 
 const jenisDokumenOptions = computed(() => {
-    const defaultLabel = filters.value.kategori ? `Semua Jenis (${filters.value.kategori})` : 'Semua Jenis Dokumen'
-    const opts = [{ label: defaultLabel, value: '' }]
+    const opts = [{ label: 'Semua Jenis Dokumen', value: '' }]
     const kj = kategori_jenis.value
     if (!kj) return opts
 
