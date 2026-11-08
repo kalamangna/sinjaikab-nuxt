@@ -595,9 +595,16 @@ const tahunOptions = [
 
 const kategoriOptions = computed(() => {
     const opts = [{ label: 'Semua Kategori', value: '' }]
+    const catSet = new Set()
     if (kategori_jenis.value) {
-      Object.keys(kategori_jenis.value).forEach(k => opts.push({ label: k, value: k }))
+      Object.keys(kategori_jenis.value).forEach(k => catSet.add(k))
     }
+    if (items.value && Array.isArray(items.value)) {
+      items.value.forEach(item => {
+        if (item.kategori) catSet.add(item.kategori)
+      })
+    }
+    catSet.forEach(k => opts.push({ label: k, value: k }))
     return opts
 })
 
@@ -610,20 +617,34 @@ const jenisDokumenOptions = computed(() => {
     const kj = kategori_jenis.value
     if (!kj) return opts
 
+    const typeSet = new Set()
     if (filters.value.kategori && kj[filters.value.kategori]) {
-        kj[filters.value.kategori].forEach(j => opts.push({ label: j, value: j }))
+        kj[filters.value.kategori].forEach(j => typeSet.add(j))
     } else {
-        const allTypesSet = new Set()
         for (const cat in kj) {
             if (Array.isArray(kj[cat])) {
                 for (let i = 0; i < kj[cat].length; i++) {
-                    allTypesSet.add(kj[cat][i])
+                    typeSet.add(kj[cat][i])
                 }
             }
         }
-        const allTypes = Array.from(allTypesSet).sort()
-        allTypes.forEach(j => opts.push({ label: j, value: j }))
     }
+
+    if (items.value && Array.isArray(items.value)) {
+        items.value.forEach(item => {
+            if (!filters.value.kategori || item.kategori === filters.value.kategori) {
+                if (item.jenis_dokumen) {
+                    item.jenis_dokumen.split(',').forEach(part => {
+                        const trimmed = part.trim()
+                        if (trimmed) typeSet.add(trimmed)
+                    })
+                }
+            }
+        })
+    }
+
+    const allTypes = Array.from(typeSet).sort()
+    allTypes.forEach(j => opts.push({ label: j, value: j }))
     return opts
 })
 
