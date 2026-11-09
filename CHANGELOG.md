@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Penambahan seksi Kontak Darurat pada halaman utama ([`components/sections/EmergencyContacts.vue`](./components/sections/EmergencyContacts.vue) dan [`pages/index.vue`](./pages/index.vue)) yang memuat akses panggilan darurat Polres Sinjai, PSC Dinas Kesehatan, Pemadam Kebakaran (Posko Induk, Sektor Bikeru, Sektor Manipi), TRC BPBD Sinjai, dan PLN Sinjai.
+- Penambahan tautan pintas navigasi Kontak Darurat pada footer ([`components/ui/Footer.vue`](./components/ui/Footer.vue)).
+- Penambahan data path SVG ikon kontak darurat dan dukungan fallback kelas ikon FontAwesome pada komponen ikon ([`components/AppIcon.vue`](./components/AppIcon.vue)).
 - Penambahan tautan resmi dan kartu banner khusus SP4N LAPOR Pemerintah Kabupaten Sinjai pada seksi banner unggulan halaman utama ([`components/sections/FeaturedBanners.vue`](./components/sections/FeaturedBanners.vue)).
 - Penambahan ikon megafon (*bullhorn*) berbasis SVG FontAwesome pada komponen ikon ([`components/AppIcon.vue`](./components/AppIcon.vue)).
 - Penambahan *browser-like headers* (`User-Agent`, `Referer`, `Accept`) pada pemanggilan `$fetch` di [`server/routes/sitemap.xml.ts`](./server/routes/sitemap.xml.ts) agar request live sitemap dari Vercel dapat melewati WAF/ModSecurity server PPID Sinjai setelah IP Vercel di-whitelist, sehingga sitemap menjadi realtime tanpa bergantung pada dataset cadangan.

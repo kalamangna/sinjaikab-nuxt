@@ -120,6 +120,16 @@
                 Layanan Digital
               </NuxtLink>
             </li>
+            <li>
+              <NuxtLink
+                :to="route.path === '/' ? '#kontak-darurat' : '/#kontak-darurat'"
+                @click.prevent="handleNavClick('#kontak-darurat')"
+                class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer flex items-center gap-2 text-sm"
+              >
+                <AppIcon name="phone" class="text-xs text-red-500" />
+                Kontak Darurat
+              </NuxtLink>
+            </li>
           </ul>
         </div>
 

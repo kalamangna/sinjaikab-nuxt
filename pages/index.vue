@@ -66,6 +66,7 @@ const services = [
     <LazySectionsPriorityPrograms />
     <LazySectionsFeaturedBanners />
     <LazySectionsServices :services="services" />
+    <LazySectionsEmergencyContacts />
     <AppPlugins />
   </div>
 </template>
