@@ -313,6 +313,18 @@ const getPpidApiUrl = (path = '') => {
 
 const hasMounted = ref(false)
 
+// Ambil metadata ringkas saat SSR agar tag meta dan Open Graph tidak jatuh ke fallback generik
+const { data: ssrMeta } = await useAsyncData(
+  'document-meta-' + slug,
+  async () => {
+    if (!import.meta.server) return null
+    return await $fetch(`/api/document-meta/${encodeURIComponent(String(slug))}`).catch(() => null)
+  },
+  {
+    default: () => null
+  }
+)
+
 const { data: detailData, pending: isLoading, error: fetchError, refresh } = useAsyncData(
   'informasi-' + slug,
   () => $fetch(getPpidApiUrl(`informasi-pemkab/${slug}`), { timeout: 10000 }),
@@ -447,42 +459,88 @@ const formatDate = (dateStr) => {
   return date.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Makassar' })
 }
 
-const pageTitle = computed(() => dokumen.value?.judul?.trim() || 'Detail Dokumen')
-const pageDesc = computed(() => {
-  if (!dokumen.value) return 'Dokumen Informasi Publik Pemerintah Kabupaten Sinjai.'
-  const doc = dokumen.value
+const sanitizeMetaDescription = (rawHtml) => {
+  if (!rawHtml) return ''
 
-  if (doc.deskripsi) {
-    const cleanText = doc.deskripsi.replace(/(<([^>]+)>)/gi, '').replace(/\s+/g, ' ').trim()
-    if (cleanText.length > 160) {
-      const truncated = cleanText.substring(0, 157).trim()
-      const lastSpace = truncated.lastIndexOf(' ')
-      return (lastSpace > 120 ? truncated.substring(0, lastSpace) : truncated) + '...'
-    }
-    return cleanText
+  // Ganti tag HTML dengan spasi agar teks antar-paragraf tidak menempel
+  let text = String(rawHtml).replace(/<[^>]*>/g, ' ')
+
+  const entityMap = {
+    '&nbsp;': ' ',
+    '&amp;': '&',
+    '&quot;': '"',
+    '&#39;': "'",
+    '&apos;': "'",
+    '&lt;': '<',
+    '&gt;': '>',
   }
 
-  return `Dokumen ${doc.judul} - Pemerintah Kabupaten Sinjai.`
+  text = text
+    .replace(/&(nbsp|amp|quot|#39|apos|lt|gt);/gi, (match) => entityMap[match.toLowerCase()] || match)
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  if (!text) return ''
+
+  if (text.length > 160) {
+    const truncated = text.substring(0, 157).trim()
+    const lastSpace = truncated.lastIndexOf(' ')
+    return (lastSpace > 120 ? truncated.substring(0, lastSpace) : truncated) + '...'
+  }
+
+  return text
+}
+
+const metaSource = computed(() => dokumen.value || ssrMeta.value || null)
+
+const pageTitle = computed(() => metaSource.value?.judul?.trim() || 'Detail Dokumen')
+const fullTitle = computed(() => {
+  if (!pageTitle.value || pageTitle.value === 'Pemerintah Kabupaten Sinjai') {
+    return 'Pemerintah Kabupaten Sinjai'
+  }
+  if (pageTitle.value.includes('Pemerintah Kabupaten Sinjai')) {
+    return pageTitle.value
+  }
+  return `${pageTitle.value} - Pemerintah Kabupaten Sinjai`
+})
+
+const pageDesc = computed(() => {
+  if (!metaSource.value) return 'Dokumen Informasi Publik Pemerintah Kabupaten Sinjai.'
+  const doc = metaSource.value
+
+  if (doc.deskripsi) {
+    const cleanText = sanitizeMetaDescription(doc.deskripsi)
+    if (cleanText) {
+      return cleanText
+    }
+  }
+
+  if (doc.judul?.trim()) {
+    return `Dokumen ${doc.judul.trim()} - Pemerintah Kabupaten Sinjai.`
+  }
+
+  return 'Dokumen Informasi Publik Pemerintah Kabupaten Sinjai.'
 })
 
 useSeoMeta({
   title: pageTitle,
-  ogTitle: pageTitle,
+  ogTitle: fullTitle,
   description: pageDesc,
   ogDescription: pageDesc,
   ogType: 'article',
   ogUrl: pageUrl,
   ogImage: `${baseUrl}/meta.png`,
   twitterCard: 'summary_large_image',
-  twitterTitle: pageTitle,
+  twitterTitle: fullTitle,
   twitterDescription: pageDesc,
   twitterImage: `${baseUrl}/meta.png`,
 })
 
 const structuredData = computed(() => {
-  if (!dokumen.value) return []
+  if (!metaSource.value) return []
 
-  const doc = dokumen.value
+  const doc = metaSource.value
   const docSchema = {
     '@context': 'https://schema.org',
     '@type': 'DigitalDocument',

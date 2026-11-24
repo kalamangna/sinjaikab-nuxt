@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Penambahan endpoint metadata SSR ([`server/api/document-meta/[slug].get.ts`](./server/api/document-meta/[slug].get.ts)) dengan cache SWR 10 menit dan fallback dataset lokal ([`server/data/fallback-documents.json`](./server/data/fallback-documents.json)) agar metadata dokumen tetap tersedia saat API PPID tidak dapat dijangkau dari server.
 - Penambahan seksi Kontak Darurat pada halaman utama ([`components/sections/EmergencyContacts.vue`](./components/sections/EmergencyContacts.vue) dan [`pages/index.vue`](./pages/index.vue)) yang memuat akses panggilan darurat Polres Sinjai, PSC Dinas Kesehatan, Pemadam Kebakaran (Posko Induk, Sektor Bikeru, Sektor Manipi), TRC BPBD Sinjai, dan PLN Sinjai.
 - Penambahan tautan pintas navigasi Kontak Darurat pada footer ([`components/ui/Footer.vue`](./components/ui/Footer.vue)).
 - Penambahan data path SVG ikon kontak darurat dan dukungan fallback kelas ikon FontAwesome pada komponen ikon ([`components/AppIcon.vue`](./components/AppIcon.vue)).
@@ -20,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pembaruan berkala snapshot dataset cadangan dokumen PPID Sinjai ([`server/data/fallback-documents.json`](./server/data/fallback-documents.json)) untuk keandalan sitemap publik.
 
 ### Fixed
+- Perbaikan render SSR meta title, meta description, Open Graph (`og:title`, `og:description`), Twitter Card, dan JSON-LD (`DigitalDocument` dan `BreadcrumbList`) pada halaman detail informasi publik ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)), disertai sanitasi tag serta entitas HTML pada deskripsi dokumen dan penyeragaman akhiran judul.
 - Penambahan opsi filter Dokumen SAQ dan Informasi Berkala pada form filter informasi publik ([`pages/informasi/index.vue`](./pages/informasi/index.vue)): mengintegrasikan pemindaian dinamis terhadap kategori dan jenis dokumen nyata dari dataset dokumen yang aktif guna melengkapi kamus kategori API.
 - Perbaikan responsivitas dan pemotongan teks panjang pada form filter informasi publik ([`pages/informasi/index.vue`](./pages/informasi/index.vue) dan [`components/CustomSelect.vue`](./components/CustomSelect.vue)): menambahkan kelas `min-w-0` pada pembungkus kolom flex dan tombol trigger dropdown agar pemotongan teks elipsis (`truncate`) berfungsi saat memilih kategori panjang seperti *"Monitoring, Evaluasi dan Pelaporan"*, sehingga tombol reset tidak terdorong keluar dari kartu.
 - Penyederhanaan placeholder jenis dokumen menjadi `"Semua Jenis Dokumen"` pada [`pages/informasi/index.vue`](./pages/informasi/index.vue) guna mencegah pembengkakan lebar dropdown akibat teks kategori panjang serta menyelaraskan dengan aturan anti-tanda kurung.
