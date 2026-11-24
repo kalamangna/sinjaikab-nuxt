@@ -1,9 +1,15 @@
 [
   {
+    "id": 100,
+    "slug": "pengumuman-lelang-barang-milik-daerah-2026",
+    "judul": "Pengumuman Lelang Barang Milik Daerah 2026",
+    "updated_at": "2026-11-24T09:13:05.000000Z"
+  },
+  {
     "id": 95,
     "slug": "laporan-penyelesaian-pekerjaan-1",
     "judul": "Laporan Penyelesaian Pekerjaan",
-    "updated_at": "2026-11-08T05:35:37.000000Z"
+    "updated_at": "2026-11-24T09:09:19.000000Z"
   },
   {
     "id": 56,
@@ -39,7 +45,7 @@
     "id": 29,
     "slug": "peraturan-daerah-tentang-pertanggungjawaban-pelaksanaan-anggaran-pendapatan-dan-belanja-daerah-tahun-anggaran-2025",
     "judul": "Peraturan Daerah tentang Pertanggungjawaban Pelaksanaan Anggaran Pendapatan dan Belanja Daerah Tahun Anggaran 2025",
-    "updated_at": "2026-11-08T03:25:29.000000Z"
+    "updated_at": "2026-11-11T03:35:33.000000Z"
   },
   {
     "id": 42,
@@ -81,13 +87,13 @@
     "id": 9,
     "slug": "laporan-tahunan-sp4n-lapor-tahun-2024",
     "judul": "Laporan tahunan SP4N Lapor Tahun 2024",
-    "updated_at": "2026-10-26T12:23:59.000000Z"
+    "updated_at": "2026-11-17T03:06:38.000000Z"
   },
   {
     "id": 7,
     "slug": "laporan-tahunan-sp4n-lapor-tahun-2025",
     "judul": "Laporan tahunan SP4N Lapor Tahun 2025",
-    "updated_at": "2026-09-26T14:58:06.000000Z"
+    "updated_at": "2026-11-17T03:02:28.000000Z"
   },
   {
     "id": 6,
@@ -111,19 +117,19 @@
     "id": 27,
     "slug": "opini-badan-pemeriksa-keuangan-tahun-anggaran-2025",
     "judul": "Opini Badan Pemeriksa Keuangan Tahun Anggaran 2025",
-    "updated_at": "2026-11-08T00:24:41.000000Z"
+    "updated_at": "2026-11-11T03:39:52.000000Z"
   },
   {
     "id": 28,
     "slug": "laporan-keuangan-pemerintah-daerah-kabupaten-sinjai-tahun-anggaran-2025",
     "judul": "Laporan Keuangan Pemerintah Daerah Kabupaten Sinjai Tahun Anggaran 2025",
-    "updated_at": "2026-11-08T00:23:20.000000Z"
+    "updated_at": "2026-11-11T03:38:54.000000Z"
   },
   {
     "id": 25,
     "slug": "laporan-keuangan-badan-usaha-milik-daerah-bumd-tahun-anggaran-2025",
     "judul": "Laporan Keuangan Badan Usaha Milik Daerah (BUMD) Tahun Anggaran 2025",
-    "updated_at": "2026-11-08T00:25:27.000000Z"
+    "updated_at": "2026-11-11T03:41:27.000000Z"
   },
   {
     "id": 30,
@@ -204,16 +210,16 @@
     "updated_at": "2026-11-07T04:19:56.000000Z"
   },
   {
-    "id": 35,
-    "slug": "alokasi-belanja-wajib-yang-bersumber-dari-hasil-penerimaan-pajak-tahun-anggaran-2025",
-    "judul": "Alokasi Belanja Wajib yang Bersumber dari Hasil Penerimaan Pajak Tahun Anggaran 2025",
-    "updated_at": "2026-11-08T07:35:43.000000Z"
-  },
-  {
     "id": 23,
     "slug": "peraturan-bupati-nomor-23-tahun-2025-tentang-perubahan-atas-peraturan-bupati-nomor-20-tahun-2025-tentang-penjabaran-perubahan-anggaran-pendapatan-dan-belanja-daerah-kabupaten-sinjai-tahun-anggaran-2025",
     "judul": "Peraturan Bupati Nomor 23 Tahun 2025 tentang Perubahan atas Peraturan Bupati Nomor 20 Tahun 2025 tentang Penjabaran Perubahan Anggaran Pendapatan dan Belanja Daerah Kabupaten Sinjai Tahun Anggaran 2025",
     "updated_at": "2026-11-03T05:12:21.000000Z"
+  },
+  {
+    "id": 35,
+    "slug": "alokasi-belanja-wajib-yang-bersumber-dari-hasil-penerimaan-pajak-tahun-anggaran-2025",
+    "judul": "Alokasi Belanja Wajib yang Bersumber dari Hasil Penerimaan Pajak Tahun Anggaran 2025",
+    "updated_at": "2026-11-11T04:46:00.000000Z"
   },
   {
     "id": 22,
@@ -237,37 +243,13 @@
     "id": 78,
     "slug": "laporan-pelaksanaan-pekerjaan",
     "judul": "Laporan Pelaksanaan Pekerjaan",
-    "updated_at": "2026-11-07T06:22:28.000000Z"
-  },
-  {
-    "id": 77,
-    "slug": "spesifikasi-teknis-1",
-    "judul": "Spesifikasi Teknis",
-    "updated_at": "2026-11-07T06:00:15.000000Z"
-  },
-  {
-    "id": 76,
-    "slug": "dokumen-surat-jaminan-uang-muka",
-    "judul": "Dokumen Surat Jaminan Uang Muka",
-    "updated_at": "2026-11-07T05:50:15.000000Z"
-  },
-  {
-    "id": 75,
-    "slug": "dokumen-surat-jaminan-pelaksanaan",
-    "judul": "Dokumen Surat Jaminan Pelaksanaan",
-    "updated_at": "2026-11-07T05:44:26.000000Z"
+    "updated_at": "2026-11-09T08:31:11.000000Z"
   },
   {
     "id": 61,
     "slug": "spk-kontrak",
     "judul": "SPK Kontrak",
     "updated_at": "2026-11-07T02:27:34.000000Z"
-  },
-  {
-    "id": 70,
-    "slug": "surat-perjanjian-pekerjaan-konstruksi",
-    "judul": "Surat Perjanjian Pekerjaan Konstruksi",
-    "updated_at": "2026-11-07T04:44:39.000000Z"
   },
   {
     "id": 63,
@@ -288,22 +270,46 @@
     "updated_at": "2026-11-07T04:16:49.000000Z"
   },
   {
+    "id": 77,
+    "slug": "spesifikasi-teknis-1",
+    "judul": "Spesifikasi Teknis",
+    "updated_at": "2026-11-09T05:19:07.000000Z"
+  },
+  {
     "id": 69,
     "slug": "surat-perintah-mulai-kerja-spmk",
     "judul": "Surat Perintah Mulai Kerja (SPMK)",
     "updated_at": "2026-11-07T04:37:35.000000Z"
   },
   {
-    "id": 68,
-    "slug": "surat-penunjukan-penyedia-barangjasa-sppbj-pemerintah-kabupaten-sinjai-tahun-2026",
-    "judul": "Surat Penunjukan Penyedia Barang/Jasa (SPPBJ) Pemerintah Kabupaten Sinjai Tahun 2026",
-    "updated_at": "2026-11-07T04:29:45.000000Z"
+    "id": 70,
+    "slug": "surat-perjanjian-pekerjaan-konstruksi",
+    "judul": "Surat Perjanjian Pekerjaan Konstruksi",
+    "updated_at": "2026-11-07T04:44:39.000000Z"
+  },
+  {
+    "id": 76,
+    "slug": "dokumen-surat-jaminan-uang-muka",
+    "judul": "Dokumen Surat Jaminan Uang Muka",
+    "updated_at": "2026-11-07T05:50:15.000000Z"
+  },
+  {
+    "id": 75,
+    "slug": "dokumen-surat-jaminan-pelaksanaan",
+    "judul": "Dokumen Surat Jaminan Pelaksanaan",
+    "updated_at": "2026-11-07T05:44:26.000000Z"
   },
   {
     "id": 60,
     "slug": "spbbj",
     "judul": "SPBBJ",
     "updated_at": "2026-11-07T02:06:29.000000Z"
+  },
+  {
+    "id": 68,
+    "slug": "surat-penunjukan-penyedia-barangjasa-sppbj-pemerintah-kabupaten-sinjai-tahun-2026",
+    "judul": "Surat Penunjukan Penyedia Barang/Jasa (SPPBJ) Pemerintah Kabupaten Sinjai Tahun 2026",
+    "updated_at": "2026-11-07T04:29:45.000000Z"
   },
   {
     "id": 59,
@@ -336,22 +342,16 @@
     "updated_at": "2026-08-30T18:36:34.000000Z"
   },
   {
-    "id": 88,
-    "slug": "dokumen-persiapan-pengadaan-dan-persyaratan-penyedia",
-    "judul": "Dokumen Persiapan Pengadaan dan Persyaratan Penyedia",
-    "updated_at": "2026-11-07T09:19:53.000000Z"
-  },
-  {
-    "id": 73,
-    "slug": "daftar-rincian-harga-dan-kuantitas",
-    "judul": "Daftar Rincian Harga dan Kuantitas",
-    "updated_at": "2026-11-07T05:09:02.000000Z"
-  },
-  {
     "id": 74,
     "slug": "gambar-rancangan-pekerjaan",
     "judul": "Gambar Rancangan Pekerjaan",
     "updated_at": "2026-11-07T05:29:47.000000Z"
+  },
+  {
+    "id": 88,
+    "slug": "dokumen-persiapan-pengadaan-dan-persyaratan-penyedia",
+    "judul": "Dokumen Persiapan Pengadaan dan Persyaratan Penyedia",
+    "updated_at": "2026-11-07T09:19:53.000000Z"
   },
   {
     "id": 87,
@@ -360,10 +360,22 @@
     "updated_at": "2026-11-07T09:12:25.000000Z"
   },
   {
+    "id": 73,
+    "slug": "daftar-rincian-harga-dan-kuantitas",
+    "judul": "Daftar Rincian Harga dan Kuantitas",
+    "updated_at": "2026-11-07T05:09:02.000000Z"
+  },
+  {
     "id": 54,
     "slug": "daftar-kuantitas-dan-harga",
     "judul": "Daftar Kuantitas dan Harga",
     "updated_at": "2026-11-06T23:41:07.000000Z"
+  },
+  {
+    "id": 49,
+    "slug": "spesifikasi-teknis",
+    "judul": "Spesifikasi Teknis",
+    "updated_at": "2026-11-06T09:06:35.000000Z"
   },
   {
     "id": 64,
@@ -384,22 +396,10 @@
     "updated_at": "2026-11-07T01:20:52.000000Z"
   },
   {
-    "id": 49,
-    "slug": "spesifikasi-teknis",
-    "judul": "Spesifikasi Teknis",
-    "updated_at": "2026-11-06T09:06:35.000000Z"
-  },
-  {
     "id": 24,
     "slug": "laporan-hasil-pemeriksaan-badan-pemeriksa-keuangan-atas-laporan-keuangan-pemerintah-daerah-tahun-anggaran-2025",
     "judul": "Laporan Hasil Pemeriksaan Badan Pemeriksa Keuangan atas Laporan Keuangan Pemerintah Daerah Tahun Anggaran 2025",
     "updated_at": "2026-09-18T22:13:06.000000Z"
-  },
-  {
-    "id": 86,
-    "slug": "laporan-harta-kekayaan-penyelenggara-negara-lhkpn-pejabat-eselon-ii-pemerintah-kabupaten-sinjai-tahun-2025",
-    "judul": "Laporan Harta Kekayaan Penyelenggara Negara (LHKPN) Pejabat Eselon II Pemerintah Kabupaten Sinjai Tahun 2025",
-    "updated_at": "2026-11-08T10:32:23.000000Z"
   },
   {
     "id": 90,
@@ -420,16 +420,22 @@
     "updated_at": "2026-11-07T12:39:23.000000Z"
   },
   {
-    "id": 20,
-    "slug": "peraturan-bupati-nomor-26-tahun-2024-tentang-penjabaran-anggaran-pendapatan-dan-belanja-daerah-kabupaten-sinjai-tahun-anggaran-2025",
-    "judul": "Peraturan Bupati Nomor 26 Tahun 2024 tentang Penjabaran Anggaran Pendapatan dan Belanja Daerah Kabupaten Sinjai Tahun Anggaran 2025",
-    "updated_at": "2026-09-01T03:19:41.000000Z"
+    "id": 86,
+    "slug": "laporan-harta-kekayaan-penyelenggara-negara-lhkpn-pejabat-eselon-ii-pemerintah-kabupaten-sinjai-tahun-2025",
+    "judul": "Laporan Harta Kekayaan Penyelenggara Negara (LHKPN) Pejabat Eselon II Pemerintah Kabupaten Sinjai Tahun 2025",
+    "updated_at": "2026-11-08T10:32:23.000000Z"
   },
   {
     "id": 19,
     "slug": "peraturan-daerah-kabupaten-sinjai-nomor-4-tahun-2024-tentang-anggaran-pendapatan-dan-belanja-daerah-tahun-anggaran-2025",
     "judul": "Peraturan Daerah Kabupaten Sinjai Nomor 4 Tahun 2024 tentang Anggaran Pendapatan dan Belanja Daerah Tahun Anggaran 2025",
     "updated_at": "2026-09-01T03:19:00.000000Z"
+  },
+  {
+    "id": 20,
+    "slug": "peraturan-bupati-nomor-26-tahun-2024-tentang-penjabaran-anggaran-pendapatan-dan-belanja-daerah-kabupaten-sinjai-tahun-anggaran-2025",
+    "judul": "Peraturan Bupati Nomor 26 Tahun 2024 tentang Penjabaran Anggaran Pendapatan dan Belanja Daerah Kabupaten Sinjai Tahun Anggaran 2025",
+    "updated_at": "2026-09-01T03:19:41.000000Z"
   },
   {
     "id": 34,
@@ -447,12 +453,24 @@
     "id": 15,
     "slug": "prioritas-dan-plafon-anggaran-sementara-ppas-kabupaten-sinjai-tahun-2025",
     "judul": "Prioritas dan Plafon Anggaran Sementara (PPAS) Kabupaten Sinjai Tahun 2025",
-    "updated_at": "2026-09-20T12:54:58.000000Z"
+    "updated_at": "2026-11-11T07:14:49.000000Z"
   },
   {
     "id": 17,
     "slug": "kebijakan-umum-anggaran-kabupaten-sinjai-tahun-2025",
     "judul": "Kebijakan Umum Anggaran Kabupaten Sinjai Tahun 2025",
     "updated_at": "2026-09-01T09:40:51.000000Z"
+  },
+  {
+    "id": 99,
+    "slug": "peraturan-daerah-tentang-rencana-detail-tata-ruang-dan-peraturan-zonasi-kawasan-perkotaan",
+    "judul": "Peraturan Daerah tentang Rencana Detail Tata Ruang dan Peraturan Zonasi Kawasan Perkotaan",
+    "updated_at": "2026-11-23T02:32:35.000000Z"
+  },
+  {
+    "id": 98,
+    "slug": "peraturan-daerah-rtrw",
+    "judul": "Peraturan Daerah RTRW",
+    "updated_at": "2026-11-23T02:15:58.000000Z"
   }
 ]
