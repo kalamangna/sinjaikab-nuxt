@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pembaruan berkala snapshot dataset cadangan dokumen PPID Sinjai ([`server/data/fallback-documents.json`](./server/data/fallback-documents.json)) untuk keandalan sitemap publik.
 
 ### Fixed
+- Perbaikan pemotongan meta description pada [`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue): menghapus tanda baca akhir (`.,;:`) sebelum menambahkan elipsis (`...`) agar tidak muncul empat titik (`....`).
 - Perbaikan fallback metadata SSR untuk dokumen baru pada [`server/api/document-meta/[slug].get.ts`](./server/api/document-meta/[slug].get.ts): menambahkan `formatSlugToTitle` sebagai fallback judul dari slug saat *live fetch* terblokir dan slug belum masuk snapshot lokal, membedakan respons HTTP `404`/`422`, serta menaikkan timeout *live fetch* menjadi `5000` ms.
 - Perbaikan render SSR meta title, meta description, Open Graph (`og:title`, `og:description`), Twitter Card, dan JSON-LD (`DigitalDocument` dan `BreadcrumbList`) pada halaman detail informasi publik ([`pages/informasi/[slug].vue`](./pages/informasi/[slug].vue)), disertai sanitasi tag serta entitas HTML pada deskripsi dokumen dan penyeragaman akhiran judul.
 - Penambahan opsi filter Dokumen SAQ dan Informasi Berkala pada form filter informasi publik ([`pages/informasi/index.vue`](./pages/informasi/index.vue)): mengintegrasikan pemindaian dinamis terhadap kategori dan jenis dokumen nyata dari dataset dokumen yang aktif guna melengkapi kamus kategori API.

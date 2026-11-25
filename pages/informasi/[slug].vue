@@ -486,7 +486,8 @@ const sanitizeMetaDescription = (rawHtml) => {
   if (text.length > 160) {
     const truncated = text.substring(0, 157).trim()
     const lastSpace = truncated.lastIndexOf(' ')
-    return (lastSpace > 120 ? truncated.substring(0, lastSpace) : truncated) + '...'
+    const base = (lastSpace > 120 ? truncated.substring(0, lastSpace) : truncated).replace(/[.,;:\s]+$/, '')
+    return base + '...'
   }
 
   return text
