@@ -1,4 +1,5 @@
 import fallbackDocuments from '../../data/fallback-documents.json'
+import { getPpidDocumentMetaFromSupabase } from '../../utils/supabase'
 
 interface DocumentMetaResponse {
   judul: string
@@ -113,7 +114,13 @@ export default defineCachedEventHandler(
       return null
     }
 
-    // Prioritaskan live fetch dari API PPID agar deskripsi dan metadata terbaru ikut terambil
+    // Prioritas 1: Baca dari cache Supabase yang di-push langsung oleh server1 (bebas blokir Imunify360)
+    const supabaseDoc = await getPpidDocumentMetaFromSupabase(slug)
+    if (supabaseDoc?.judul) {
+      return supabaseDoc
+    }
+
+    // Prioritas 2: Live fetch dari API PPID agar deskripsi dan metadata terbaru ikut terambil
     try {
       const doc: any = await $fetch(
         `https://ppidkab.sinjaikab.go.id/api/v1/informasi-pemkab/${encodeURIComponent(slug)}`,

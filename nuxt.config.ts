@@ -30,7 +30,7 @@ export default defineNuxtConfig({
 
   routeRules: {
     "/": { prerender: true },
-    "/sitemap.xml": { swr: 3600 },
+    "/sitemap.xml": { swr: 900 },
     "/informasi/**": { swr: 3600 },
   },
 

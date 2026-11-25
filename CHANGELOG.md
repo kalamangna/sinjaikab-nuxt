@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Penambahan migrasi tabel `public.ppid_documents` ([`supabase/migrations/20261124000000_create_ppid_documents_table.sql`](./supabase/migrations/20261124000000_create_ppid_documents_table.sql)) beserta helper `getPpidDocumentMetaFromSupabase` dan `getPpidDocumentsForSitemapFromSupabase` di [`server/utils/supabase.ts`](./server/utils/supabase.ts) untuk cache metadata dokumen PPID dan sitemap.
 - Penambahan endpoint metadata SSR ([`server/api/document-meta/[slug].get.ts`](./server/api/document-meta/[slug].get.ts)) dengan cache SWR 10 menit dan fallback dataset lokal ([`server/data/fallback-documents.json`](./server/data/fallback-documents.json)) agar metadata dokumen tetap tersedia saat API PPID tidak dapat dijangkau dari server.
 - Penambahan seksi Kontak Darurat pada halaman utama ([`components/sections/EmergencyContacts.vue`](./components/sections/EmergencyContacts.vue) dan [`pages/index.vue`](./pages/index.vue)) yang memuat akses panggilan darurat Polres Sinjai, PSC Dinas Kesehatan, Pemadam Kebakaran (Posko Induk, Sektor Bikeru, Sektor Manipi), TRC BPBD Sinjai, dan PLN Sinjai.
 - Penambahan tautan pintas navigasi Kontak Darurat pada footer ([`components/ui/Footer.vue`](./components/ui/Footer.vue)).
@@ -17,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Penambahan *browser-like headers* (`User-Agent`, `Referer`, `Accept`) pada pemanggilan `$fetch` di [`server/routes/sitemap.xml.ts`](./server/routes/sitemap.xml.ts) agar request live sitemap dari Vercel dapat melewati WAF/ModSecurity server PPID Sinjai setelah IP Vercel di-whitelist, sehingga sitemap menjadi realtime tanpa bergantung pada dataset cadangan.
 
 ### Changed
+- Pembaruan [`server/api/document-meta/[slug].get.ts`](./server/api/document-meta/[slug].get.ts), [`server/routes/sitemap.xml.ts`](./server/routes/sitemap.xml.ts), dan [`nuxt.config.ts`](./nuxt.config.ts) agar memprioritaskan pembacaan data *realtime* dari tabel Supabase `ppid_documents` dengan cache sitemap 15 menit (`swr: 900`) dan fallback `lastmod` dari `published_at`.
 - Penetapan region serverless Vercel ke Singapura (`"regions": ["sin1"]`) pada [`vercel.json`](./vercel.json) untuk menurunkan latensi dan meningkatkan kompatibilitas *live fetch* SSR ke API PPID.
 - Pembaruan snapshot dataset cadangan dokumen PPID Sinjai ([`server/data/fallback-documents.json`](./server/data/fallback-documents.json)) menjadi 79 dokumen terbaru termasuk dokumen terkini agar metadata SSR dan sitemap tetap mutakhir.
 - Perombakan seksi banner potensi investasi menjadi banner unggulan berjajar 2 kolom (*grid* responsif) untuk menampilkan Peta Potensi Investasi dan Layanan Pengaduan SP4N LAPOR secara proporsional ([`components/sections/FeaturedBanners.vue`](./components/sections/FeaturedBanners.vue) dan [`pages/index.vue`](./pages/index.vue)).

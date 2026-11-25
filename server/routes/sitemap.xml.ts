@@ -1,4 +1,5 @@
 import fallbackDocuments from "../data/fallback-documents.json";
+import { getPpidDocumentsForSitemapFromSupabase } from "../utils/supabase";
 
 export default defineCachedEventHandler(
   async (event) => {
@@ -39,54 +40,62 @@ export default defineCachedEventHandler(
 
     let items: any[] = [];
 
-    // 1. Prioritaskan Live Fetch langsung dari server API PPID
-    try {
-      const perPage = 100;
-      const fetchHeaders = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 SinjaikabPortal/1.0',
-        'Referer': 'https://sinjaikab.go.id/',
-        'Accept': 'application/json, text/plain, */*'
-      };
+    // 1. Prioritaskan data realtime dari Supabase yang di-push oleh server1
+    const supabaseItems = await getPpidDocumentsForSitemapFromSupabase();
+    if (supabaseItems.length > 0) {
+      items = supabaseItems;
+    }
 
-      const firstPageResponse: any = await $fetch(
-        `https://ppidkab.sinjaikab.go.id/api/v1/informasi-pemkab?per_page=${perPage}&page=1`,
-        { 
-          timeout: 8000,
-          headers: fetchHeaders
-        }
-      );
+    // 2. Jika Supabase kosong/belum dikonfigurasi, lakukan Live Fetch langsung dari server API PPID
+    if (items.length === 0) {
+      try {
+        const perPage = 100;
+        const fetchHeaders = {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 SinjaikabPortal/1.0',
+          'Referer': 'https://sinjaikab.go.id/',
+          'Accept': 'application/json, text/plain, */*'
+        };
 
-      const liveItems = firstPageResponse?.data?.data || [];
-      if (Array.isArray(liveItems) && liveItems.length > 0) {
-        items = [...liveItems];
-        const lastPage = Math.min(Number(firstPageResponse?.data?.last_page) || 1, 10);
+        const firstPageResponse: any = await $fetch(
+          `https://ppidkab.sinjaikab.go.id/api/v1/informasi-pemkab?per_page=${perPage}&page=1`,
+          { 
+            timeout: 8000,
+            headers: fetchHeaders
+          }
+        );
 
-        if (lastPage > 1) {
-          const remainingPages = Array.from({ length: lastPage - 1 }, (_, i) => i + 2);
-          const pageResponses = await Promise.allSettled(
-            remainingPages.map((page) =>
-              $fetch(
-                `https://ppidkab.sinjaikab.go.id/api/v1/informasi-pemkab?per_page=${perPage}&page=${page}`,
-                { 
-                  timeout: 6000,
-                  headers: fetchHeaders
-                }
+        const liveItems = firstPageResponse?.data?.data || [];
+        if (Array.isArray(liveItems) && liveItems.length > 0) {
+          items = [...liveItems];
+          const lastPage = Math.min(Number(firstPageResponse?.data?.last_page) || 1, 10);
+
+          if (lastPage > 1) {
+            const remainingPages = Array.from({ length: lastPage - 1 }, (_, i) => i + 2);
+            const pageResponses = await Promise.allSettled(
+              remainingPages.map((page) =>
+                $fetch(
+                  `https://ppidkab.sinjaikab.go.id/api/v1/informasi-pemkab?per_page=${perPage}&page=${page}`,
+                  { 
+                    timeout: 6000,
+                    headers: fetchHeaders
+                  }
+                )
               )
-            )
-          );
+            );
 
-          for (const res of pageResponses) {
-            if (res.status === "fulfilled" && (res.value as any)?.data?.data) {
-              items.push(...(res.value as any).data.data);
+            for (const res of pageResponses) {
+              if (res.status === "fulfilled" && (res.value as any)?.data?.data) {
+                items.push(...(res.value as any).data.data);
+              }
             }
           }
         }
+      } catch (error) {
+        console.warn("[Sitemap] Live API fetch blocked or timed out, activating fallback dataset:", (error as any)?.message || error);
       }
-    } catch (error) {
-      console.warn("[Sitemap] Live API fetch blocked or timed out, activating fallback dataset:", (error as any)?.message || error);
     }
 
-    // 2. Hybrid Fallback: Jika live API diblokir firewall serverless, gunakan dataset cadangan
+    // 3. Hybrid Fallback: Jika Supabase & live API tidak tersedia, gunakan dataset cadangan
     if (!items || items.length === 0) {
       items = fallbackDocuments as any[];
     }
@@ -97,9 +106,11 @@ export default defineCachedEventHandler(
 
       let lastmod = today;
       if (item.updated_at) {
-        lastmod = String(item.updated_at).split("T")[0];
+        lastmod = String(item.updated_at).split("T")[0].split(" ")[0];
+      } else if (item.published_at) {
+        lastmod = String(item.published_at).split("T")[0].split(" ")[0];
       } else if (item.created_at) {
-        lastmod = String(item.created_at).split("T")[0];
+        lastmod = String(item.created_at).split("T")[0].split(" ")[0];
       }
 
       urls.push({
@@ -127,12 +138,12 @@ ${xmlItems}
 </urlset>`;
 
     setHeader(event, "Content-Type", "application/xml; charset=utf-8");
-    setHeader(event, "Cache-Control", "public, max-age=3600, s-maxage=3600");
+    setHeader(event, "Cache-Control", "public, max-age=900, s-maxage=900");
 
     return xml;
   },
   {
-    maxAge: 60 * 60, // In-memory cache selama 1 jam
+    maxAge: 60 * 15, // In-memory cache selama 15 menit
     name: "sitemap-xml",
   }
 );

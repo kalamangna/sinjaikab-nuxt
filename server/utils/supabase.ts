@@ -253,3 +253,86 @@ export async function getTelemetryStats() {
     recentEvents: events.slice(0, 30),
   };
 }
+
+export interface PpidDocumentMeta {
+  judul: string;
+  deskripsi: string;
+  published_at: string | null;
+  updated_at: string | null;
+  organization: { name: string } | null;
+}
+
+export interface PpidSitemapItem {
+  id: number;
+  slug: string;
+  published_at: string | null;
+  updated_at: string | null;
+}
+
+function getSupabaseCredentials() {
+  const config = useRuntimeConfig();
+  const rawUrl = config.supabaseUrl;
+  const supabaseKey = config.supabaseKey;
+  if (!rawUrl || !supabaseKey) {
+    return null;
+  }
+  return {
+    baseUrl: rawUrl.endsWith('/') ? rawUrl.slice(0, -1) : rawUrl,
+    headers: {
+      apikey: supabaseKey,
+      Authorization: `Bearer ${supabaseKey}`,
+      'Content-Type': 'application/json',
+    },
+  };
+}
+
+export async function getPpidDocumentMetaFromSupabase(slug: string): Promise<PpidDocumentMeta | null> {
+  const creds = getSupabaseCredentials();
+  if (!creds || !slug) {
+    return null;
+  }
+
+  try {
+    // Hindari membandingkan string non-numerik terhadap kolom BIGINT agar PostgREST tidak error
+    const filter = /^\d+$/.test(slug)
+      ? `or=(slug.eq.${encodeURIComponent(slug)},id.eq.${slug})`
+      : `slug=eq.${encodeURIComponent(slug)}`;
+
+    const rows: any[] = await $fetch(
+      `${creds.baseUrl}/rest/v1/ppid_documents?${filter}&select=id,slug,title,description,organization_name,published_at,updated_at&limit=1`,
+      { headers: creds.headers, timeout: 3000 }
+    );
+
+    const row = Array.isArray(rows) ? rows[0] : null;
+    if (!row?.title) {
+      return null;
+    }
+
+    return {
+      judul: row.title,
+      deskripsi: row.description || '',
+      published_at: row.published_at || null,
+      updated_at: row.updated_at || row.published_at || null,
+      organization: row.organization_name ? { name: row.organization_name } : null,
+    };
+  } catch {
+    return null;
+  }
+}
+
+export async function getPpidDocumentsForSitemapFromSupabase(): Promise<PpidSitemapItem[]> {
+  const creds = getSupabaseCredentials();
+  if (!creds) {
+    return [];
+  }
+
+  try {
+    const rows: any[] = await $fetch(
+      `${creds.baseUrl}/rest/v1/ppid_documents?select=id,slug,published_at,updated_at&order=updated_at.desc.nullslast&limit=5000`,
+      { headers: creds.headers, timeout: 4000 }
+    );
+    return Array.isArray(rows) ? rows : [];
+  } catch {
+    return [];
+  }
+}
