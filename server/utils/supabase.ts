@@ -15,6 +15,19 @@ const memoryDomains = new Map<string, { domain: string; first_seen_at: string; l
 const memoryEvents: Array<TelemetryPayload & { created_at: string; id: number }> = [];
 let eventIdCounter = 1;
 
+const HOSTNAME_REGEX = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+$/;
+const IGNORED_SUBDOMAIN_PREFIXES = [
+  'mail.',
+  'webmail.',
+  'cpanel.',
+  'whm.',
+  'webdisk.',
+  'autodiscover.',
+  'autoconfig.',
+  'cpcalendars.',
+  'cpcontacts.',
+];
+
 export function normalizeDomain(domain: string): string {
   return (domain || 'unknown')
     .toLowerCase()
@@ -23,22 +36,39 @@ export function normalizeDomain(domain: string): string {
     .slice(0, 255);
 }
 
+export function isAllowedTelemetryDomain(domain: unknown): boolean {
+  if (typeof domain !== 'string') {
+    return false;
+  }
+
+  const clean = normalizeDomain(domain);
+  if (!HOSTNAME_REGEX.test(clean)) {
+    return false;
+  }
+
+  if (IGNORED_SUBDOMAIN_PREFIXES.some((prefix) => clean.startsWith(prefix))) {
+    return false;
+  }
+
+  // Batasi telemetri hanya untuk domain resmi ekosistem Kabupaten Sinjai
+  return clean === 'sinjaikab.go.id' || clean.endsWith('.sinjaikab.go.id') || clean.endsWith('.desa.id');
+}
+
 export async function recordTelemetry(payload: TelemetryPayload) {
   const config = useRuntimeConfig();
   const supabaseUrl = config.supabaseUrl;
   const supabaseKey = config.supabaseKey;
 
+  if (!isAllowedTelemetryDomain(payload.domain)) {
+    return true;
+  }
+
   const cleanDomain = normalizeDomain(payload.domain);
   const cleanPath = (payload.path || '/').trim().slice(0, 500);
   const nowIso = new Date().toISOString();
 
-  // Exclude internal vercel preview domains, localhost, and admin dashboard
-  if (
-    cleanDomain.includes('.vercel.app') ||
-    cleanDomain.includes('localhost') ||
-    cleanDomain === '127.0.0.1' ||
-    cleanPath.toLowerCase().includes('/admin/a11y-stats')
-  ) {
+  // Exclude admin dashboard
+  if (cleanPath.toLowerCase().includes('/admin/a11y-stats')) {
     return true;
   }
 
@@ -148,7 +178,7 @@ export async function getTelemetryStats() {
       const domainMap = new Map<string, any>();
       for (const d of rawDomains || []) {
         const dom = normalizeDomain(d.domain);
-        if (dom.includes('.vercel.app') || dom.includes('localhost') || dom === '127.0.0.1') continue;
+        if (!isAllowedTelemetryDomain(dom)) continue;
         const impressions = Number(d.total_impressions) || 0;
         if (impressions <= 0 && d.is_active === false) continue;
 
@@ -181,7 +211,7 @@ export async function getTelemetryStats() {
         .filter((e) => {
           const dom = normalizeDomain(e.domain);
           const p = (e.path || '').toLowerCase();
-          return !dom.includes('.vercel.app') && !dom.includes('localhost') && dom !== '127.0.0.1' && !p.includes('/admin/a11y-stats');
+          return isAllowedTelemetryDomain(dom) && !p.includes('/admin/a11y-stats');
         })
         .map((e) => ({
           ...e,

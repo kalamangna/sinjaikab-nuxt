@@ -1,5 +1,7 @@
 // server/api/a11y/telemetry.post.ts
-import { recordTelemetry } from '../../utils/supabase';
+import { isAllowedTelemetryDomain, normalizeDomain, recordTelemetry } from '../../utils/supabase';
+
+const ALLOWED_EVENT_TYPES = new Set(['impression', 'modal_open', 'feature_toggle', 'reset']);
 
 export default defineEventHandler(async (event) => {
   // Enable CORS for all host websites embedding the widget
@@ -21,20 +23,19 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    if (!body || typeof body !== 'object' || !body.domain) {
+    if (!body || typeof body !== 'object' || typeof body.domain !== 'string') {
       setResponseStatus(event, 204);
       return '';
     }
 
-    // Exclude internal environments (vercel.app, localhost) and admin dashboard
-    const cleanDomain = String(body.domain || '').toLowerCase().trim().replace(/^www\./i, '');
+    if (body.type !== undefined && !ALLOWED_EVENT_TYPES.has(String(body.type))) {
+      setResponseStatus(event, 204);
+      return '';
+    }
+
+    const cleanDomain = normalizeDomain(body.domain);
     const cleanPath = String(body.path || '/').toLowerCase().trim();
-    if (
-      cleanDomain.includes('.vercel.app') ||
-      cleanDomain.includes('localhost') ||
-      cleanDomain === '127.0.0.1' ||
-      cleanPath.includes('/admin/a11y-stats')
-    ) {
+    if (!isAllowedTelemetryDomain(cleanDomain) || cleanPath.includes('/admin/a11y-stats')) {
       setResponseStatus(event, 204);
       return '';
     }
